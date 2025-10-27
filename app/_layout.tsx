@@ -18,9 +18,11 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
-        <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-        <Stack />
+      <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']} >
+        <StatusBar/>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+        </Stack>
         <PortalHost />
       </ThemeProvider>
     </SafeAreaProvider>
