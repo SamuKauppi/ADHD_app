@@ -21,7 +21,8 @@ export default function RootLayout() {
       <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']} >
         <StatusBar/>
         <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="index" />
+          <Stack.Screen name="test"  />
         </Stack>
         <PortalHost />
       </ThemeProvider>
