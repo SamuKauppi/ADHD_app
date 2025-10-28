@@ -22,7 +22,7 @@ export default function RootLayout() {
         <StatusBar/>
         <Stack>
           <Stack.Screen name="index" />
-          <Stack.Screen name="test"  />
+          <Stack.Screen name="test" />
         </Stack>
         <PortalHost />
       </ThemeProvider>
