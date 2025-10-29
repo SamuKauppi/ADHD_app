@@ -7,23 +7,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
 
 type QuestionCheckboxProps = {
-  question: string
-  // optional unique storage key; if omitted a key is generated from the question text
-  storageKey?: string
-  style?: ViewStyle        // style now applies to the wrapper View
-  textStyle?: TextStyle    // optional style for the text
+  question: string;
+  storageKey: string;
+  // optional 
+  style?: ViewStyle;        // style 
+  textStyle?: TextStyle;    // optional style for the text
 }
 
 const QuestionCheckbox = ({ question, storageKey, style, textStyle }: QuestionCheckboxProps) => {
 
   const scheme = useColorScheme();
   const theme = THEME[scheme ?? 'light'];
-  const key = storageKey ?? `question:${encodeURIComponent(question)}`
+  const key = storageKey;
 
   const [checked, setChecked] = useState<boolean>(false)
   useEffect(() => {
-    let mounted = true
-    ;(async () => {
+    let mounted = true;
+    (async () => {
       try {
         const raw = await AsyncStorage.getItem(key)
         if (!mounted) return
@@ -45,8 +45,9 @@ const QuestionCheckbox = ({ question, storageKey, style, textStyle }: QuestionCh
 
   const handleChange = async (value: boolean) => {
     try {
-      setChecked(value)
       await AsyncStorage.setItem(key, JSON.stringify(value))
+      setChecked(value)
+      console.log('Saved checkbox state', key, value)
     } catch (error) {
       console.warn('Failed to save checkbox state', key, error)
     }
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 3,
     marginVertical: 5,
-    width: '90%',
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -84,10 +85,10 @@ const styles = StyleSheet.create({
     // allow text to wrap and take remaining space
     flex: 1,
     marginRight: 12,
-
   },
   checkbox: {
     transform: [{ scale: 1.5 }],
-    marginRight: 20
+    marginRight: 10,
+    marginLeft: 10,
   }
 })
