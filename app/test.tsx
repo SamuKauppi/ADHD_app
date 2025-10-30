@@ -1,17 +1,17 @@
-import { StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Stack, useRouter } from 'expo-router';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { QUESTIONS } from '../lib/questions';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Spacer from '@/components/ui/Spacer';
-import QuestionCheckbox from '@/components/custom/question-checkbox';
 import StepProgressbar from '@/components/custom/step-progressbar';
 import IconButton from '@/components/custom/icon-button';
+import QuestionGroup from '@/components/custom/question-group';
 
 const SCREEN_OPTIONS = {
     title: 'Takasin',
@@ -24,20 +24,28 @@ export default function TestScreen() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentKey = questionKeys[currentIndex];
     const currentQuestion = QUESTIONS[currentKey];
-    const router = useRouter();
+    const router = useRouter()
+
+    const [canGoNext, setCanGoNext] = useState(false);
+
+    useEffect(() => {
+        updateCanGoNext(currentKey, currentQuestion.options.length)
+    }, [currentKey]);
 
     const goNext = () => {
         if (currentIndex < questionKeys.length - 1) {
             setCurrentIndex(currentIndex + 1);
+            setCanGoNext(false);
         }
         else {
             try {
                 AsyncStorage.setItem('testCompleted', 'true');
+                // Navigate to result page or perform any final action
+                router.push('/result');
             } catch (error) {
                 console.warn('Failed to finalize test', error);
             }
-            // Navigate to result page or perform any final action
-            router.push('/result');
+
         }
     };
 
@@ -47,7 +55,21 @@ export default function TestScreen() {
         }
         else {
             // Optionally handle going back to start page
-            router.back();
+            router.back()
+        }
+    };
+
+    const updateCanGoNext = async (questionKey: string, optionCount: number) => {
+        try {
+            const states: boolean[] = [];
+            for (let i = 0; i < optionCount; i++) {
+                const value = await AsyncStorage.getItem(`${questionKey}:${i}`);
+                states[i] = value ? JSON.parse(value) : false;
+            }
+            setCanGoNext(states.some(Boolean));
+        } catch (err) {
+            console.warn('Failed to load current question state', err);
+            setCanGoNext(false);
         }
     };
 
@@ -63,21 +85,13 @@ export default function TestScreen() {
                 />
                 <StepProgressbar maxSteps={questionKeys.length} currentStep={currentIndex} />
 
-                <View style={styles.content}>
-                    <Text style={styles.title}>{currentQuestion.question}</Text>
-
-                    {currentQuestion.options.map((option, index) => {
-                        const storageKey = `${currentKey}:${index}`
-                        return (
-                            <QuestionCheckbox
-                                key={index}
-                                question={option}
-                                storageKey={storageKey}
-                                textStyle={styles.question}
-                            />
-                        )
-                    })}
-                </View>
+                <QuestionGroup
+                    questionData={currentQuestion}
+                    questionKey={currentKey}
+                    onChange={(currentQuestionStates) => {
+                        setCanGoNext(currentQuestionStates.some(Boolean))
+                    }}
+                />
 
                 <View style={styles.navigationContainer}>
                     <View style={styles.navigation}>
@@ -85,7 +99,7 @@ export default function TestScreen() {
                             <Text>{currentIndex === 0 ? "Takaisin" : "Edellinen"}</Text>
                         </Button>
                         <Spacer width={20} />
-                        <Button onPress={goNext}>
+                        <Button onPress={goNext} disabled={!canGoNext}>
                             <Text>{currentIndex === questionKeys.length - 1 ? "Valmis" : "Seuraava"}</Text>
                         </Button>
                     </View>
@@ -93,7 +107,6 @@ export default function TestScreen() {
             </SafeAreaView>
         </>
     );
-
 }
 
 const styles = StyleSheet.create({
@@ -109,13 +122,6 @@ const styles = StyleSheet.create({
         paddingTop: '10%',
         paddingBottom: '5%'
     },
-    content: {
-        flex: 1,
-        justifyContent: 'flex-start'
-    },
-    question: {
-        fontSize: 16
-    },
     navigationContainer: {
         alignItems: 'center'
     },
@@ -126,11 +132,12 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
         alignItems: 'flex-end',
-        paddingBottom: 20
+        paddingTop: 15,
+        paddingBottom: 15,
     },
     closeIcon: {
-        width: 50,
-        height: 50,
+        width: 25,
+        height: 25,
     }
 });
 

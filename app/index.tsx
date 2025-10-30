@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import { router, Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -14,6 +14,8 @@ const SCREEN_OPTIONS = {
 };
 
 export default function Screen() {
+
+  const router = useRouter()
 
   return (
     <>
