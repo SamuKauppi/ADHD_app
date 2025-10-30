@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { router, Stack } from 'expo-router';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Spacer from '@/components/ui/Spacer';
 import * as React from 'react';
@@ -17,7 +18,7 @@ export default function Screen() {
   return (
     <>
       <Stack.Screen options={SCREEN_OPTIONS} />
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text style={styles.title}>ADHD app</Text>
 
         <Spacer height={50} />
@@ -54,7 +55,7 @@ export default function Screen() {
           }}>
           <Text>Reset data</Text>
         </Button>
-      </View>
+      </SafeAreaView>
     </>
   );
 }

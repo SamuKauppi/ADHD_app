@@ -5,12 +5,13 @@ import React from 'react'
 type StepProgressbarProps = {
     maxSteps: number;
     currentStep?: number;
+    style?: object;
 }
 
-const StepProgressbar = ({ maxSteps, currentStep = 0 }: StepProgressbarProps) => {
+const StepProgressbar = ({ maxSteps, currentStep = 0, style }: StepProgressbarProps) => {
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, style]}>
             {Array.from({ length: maxSteps }).map((_, index) => (
                 <Button
                     key={index}

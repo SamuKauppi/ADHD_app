@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 type QuestionCheckboxProps = {
   question: string;
   storageKey: string;
+  
   // optional 
   style?: ViewStyle;        // style 
   textStyle?: TextStyle;    // optional style for the text
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     borderWidth: 3,
+    borderRadius: 10,
     marginVertical: 5,
     width: '100%',
     flexDirection: 'row',

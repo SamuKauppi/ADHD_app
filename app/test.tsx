@@ -1,14 +1,17 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 import { Stack, useRouter } from 'expo-router';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { QUESTIONS } from '../lib/questions';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Spacer from '@/components/ui/Spacer';
 import QuestionCheckbox from '@/components/custom/question-checkbox';
 import StepProgressbar from '@/components/custom/step-progressbar';
+import IconButton from '@/components/custom/icon-button';
 
 const SCREEN_OPTIONS = {
     title: 'Takasin',
@@ -51,10 +54,18 @@ export default function TestScreen() {
     return (
         <>
             <Stack.Screen options={SCREEN_OPTIONS} />
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
+                <IconButton
+                    source={require('assets/images/close.png')}
+                    style={styles.iconContainer}
+                    imgStyle={styles.closeIcon}
+                    onPress={() => router.back()}
+                />
+                <StepProgressbar maxSteps={questionKeys.length} currentStep={currentIndex} />
+
                 <View style={styles.content}>
                     <Text style={styles.title}>{currentQuestion.question}</Text>
-                    <Spacer height={20} />
+
                     {currentQuestion.options.map((option, index) => {
                         const storageKey = `${currentKey}:${index}`
                         return (
@@ -78,43 +89,49 @@ export default function TestScreen() {
                             <Text>{currentIndex === questionKeys.length - 1 ? "Valmis" : "Seuraava"}</Text>
                         </Button>
                     </View>
-
-                    <Spacer height={10} />
-
-                    <StepProgressbar maxSteps={questionKeys.length} currentStep={currentIndex} />
                 </View>
-            </View>
+            </SafeAreaView>
         </>
     );
+
 }
 
 const styles = StyleSheet.create({
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: '20%', // optional top padding
-    },
     container: {
         flex: 1,
-        justifyContent: 'space-between', // Push content to top and bottom
-        paddingHorizontal: 20,
-        paddingBottom: '15%', // safe padding for bottom buttons
+        padding: 10,
+        justifyContent: 'space-between',
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingTop: '10%',
+        paddingBottom: '5%'
     },
     content: {
         flex: 1,
-        justifyContent: 'center', // questions at the top
+        justifyContent: 'flex-start'
+    },
+    question: {
+        fontSize: 16
     },
     navigationContainer: {
-        alignItems: 'center',
+        alignItems: 'center'
     },
     navigation: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 10,
+        alignItems: 'center'
     },
-    question: {
-        fontSize: 15,
+    iconContainer: {
+        alignItems: 'flex-end',
+        paddingBottom: 20
+    },
+    closeIcon: {
+        width: 50,
+        height: 50,
     }
 });
+
+

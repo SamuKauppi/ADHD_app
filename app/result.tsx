@@ -2,9 +2,10 @@ import { StyleSheet, View } from 'react-native'
 import { Text } from '@/components/ui/text'
 import React, { useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const ResultPage = () => {
-  const [testCompleted, setTestCompleted] = useState(null)
+  const [testCompleted, setTestCompleted] = useState(false)
 
   useEffect(() => {
     const getTestCompleted = async () => {
@@ -20,11 +21,18 @@ const ResultPage = () => {
     getTestCompleted()
   }, [])
 
+  if (testCompleted === null || testCompleted == false) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text>No test data available. Please complete the test first.</Text>
+      </SafeAreaView>
+    )
+  }
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text>ResultPage</Text>
-      <Text>Test Completed: {String(testCompleted ? true : false)}</Text>
-    </View>
+    </SafeAreaView>
   )
 }
 

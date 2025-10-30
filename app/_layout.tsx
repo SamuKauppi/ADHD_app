@@ -17,12 +17,12 @@ export default function RootLayout() {
   const { colorScheme } = useColorScheme();
 
   return (
-    <SafeAreaProvider style={{backgroundColor: NAV_THEME[colorScheme ?? 'light'].colors.background}}>
+    <SafeAreaProvider>
       <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']} >
-        <StatusBar hidden={true}/>
+        <StatusBar />
         <Stack>
           <Stack.Screen name="index" />
-          <Stack.Screen name="test" />
+          <Stack.Screen name="test" options={{headerShown:false}}/>
           <Stack.Screen name="result" />
         </Stack>
         <PortalHost />
