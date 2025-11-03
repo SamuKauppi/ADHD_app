@@ -17,7 +17,7 @@ export default function RootLayout() {
   const { colorScheme } = useColorScheme();
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={{ flex: 1, backgroundColor: NAV_THEME[colorScheme ?? 'light'].colors.background }}>
       <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']} >
         <StatusBar />
         <Stack

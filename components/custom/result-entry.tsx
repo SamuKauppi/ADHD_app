@@ -5,13 +5,20 @@ import React from 'react'
 type ResultEntryProps = {
     typeOfResult: string;
     score?: number;
+    maxScore?: number;
 }
 
-const ResultEntry = ({ typeOfResult, score }: ResultEntryProps) => {
+const ResultEntry = ({ typeOfResult, score, maxScore }: ResultEntryProps) => {
+
+    const percentage =
+    score != null && maxScore != null && maxScore !== 0
+      ? (score / maxScore) * 100
+      : 0;
+
     return (
         <View style={styles.container}>
             <Text>{typeOfResult}</Text>
-            <Text>{score}%</Text>
+            <Text>{percentage.toFixed(0)}%</Text>
         </View>
     )
 }

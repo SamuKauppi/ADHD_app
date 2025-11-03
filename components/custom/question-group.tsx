@@ -1,6 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { Text } from '@/components/ui/text';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import QuestionCheckbox from './question-checkbox';
 
@@ -22,6 +23,7 @@ export default function QuestionItem({ questionData, questionKey, onChange }: Qu
 
     const lastIndex = questionData.options.length - 1; // index of "none of the above"
 
+    // Load values
     useEffect(() => {
         let mounted = true;
 

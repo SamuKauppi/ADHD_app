@@ -1,12 +1,15 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Text } from '@/components/ui/text'
-import React, { useState, useEffect } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const ResultPage = () => {
-  const [testCompleted, setTestCompleted] = useState(false)
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import ResultGroup from '@/components/custom/result-group'
 
+const ResultPage = () => {
+
+  // Get value if test has been completed
+  const [testCompleted, setTestCompleted] = useState(false)
   useEffect(() => {
     const getTestCompleted = async () => {
       try {
@@ -21,6 +24,7 @@ const ResultPage = () => {
     getTestCompleted()
   }, [])
 
+  // No test completed
   if (testCompleted === null || testCompleted == false) {
     return (
       <SafeAreaView style={styles.container}>
@@ -29,9 +33,11 @@ const ResultPage = () => {
     )
   }
 
+  // Test has been completed. Display results
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text>ResultPage</Text>
+      <ResultGroup/>
     </SafeAreaView>
   )
 }
@@ -40,6 +46,9 @@ export default ResultPage
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16
+    padding: 16,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '95%'
   }
 })
