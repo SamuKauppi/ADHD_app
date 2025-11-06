@@ -8,20 +8,15 @@ import Spacer from '@/components/ui/Spacer';
 import * as React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SCREEN_OPTIONS = {
-  title: 'Home',
-  headerTransparent: true
-};
-
 export default function Screen() {
 
   const router = useRouter()
 
   return (
     <>
-      <Stack.Screen options={SCREEN_OPTIONS} />
+      <Stack.Screen/>
       <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>ADHD app</Text>
+        <Text style={styles.title}>Devpage</Text>
 
         <Spacer height={50} />
 
@@ -48,7 +43,7 @@ export default function Screen() {
         <Button
           style={styles.button}
           onPress={async () => {
-            try{
+            try {
               await AsyncStorage.clear();
               console.log('AsyncStorage cleared');
             } catch {
@@ -56,6 +51,14 @@ export default function Screen() {
             }
           }}>
           <Text>Reset data</Text>
+        </Button>
+
+        <Spacer height={20} />
+
+        <Button
+          style={styles.button}
+          onPress={() => router.push('/info')}>
+          <Text>Test type</Text>
         </Button>
       </SafeAreaView>
     </>

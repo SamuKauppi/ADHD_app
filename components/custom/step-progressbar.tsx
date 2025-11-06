@@ -1,42 +1,66 @@
-import { StyleSheet, View } from 'react-native'
-import { Button } from '@/components/ui/button'
-import React from 'react'
+import { THEME } from '@/lib/theme';
+import React from 'react';
+import { StyleSheet, View, Pressable, useColorScheme } from 'react-native';
 
 type StepProgressbarProps = {
     maxSteps: number;
     currentStep?: number;
     style?: object;
-}
+    buttonStyle?: object;
+    onStepPress?: (stepIndex: number) => void;
+};
 
-const StepProgressbar = ({ maxSteps, currentStep = 0, style }: StepProgressbarProps) => {
+const StepProgressbar = ({
+    maxSteps,
+    currentStep = 0,
+    style,
+    buttonStyle,
+    onStepPress,
+}: StepProgressbarProps) => {
+
+    const scheme = useColorScheme()
+    const theme = THEME[scheme ?? 'light'];
 
     return (
         <View style={[styles.container, style]}>
-            {Array.from({ length: maxSteps }).map((_, index) => (
-                <Button
-                    key={index}
-                    style={[
-                        styles.stepButton
-                    ]}
-                    disabled={index > currentStep}
-                />
-            ))}
-        </View>
-    )
-}
+            {Array.from({ length: maxSteps }).map((_, index) => {
+                const active = index <= currentStep;
 
-export default StepProgressbar
+                return (
+                    <Pressable
+                        key={index}
+                        onPress={() => onStepPress?.(index)}
+                        style={[
+                            styles.stepButton,
+                            buttonStyle,
+                            {
+                                backgroundColor: active
+                                    ? theme.foreground
+                                    : theme.mutedForeground,
+                            },
+                        ]}
+                        disabled={active}
+                    />
+                );
+            })}
+        </View>
+    );
+};
+
+export default StepProgressbar;
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row', // Align buttons left-to-right
+        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%',
-        gap: 5,
+        gap: 6,
     },
     stepButton: {
-        flex: 1,               // Make buttons evenly spaced
-        maxHeight: 10,
-    },
-})
+        flex: 1,
+        height: 6,
+        borderRadius: 6,
+        marginHorizontal: 3,
+        minWidth: 0,
+    }
+});

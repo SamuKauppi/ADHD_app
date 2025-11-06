@@ -1,21 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, useColorScheme, View } from 'react-native'
 import { QUESTIONS } from '@/lib/questions'
-import { ADHD_DATA } from '@/lib/adhd-data'
+import { ADHD_TYPE } from '@/lib/adhd-types'
 import { useEffect, useState } from 'react'
+import { router } from 'expo-router'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import ResultEntry from './result-entry'
+import Spacer from '../ui/Spacer'
 
 
 type ADHDItem = {
+  key: string;
   label: string;
   value: number;
-}
+};
 
 const ResultGroup = () => {
 
   const [adhdArray, setAdhdArray] = useState<ADHDItem[]>(
-    Object.entries(ADHD_DATA).map(([_, label]) => ({
+    Object.entries(ADHD_TYPE).map(([key, label]) => ({
+      key,    
       label,
       value: 0,
     }))
@@ -63,6 +67,15 @@ const ResultGroup = () => {
     setAdhdArray(updatedArray); // trigger re-render
   }
 
+  const handlePress = (typeKey: string) => {
+    router.push({
+      pathname: '/info',
+      params: {
+        typeOfResult: typeKey
+      }
+    })
+  }
+
   useEffect(() => {
     iterateThroughQuestions();
   }, [])
@@ -72,12 +85,15 @@ const ResultGroup = () => {
     <View style={styles.container}>
       {[...adhdArray] // make a copy so we don’t mutate state
         .sort((a, b) => b.value - a.value) // descending order
-        .map(({ label, value }, index) => (
+        .map(({ key, label, value }, index) => (
           <ResultEntry
             key={index}
-            typeOfResult={label}
+            typeKey={key}
+            typeLabel={label}
             score={value}
             maxScore={Object.keys(QUESTIONS).length}
+            style={styles.resultEntry}
+            onPress={handlePress}
           />
         ))
       }
@@ -89,5 +105,17 @@ export default ResultGroup
 
 const styles = StyleSheet.create({
   container: {
+    paddingVertical: '10%',
+  },
+  resultEntry: {
+    padding: 10,
+    borderWidth: 3,
+    marginVertical: 5,
+    borderRadius: 10,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+    alignItems: 'flex-start',
   }
 })

@@ -1,20 +1,29 @@
-import { Pressable, Image, GestureResponderEvent, ViewStyle, ImageStyle, ImageSourcePropType } from 'react-native'
-import React from 'react'
+import { Pressable, Image, GestureResponderEvent, ViewStyle, ImageStyle, View, useColorScheme } from 'react-native'
+import { iconMap } from '@/lib/icon';
 
 type IconButtonProps = {
-  source: ImageSourcePropType
+  /** base name of the icon file, without L/D or .png */
+  iconName: string
   style?: ViewStyle
   imgStyle?: ImageStyle
   onPress?: (event: GestureResponderEvent) => void
 }
 
-const IconButton = ({ source, style, imgStyle, onPress }: IconButtonProps) => {
+const IconButton = ({ iconName, style, imgStyle, onPress }: IconButtonProps) => {
+
+  const scheme = useColorScheme();
+  const themeSuffix = scheme === 'light' ? 'D' : 'L'
+
+  const source = iconMap[`${iconName}${themeSuffix}`]
+
+  if (!source) {
+    console.warn(`Icon "${iconName}${themeSuffix}" not found in iconMap.`)
+    return null
+  }
+
   return (
-    <Pressable style={style} onPress={onPress}>
-      <Image 
-        style={imgStyle}
-        source={source}
-      />
+    <Pressable onPress={onPress} style={style} hitSlop={8}>
+      <Image style={imgStyle} source={source} />
     </Pressable>
   )
 }

@@ -1,38 +1,30 @@
-import { StyleSheet, View } from 'react-native'
+import { Pressable, useColorScheme, ViewStyle } from 'react-native'
 import { Text } from '@/components/ui/text';
 import React from 'react'
+import { THEME } from '@/lib/theme';
 
 type ResultEntryProps = {
-    typeOfResult: string;
-    score?: number;
-    maxScore?: number;
-}
+  typeKey: string;
+  typeLabel: string;
+  score: number;
+  maxScore: number;
+  style?: any;
+  onPress?: (typeKey: string) => void;
+};
 
-const ResultEntry = ({ typeOfResult, score, maxScore }: ResultEntryProps) => {
+const ResultEntry = ({ typeKey, typeLabel, score, maxScore, style, onPress }: ResultEntryProps) => {
 
-    const percentage =
-    score != null && maxScore != null && maxScore !== 0
-      ? (score / maxScore) * 100
-      : 0;
+    const scheme = useColorScheme();
+    const theme = THEME[scheme ?? 'light'];
+
+    const percentage = score && maxScore ? (score / maxScore) * 100 : 0;
 
     return (
-        <View style={styles.container}>
-            <Text>{typeOfResult}</Text>
+        <Pressable style={[style, {borderColor:theme.border}]} onPress={() => onPress?.(typeKey)}>
             <Text>{percentage.toFixed(0)}%</Text>
-        </View>
+            <Text>{typeLabel}</Text>
+        </Pressable>
     )
 }
 
 export default ResultEntry
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-        borderWidth: 3,
-        marginVertical: 5,
-        width: '95%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    }
-})

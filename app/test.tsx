@@ -6,25 +6,18 @@ import { useEffect, useState } from 'react';
 import { QUESTIONS } from '../lib/questions';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Spacer from '@/components/ui/Spacer';
 import StepProgressbar from '@/components/custom/step-progressbar';
 import IconButton from '@/components/custom/icon-button';
 import QuestionGroup from '@/components/custom/question-group';
 
-const SCREEN_OPTIONS = {
-    title: 'Takasin',
-    headerTransparent: true,
-};
-
 export default function TestScreen() {
-
     const questionKeys = Object.keys(QUESTIONS);
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentKey = questionKeys[currentIndex];
     const currentQuestion = QUESTIONS[currentKey];
-    const router = useRouter()
+    const router = useRouter();
 
     const [canGoNext, setCanGoNext] = useState(false);
 
@@ -36,26 +29,21 @@ export default function TestScreen() {
         if (currentIndex < questionKeys.length - 1) {
             setCurrentIndex(currentIndex + 1);
             setCanGoNext(false);
-        }
-        else {
+        } else {
             try {
                 AsyncStorage.setItem('testCompleted', 'true');
-                // Navigate to result page or perform any final action
-                router.push('/result');
+                router.replace('/result');
             } catch (error) {
                 console.warn('Failed to finalize test', error);
             }
-
         }
     };
 
     const goPrevious = () => {
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
-        }
-        else {
-            // Optionally handle going back to start page
-            router.back()
+        } else {
+            router.back();
         }
     };
 
@@ -75,25 +63,33 @@ export default function TestScreen() {
 
     return (
         <>
-            <Stack.Screen options={SCREEN_OPTIONS} />
+            <Stack.Screen />
             <SafeAreaView style={styles.container}>
-                <IconButton
-                    source={require('assets/images/close.png')}
-                    style={styles.iconContainer}
-                    imgStyle={styles.closeIcon}
-                    onPress={() => router.back()}
-                />
-                <StepProgressbar maxSteps={questionKeys.length} currentStep={currentIndex} />
+                <View style={styles.content}>
+                    <View style={styles.headerRow}>
+                        <View style={styles.progressWrapper}>
+                            <StepProgressbar
+                                maxSteps={questionKeys.length}
+                                currentStep={currentIndex}
+                                buttonStyle={styles.progressbarBtn}
+                            />
+                        </View>
 
-                <QuestionGroup
-                    questionData={currentQuestion}
-                    questionKey={currentKey}
-                    onChange={(currentQuestionStates) => {
-                        setCanGoNext(currentQuestionStates.some(Boolean))
-                    }}
-                />
+                        <IconButton
+                            iconName='close'
+                            style={styles.closeIconContainer}
+                            imgStyle={styles.closeIcon}
+                            onPress={() => router.back()}
+                        />
+                    </View>
+                    <QuestionGroup
+                        questionData={currentQuestion}
+                        questionKey={currentKey}
+                        onChange={(currentQuestionStates) => {
+                            setCanGoNext(currentQuestionStates.some(Boolean))
+                        }}
+                    />
 
-                <View style={styles.navigationContainer}>
                     <View style={styles.navigation}>
                         <Button onPress={goPrevious}>
                             <Text>{currentIndex === 0 ? "Takaisin" : "Edellinen"}</Text>
@@ -112,33 +108,44 @@ export default function TestScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
+        paddingVertical: 10,
         justifyContent: 'space-between',
     },
-    title: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        paddingTop: '10%',
-        paddingBottom: '5%'
+    headerRow: {
+        flexDirection: 'row',
+        alignItems: 'flex-end', // bottom align icon & bar
+        marginTop: 10,
+        paddingHorizontal: 15,
     },
-    navigationContainer: {
-        alignItems: 'center'
+    progressWrapper: {
+        flex: 1,
+        marginRight: 12,
+        minWidth: 0, // lets bar shrink instead of pushing icon out
+        alignSelf: 'flex-end',
+    },
+    closeIconContainer: {
+        width: 35,
+        height: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    closeIcon: {
+        width: 28,
+        height: 28,
+    },
+    progressbarBtn: {
+        height: 6,
+        borderRadius: 6,
+    },
+    content: {
+        flex: 1,
+        marginHorizontal: '10%', // adjustable between 5%–15%
+        justifyContent: 'space-between',
     },
     navigation: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 20,
     },
-    iconContainer: {
-        alignItems: 'flex-end',
-        paddingTop: 15,
-        paddingBottom: 15,
-    },
-    closeIcon: {
-        width: 25,
-        height: 25,
-    }
 });
-
-

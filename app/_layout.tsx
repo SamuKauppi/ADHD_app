@@ -15,16 +15,16 @@ export {
 
 export default function RootLayout() {
   const { colorScheme } = useColorScheme();
+  const theme = NAV_THEME[colorScheme ?? 'light']
 
   return (
-    <SafeAreaProvider style={{ backgroundColor: NAV_THEME[colorScheme ?? 'light'].colors.background }}>
-      <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']} >
+    <SafeAreaProvider style={{ backgroundColor: theme.colors.background }}>
+      <ThemeProvider value={theme} >
         <StatusBar />
         <Stack
           screenOptions={{
             headerShown: false
-          }}
-        >
+          }}>
           <Stack.Screen name="index" />
           <Stack.Screen name="test" />
           <Stack.Screen name="result" />

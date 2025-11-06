@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import ResultGroup from '@/components/custom/result-group'
+import { Stack } from 'expo-router'
 
 const ResultPage = () => {
 
@@ -33,12 +34,14 @@ const ResultPage = () => {
     )
   }
 
-  // Test has been completed. Display results
-
+  // Test has been completed. Display results in ResultGroup
   return (
-    <SafeAreaView style={styles.container}>
-      <ResultGroup/>
-    </SafeAreaView>
+    <>
+      <Stack.Screen />
+      <SafeAreaView style={styles.container}>
+        <ResultGroup />
+      </SafeAreaView>
+    </>
   )
 }
 
