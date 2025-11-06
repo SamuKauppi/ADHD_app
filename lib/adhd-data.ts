@@ -55,6 +55,7 @@ export const ADHD_DATA: Record<string, ADHDType> = {
             text: []
         }
     },
+
     // Hajamielinen haaveilija
     t2: {
         p0: {
@@ -62,6 +63,7 @@ export const ADHD_DATA: Record<string, ADHDType> = {
             text: []
         }
     },
+
     // Kuohuva herkkis
     t3: {
         p0: {
@@ -69,6 +71,7 @@ export const ADHD_DATA: Record<string, ADHDType> = {
             text: []
         }
     },
+    
     // Kömpelö jumittaja
     t4: {
         p0: {

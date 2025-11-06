@@ -8,6 +8,7 @@ type ADHDType = {
 };
 
 export const ADHD_DATA_OTHER: Record<string, ADHDType> = {
+    //Kärsimätön vitkuttelija
     t0: {
         p0: {
             title: "Tee siitä hauskempaa",
@@ -32,18 +33,32 @@ export const ADHD_DATA_OTHER: Record<string, ADHDType> = {
             ]
         }
     },
+
+    // Kuormittuva sähköjänis
+    t1: {
+        p0: {
+            title: "",
+            text: []
+        }
+    },
+
+    // Hajamielinen haaveilija
     t2: {
         p0: {
             title: "",
             text: []
         }
     },
+
+    // Kuohuva herkkis
     t3: {
         p0: {
             title: "",
             text: []
         }
     },
+
+    // Kömpelö jumittaja
     t4: {
         p0: {
             title: "",

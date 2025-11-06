@@ -12,12 +12,15 @@ import IconButton from '@/components/custom/icon-button'
 
 const InfoPage = () => {
 
+  // Search local params
   const { typeOfResult } = useLocalSearchParams<{ typeOfResult: string }>();
   if (!typeOfResult) return null;
 
+  // Search type from ADHD_DATA
   const selectedType = getAdhdType(ADHD_DATA, typeOfResult)
   if (!selectedType) return null;
 
+  // Proceed with diplaying data
   const [partIndex, setPartIndex] = useState(0);
   const partCount = Object.keys(selectedType).length
   const currentPart = getAdhdPart(selectedType, partIndex);
@@ -26,7 +29,12 @@ const InfoPage = () => {
     if (partIndex < partCount - 1) {
       setPartIndex(partIndex + 1)
     } else {
-      router.push('/read-more')
+      router.push({
+        pathname: '/read-more',
+        params: {
+          typeOfResult: typeOfResult
+        }
+      })
     }
 
   }
