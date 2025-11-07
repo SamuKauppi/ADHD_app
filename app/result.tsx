@@ -41,8 +41,8 @@ const ResultPage = () => {
       <SafeAreaView style={styles.container}>
         <View style={styles.scrollView}>
           <ScrollView >
-
             <Text style={styles.title}>Tulossivu</Text>
+            <Text style={styles.extraText}>Jotain tekstiä adhd tyypeistä</Text>
             <ResultGroup />
           </ScrollView>
 
@@ -59,6 +59,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1
+  },
+  extraText: {
+
   },
   scrollView: {
     width: '92%',

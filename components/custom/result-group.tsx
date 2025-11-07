@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
   },
   resultPrecentageLabel: {
     width: 60,
-    textAlign: 'right',
+    textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 22
+    fontSize: 19,
   }
 });

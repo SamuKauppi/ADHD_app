@@ -1,7 +1,8 @@
 import { Image, Pressable, StyleSheet, useColorScheme, View, ViewStyle } from 'react-native'
 import { Text } from '@/components/ui/text';
-import React from 'react'
 import { THEME } from '@/lib/theme';
+import { AnimatedCircularProgress } from 'react-native-circular-progress'
+
 import IconButton from './icon-button';
 
 type ResultEntryProps = {
@@ -39,7 +40,20 @@ const ResultEntry = ({
                 resizeMode='cover'
                 style={styles.resultImage} />
             <View style={styles.textContainer}>
-                <Text style={numberStyle}>{percentage.toFixed(0)} %</Text>
+                <AnimatedCircularProgress
+                    size={90}
+                    width={15}
+                    fill={percentage}
+                    tintColor="#00a2e8"
+                    backgroundColor="#cffaff"
+                    rotation={0}
+                >
+                    {() => (
+                        <Text style={numberStyle}>
+                            {percentage.toFixed(0)} %
+                        </Text>
+                    )}
+                </AnimatedCircularProgress>
                 <Text
                     style={lablelStyle}
                     numberOfLines={2}
