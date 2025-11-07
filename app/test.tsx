@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { Stack, useRouter } from 'expo-router';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
@@ -65,8 +65,16 @@ export default function TestScreen() {
         <>
             <Stack.Screen />
             <SafeAreaView style={styles.container}>
+                <View style={styles.headers}>
+                    <IconButton
+                        iconName='close'
+                        style={styles.closeIconContainer}
+                        onPress={() => router.back()}
+                    />
+                </View>
+
                 <View style={styles.content}>
-                    <View style={styles.headerRow}>
+                    <ScrollView>
                         <View style={styles.progressWrapper}>
                             <StepProgressbar
                                 maxSteps={questionKeys.length}
@@ -75,30 +83,25 @@ export default function TestScreen() {
                             />
                         </View>
 
-                        <IconButton
-                            iconName='close'
-                            style={styles.closeIconContainer}
-                            imgStyle={styles.closeIcon}
-                            onPress={() => router.back()}
+                        <QuestionGroup
+                            questionData={currentQuestion}
+                            questionKey={currentKey}
+                            onChange={(currentQuestionStates) => {
+                                setCanGoNext(currentQuestionStates.some(Boolean))
+                            }}
                         />
-                    </View>
-                    <QuestionGroup
-                        questionData={currentQuestion}
-                        questionKey={currentKey}
-                        onChange={(currentQuestionStates) => {
-                            setCanGoNext(currentQuestionStates.some(Boolean))
-                        }}
-                    />
 
-                    <View style={styles.navigation}>
-                        <Button onPress={goPrevious}>
-                            <Text>{currentIndex === 0 ? "Takaisin" : "Edellinen"}</Text>
-                        </Button>
-                        <Spacer width={20} />
-                        <Button onPress={goNext} disabled={!canGoNext}>
-                            <Text>{currentIndex === questionKeys.length - 1 ? "Valmis" : "Seuraava"}</Text>
-                        </Button>
-                    </View>
+                        <View style={styles.navigation}>
+                            <Button onPress={goPrevious}>
+                                <Text>{currentIndex === 0 ? "Takaisin" : "Edellinen"}</Text>
+                            </Button>
+                            <Spacer width={20} />
+                            <Button onPress={goNext} disabled={!canGoNext}>
+                                <Text>{currentIndex === questionKeys.length - 1 ? "Valmis" : "Seuraava"}</Text>
+                            </Button>
+                        </View>
+                    </ScrollView>
+
                 </View>
             </SafeAreaView>
         </>
@@ -111,27 +114,26 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         justifyContent: 'space-between',
     },
-    headerRow: {
-        flexDirection: 'row',
-        alignItems: 'flex-end', // bottom align icon & bar
+    headers: {
         marginTop: 10,
-        paddingHorizontal: 15,
+        paddingHorizontal: '4%',
+        width: '100%',
+        alignItems: 'flex-end',
+        marginBottom: 8
     },
     progressWrapper: {
         flex: 1,
         marginRight: 12,
         minWidth: 0, // lets bar shrink instead of pushing icon out
         alignSelf: 'flex-end',
+        flexDirection: 'row',
+        alignItems: 'flex-end'
     },
     closeIconContainer: {
         width: 35,
         height: 35,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    closeIcon: {
-        width: 28,
-        height: 28,
     },
     progressbarBtn: {
         height: 6,

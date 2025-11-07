@@ -1,6 +1,6 @@
 import { StyleSheet, useColorScheme, View } from 'react-native'
 import { QUESTIONS } from '@/lib/questions'
-import { ADHD_TYPE } from '@/lib/adhd-types'
+import { ADHD_TYPE, getADHDImages } from '@/lib/adhd-types'
 import { useEffect, useState } from 'react'
 import { router } from 'expo-router'
 
@@ -10,15 +10,17 @@ import ResultEntry from './result-entry'
 type ADHDItem = {
   key: string;
   label: string;
+  image: any;
   value: number;
-};
+}
 
 const ResultGroup = () => {
 
   const [adhdArray, setAdhdArray] = useState<ADHDItem[]>(
-    Object.entries(ADHD_TYPE).map(([key, label]) => ({
-      key,    
-      label,
+    Object.entries(ADHD_TYPE).map(([key, { name }]) => ({
+      key,
+      label: name,
+      image: 'result-mini',
       value: 0,
     }))
   );
@@ -83,14 +85,17 @@ const ResultGroup = () => {
     <View style={styles.container}>
       {[...adhdArray] // make a copy so we don’t mutate state
         .sort((a, b) => b.value - a.value) // descending order
-        .map(({ key, label, value }, index) => (
+        .map(({ key, label, value, image }, index) => (
           <ResultEntry
             key={index}
             typeKey={key}
             typeLabel={label}
             score={value}
             maxScore={Object.keys(QUESTIONS).length}
+            imgSource={getADHDImages(key, image)}
             style={styles.resultEntry}
+            lablelStyle={styles.resultLabel}
+            numberStyle={styles.resultPrecentageLabel}
             onPress={handlePress}
           />
         ))
@@ -103,17 +108,27 @@ export default ResultGroup
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: '10%',
+    paddingTop: 30,
+    flex: 1,
+    gap: '4%',
   },
   resultEntry: {
-    padding: 10,
     borderWidth: 3,
-    marginVertical: 5,
     borderRadius: 10,
-    width: '100%',
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    flex: 1,
-    alignItems: 'flex-start',
+  },
+  resultLabel: {
+    textAlign: 'left',
+    maxWidth: '60%',
+    fontWeight: 'bold',
+    fontSize: 19
+  },
+  resultPrecentageLabel: {
+    width: 60,
+    textAlign: 'right',
+    fontWeight: 'bold',
+    fontSize: 22
   }
-})
+});

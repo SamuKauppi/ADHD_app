@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ScrollView, View } from 'react-native'
 import { Text } from '@/components/ui/text'
 import { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -39,7 +39,14 @@ const ResultPage = () => {
     <>
       <Stack.Screen />
       <SafeAreaView style={styles.container}>
-        <ResultGroup />
+        <View style={styles.scrollView}>
+          <ScrollView >
+
+            <Text style={styles.title}>Tulossivu</Text>
+            <ResultGroup />
+          </ScrollView>
+
+        </View>
       </SafeAreaView>
     </>
   )
@@ -49,9 +56,17 @@ export default ResultPage
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: '95%'
+    justifyContent: 'center',
+    flex: 1
+  },
+  scrollView: {
+    width: '92%',
+    flex: 1,
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    marginTop: 50,
   }
 })

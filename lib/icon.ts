@@ -3,4 +3,6 @@
 export const iconMap: Record<string, number> = {
   closeL: require('../assets/images/closeL.png'),
   closeD: require('../assets/images/closeD.png'),
+  chevronD: require('../assets/images/chevronD.png'),
+  chevronL: require('../assets/images/chevronL.png')
 }

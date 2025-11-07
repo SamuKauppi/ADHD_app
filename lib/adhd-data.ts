@@ -1,13 +1,13 @@
-type ADHDParagraph = {
+type Part = {
     title: string;
     text: string[];
 };
 
-type ADHDType = {
-    [key: string]: ADHDParagraph; // p1, p2, etc.
+type Type = {
+    [key: string]: Part; // p1, p2, etc.
 };
 
-export const ADHD_DATA: Record<string, ADHDType> = {
+export const ADHD_DATA: Record<string, Type> = {
     //Kärsimätön vitkuttelija
     t0: {
         p0: {
@@ -78,6 +78,5 @@ export const ADHD_DATA: Record<string, ADHDType> = {
             title: "",
             text: []
         }
-
     }
 }

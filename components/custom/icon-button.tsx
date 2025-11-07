@@ -1,4 +1,4 @@
-import { Pressable, Image, GestureResponderEvent, ViewStyle, ImageStyle, View, useColorScheme } from 'react-native'
+import { Pressable, Image, GestureResponderEvent, ViewStyle, ImageStyle, useColorScheme, StyleSheet } from 'react-native'
 import { iconMap } from '@/lib/icon';
 
 type IconButtonProps = {
@@ -23,9 +23,17 @@ const IconButton = ({ iconName, style, imgStyle, onPress }: IconButtonProps) => 
 
   return (
     <Pressable onPress={onPress} style={style} hitSlop={8}>
-      <Image style={imgStyle} source={source} />
+      <Image style={[styles.icon, imgStyle]} source={source} />
     </Pressable>
   )
 }
 
 export default IconButton
+
+const styles = StyleSheet.create({
+  icon: {
+    height: '100%',
+    width: '100%',
+    objectFit: 'fill'
+  },
+});

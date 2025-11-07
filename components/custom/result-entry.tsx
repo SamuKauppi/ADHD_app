@@ -1,18 +1,31 @@
-import { Pressable, useColorScheme, ViewStyle } from 'react-native'
+import { Image, Pressable, StyleSheet, useColorScheme, View, ViewStyle } from 'react-native'
 import { Text } from '@/components/ui/text';
 import React from 'react'
 import { THEME } from '@/lib/theme';
+import IconButton from './icon-button';
 
 type ResultEntryProps = {
-  typeKey: string;
-  typeLabel: string;
-  score: number;
-  maxScore: number;
-  style?: any;
-  onPress?: (typeKey: string) => void;
+    typeKey: string;
+    typeLabel: string;
+    score: number;
+    maxScore: number;
+    imgSource: any;
+    style?: any;
+    lablelStyle?: any;
+    numberStyle?: any;
+    onPress?: (typeKey: string) => void;
 };
 
-const ResultEntry = ({ typeKey, typeLabel, score, maxScore, style, onPress }: ResultEntryProps) => {
+const ResultEntry = ({
+    typeKey,
+    typeLabel,
+    score,
+    maxScore,
+    imgSource,
+    style,
+    lablelStyle,
+    numberStyle,
+    onPress }: ResultEntryProps) => {
 
     const scheme = useColorScheme();
     const theme = THEME[scheme ?? 'light'];
@@ -20,11 +33,48 @@ const ResultEntry = ({ typeKey, typeLabel, score, maxScore, style, onPress }: Re
     const percentage = score && maxScore ? (score / maxScore) * 100 : 0;
 
     return (
-        <Pressable style={[style, {borderColor:theme.border}]} onPress={() => onPress?.(typeKey)}>
-            <Text>{percentage.toFixed(0)}%</Text>
-            <Text>{typeLabel}</Text>
+        <Pressable style={[style, { borderColor: theme.border }]} onPress={() => onPress?.(typeKey)}>
+            <Image
+                source={imgSource}
+                resizeMode='cover'
+                style={styles.resultImage} />
+            <View style={styles.textContainer}>
+                <Text style={numberStyle}>{percentage.toFixed(0)} %</Text>
+                <Text
+                    style={lablelStyle}
+                    numberOfLines={2}
+                    ellipsizeMode="tail"
+                >{typeLabel}</Text>
+            </View>
+            <IconButton
+                iconName='chevron'
+                style={styles.nextIconContainer}
+            />
         </Pressable>
     )
 }
 
 export default ResultEntry
+
+const styles = StyleSheet.create({
+    textContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        marginHorizontal: '2%',
+        gap: '10%'
+    },
+    resultImage: {
+        width: '25%',
+        aspectRatio: 1,
+        borderRadius: 10,
+        overflow: 'hidden',
+    },
+    nextIconContainer: {
+        height: 28,
+        width: 28,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});
