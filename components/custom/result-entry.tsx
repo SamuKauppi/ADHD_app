@@ -63,6 +63,7 @@ const ResultEntry = ({
             <IconButton
                 iconName='chevron'
                 style={styles.nextIconContainer}
+                onPress={() => onPress?.(typeKey)}
             />
         </Pressable>
     )

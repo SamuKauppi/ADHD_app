@@ -23,7 +23,8 @@ export default function RootLayout() {
         <StatusBar />
         <Stack
           screenOptions={{
-            headerShown: false
+            headerShown: false,
+            animation: 'simple_push'
           }}>
           <Stack.Screen name="index" />
           <Stack.Screen name="test" />

@@ -4,9 +4,18 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { getAdhdPart, getAdhdType } from '@/lib/adhd-utils'
 import { ADHD_DATA } from '@/lib/adhd-data'
+import { ADHD_ACCORDION } from '@/lib/adhd-accordion'
+import { getReadMoreType } from '@/lib/adhd-read-more'
 import { useState } from 'react'
-import StepProgressbar from '@/components/custom/step-progressbar'
 import { Button } from '@/components/ui/button'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion'
+
+import StepProgressbar from '@/components/custom/step-progressbar'
 import Spacer from '@/components/ui/Spacer'
 import IconButton from '@/components/custom/icon-button'
 
@@ -18,15 +27,22 @@ const InfoPage = () => {
 
   // Search type from ADHD_DATA
   const selectedType = getAdhdType(ADHD_DATA, typeOfResult)
-  if (!selectedType) return null;
+  const selectedAccordion = getAdhdType(ADHD_ACCORDION, typeOfResult);
+  const selectedReadMore = getReadMoreType(typeOfResult);
+  if (!selectedType || !selectedAccordion || !selectedAccordion) {
+    console.log("Type not found");
+    return null;
+  }
 
-  // Proceed with diplaying data
+  // Proceed with displaying data
   const [partIndex, setPartIndex] = useState(0);
-  const partCount = Object.keys(selectedType).length
+  const partCount = Object.keys(selectedType).length;
+  const totalCount = partCount + 2;   // + 2 is from Accordion page and Read More Page
   const currentPart = getAdhdPart(selectedType, partIndex);
 
+  // navigation buttons
   const goNext = () => {
-    if (partIndex < partCount - 1) {
+    if (partIndex < totalCount - 1) {
       setPartIndex(partIndex + 1)
     } else {
       router.push({
@@ -36,9 +52,7 @@ const InfoPage = () => {
         }
       })
     }
-
   }
-
   const goPrevious = () => {
     if (partIndex > 0) {
       setPartIndex(partIndex - 1)
@@ -46,6 +60,96 @@ const InfoPage = () => {
       router.back();
     }
   }
+  const navigationBtns = (
+    <>
+      <View style={styles.navigationContainer}>
+        <Button onPress={goPrevious}>
+          <Text>Edellinen</Text>
+        </Button>
+        <Spacer width={20} />
+        <Button onPress={goNext} disabled={partIndex >= totalCount - 1}>
+          <Text>Seuraava</Text>
+        </Button>
+      </View>
+    </>
+  )
+
+  // Content loading
+  let content = null;
+  if (partIndex < partCount) {
+    // Display normal content
+    content = (
+      <>
+        <Text style={styles.title}>{currentPart?.title}</Text>
+        <View>
+          {currentPart?.text.map((line, idx) => (
+            <Text 
+            key={idx} 
+            style={[
+              styles.text,
+              idx === 0 && { fontWeight: 'bold' }
+            ]} 
+            accessibilityRole="text">
+              {line}
+            </Text>
+          ))}
+        </View>
+        {navigationBtns}
+      </>
+    )
+
+  } else if (partIndex == partCount) {
+    // Display Accordion content
+    const accordionParts = Object.values(selectedAccordion);
+    content = (
+      <>
+        <View>
+          <Text style={styles.title}>Tässä muutama vinkki!</Text>
+          <Spacer height={20} />
+          <Accordion type='multiple' style={styles.accordionContainer}>
+            {accordionParts.map((part, idx) => (
+              <AccordionItem key={idx} value={idx.toString()} style={styles.accordionItem}>
+                <AccordionTrigger>
+                  <Text style={styles.accordionTitle}>{part.title}</Text>
+                </AccordionTrigger>
+                <AccordionContent>
+                  {part.text.map((line, idx2) => (
+                    <Text key={idx2} style={styles.accordionText} accessibilityRole='text'>
+                      {line}
+                    </Text>
+                  ))}
+                </AccordionContent>
+              </AccordionItem >
+            ))}
+            {navigationBtns}
+          </Accordion>
+        </View>
+      </>
+    )
+  } else {
+    // Display Read more content
+
+
+    content = (
+      <>
+        <View>
+          <Text style={styles.title}>
+            {selectedReadMore?.title}
+          </Text>
+          <View>
+            {selectedReadMore?.text.map((line, idx) => (
+              <Text style={styles.text} key={idx}>
+                {line}
+              </Text>
+            ))}
+          </View>
+        </View>
+        {navigationBtns}
+      </>
+    )
+  }
+
+  if (content == null) return;
 
   return (
     <>
@@ -57,7 +161,7 @@ const InfoPage = () => {
             <View style={styles.headerContainer}>
               <View style={styles.progressWrapper}>
                 <StepProgressbar
-                  maxSteps={partCount}
+                  maxSteps={totalCount}
                   currentStep={partIndex}
                   buttonStyle={styles.progressbar}
                 />
@@ -66,31 +170,11 @@ const InfoPage = () => {
               <IconButton
                 iconName='close'
                 style={styles.iconContainer}
-                imgStyle={styles.closeIcon}
                 onPress={router.back}
               />
             </View>
 
-            <Text style={styles.title}>{currentPart?.title}</Text>
-
-            <View>
-              {currentPart?.text.map((line, idx) => (
-                <Text key={idx} style={styles.text} accessibilityRole="text">
-                  {line}
-                </Text>
-              ))}
-            </View>
-
-            <View style={styles.navigationContainer}>
-              <Button onPress={goPrevious}>
-                <Text>Edellinen</Text>
-              </Button>
-              <Spacer width={20} />
-              <Button onPress={goNext}>
-                <Text>Seuraava</Text>
-              </Button>
-
-            </View>
+            {content}
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -103,7 +187,8 @@ export default InfoPage
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: '3%'
+    marginHorizontal: '3%',
+    paddingVertical: 10,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -119,13 +204,13 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   scrollMargin: {
-    marginHorizontal: '12%'
+    marginHorizontal: '7%'
   },
   title: {
     marginBottom: 20,
     fontWeight: 'bold',
-    fontSize: 30,
-    lineHeight: 35,
+    fontSize: 28,
+    lineHeight: 32,
   },
   text: {
     marginBottom: 16,
@@ -145,14 +230,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  closeIcon: {
-    // slightly larger close icon
-    width: 28,
-    height: 28,
-  },
   progressbar: {
     // passed to StepProgressbar as `buttonStyle` and controls segment height
     height: 6,
     borderRadius: 6,
+  },
+  accordionContainer: {
+  },
+  accordionItem: {
+    marginVertical: 10,
+  },
+  accordionTitle: {
+    fontSize: 24,
+    fontWeight: 'bold'
+  },
+  accordionText: {
+    fontSize: 20,
+    lineHeight: 24,
+    marginVertical: 7,
   }
 })

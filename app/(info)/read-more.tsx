@@ -3,7 +3,7 @@ import { Text } from '@/components/ui/text'
 import React from 'react'
 import { Stack, useLocalSearchParams } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ADHD_DATA_OTHER } from '@/lib/adhd-data-other'
+import { ADHD_ACCORDION } from '@/lib/adhd-accordion'
 import { getAdhdType } from '@/lib/adhd-utils'
 
 const ReadMore = () => {
@@ -13,7 +13,7 @@ const ReadMore = () => {
   if (!typeOfResult) return null;
 
   // Search type from ADHD_DATA_OTHER
-  const selectedType = getAdhdType(ADHD_DATA_OTHER, typeOfResult);
+  const selectedType = getAdhdType(ADHD_ACCORDION, typeOfResult);
   if (!selectedType) return null;
 
 

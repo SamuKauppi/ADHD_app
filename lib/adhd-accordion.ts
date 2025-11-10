@@ -7,7 +7,7 @@ type Type = {
     [key: string]: Part; // p1, p2, etc.
 };
 
-export const ADHD_DATA_OTHER: Record<string, Type> = {
+export const ADHD_ACCORDION: Record<string, Type> = {
     //Kärsimätön vitkuttelija
     t0: {
         p0: {
