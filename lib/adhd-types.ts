@@ -11,14 +11,12 @@ export const ADHD_TYPE: Record<string, ADHDType> = {
     name: "Kärsimätön vitkuttelija",
     images: [
       { src: require("../assets/images/kuormittuvajanis.png"), imgType: "result-mini" },
-      { src: require("../assets/images/kuormittuvajanis.png"), imgType: "kuormittuvajanis.png" },
     ],
   },
   t1: {
     name: "Kuormittuva sähköjänis",
     images: [
       { src: require("../assets/images/kuormittuvajanis.png"), imgType: "result-mini" },
-      { src: require("../assets/images/kuormittuvajanis.png"), imgType: "kuormittuvajanis.png" },
     ],
   },
   t2: {
@@ -37,13 +35,12 @@ export const ADHD_TYPE: Record<string, ADHDType> = {
     name: "Kömpelö jumittaja",
     images: [
       { src: require("../assets/images/kuormittuvajanis.png"), imgType: "result-mini" },
-      { src: require("../assets/images/kuormittuvajanis.png"), imgType: "kuormittuvajanis.png" },
     ],
   },
 };
 
 
-export const getADHDImages = (
+export const getADHDImage = (
   typeKey: keyof typeof ADHD_TYPE,
   filename?: string
 ): { src: any; filename?: string } => {

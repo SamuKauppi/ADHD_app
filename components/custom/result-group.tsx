@@ -1,6 +1,6 @@
-import { StyleSheet, useColorScheme, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { QUESTIONS } from '@/lib/questions'
-import { ADHD_TYPE, getADHDImages } from '@/lib/adhd-types'
+import { ADHD_TYPE, getADHDImage } from '@/lib/adhd-types'
 import { useEffect, useState } from 'react'
 import { router } from 'expo-router'
 
@@ -24,6 +24,7 @@ const ResultGroup = () => {
       value: 0,
     }))
   );
+  const questionCount = Object.keys(QUESTIONS).length;
 
   const checkAndIncrement = async (questionKey: string, optionIndex: number): Promise<boolean> => {
     const storageKey = `${questionKey}:${optionIndex}`
@@ -64,6 +65,19 @@ const ResultGroup = () => {
       }
     }
 
+    // Store results for later use
+    for (const item of updatedArray) {
+      const persentageValue = (questionCount / item.value) * 100;
+      await AsyncStorage.setItem(`result:${item.key}`, persentageValue.toString());
+    }
+
+    // Store best result
+    let highest = updatedArray[0];
+    for (const item of updatedArray) {
+      if (item.value > highest.value) highest = item;
+    }
+    await AsyncStorage.setItem('result:highest', highest.key);
+
     setAdhdArray(updatedArray); // trigger re-render
   }
 
@@ -91,8 +105,8 @@ const ResultGroup = () => {
             typeKey={key}
             typeLabel={label}
             score={value}
-            maxScore={Object.keys(QUESTIONS).length}
-            imgSource={getADHDImages(key, image)}
+            maxScore={questionCount}
+            imgSource={getADHDImage(key, image)}
             style={styles.resultEntry}
             lablelStyle={styles.resultLabel}
             numberStyle={styles.resultPrecentageLabel}
@@ -110,7 +124,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 30,
     flex: 1,
-    gap: '4%',
   },
   resultEntry: {
     borderWidth: 3,
@@ -118,6 +131,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: 15,
   },
   resultLabel: {
     textAlign: 'left',

@@ -6,6 +6,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import ResultGroup from '@/components/custom/result-group'
 import { Stack } from 'expo-router'
+import { Button } from '@/components/ui/button'
+import { ShareHandling } from '@/components/custom/share-handling'
+import Spacer from '@/components/ui/Spacer'
+import ShareResultButton from '@/components/custom/share-button'
 
 const ResultPage = () => {
 
@@ -32,7 +36,8 @@ const ResultPage = () => {
         <Text>No test data available. Please complete the test first.</Text>
       </SafeAreaView>
     )
-  }
+  }  
+
 
   // Test has been completed. Display results in ResultGroup
   return (
@@ -44,6 +49,8 @@ const ResultPage = () => {
             <Text style={styles.title}>Tulossivu</Text>
             <Text style={styles.extraText}>Jotain tekstiä adhd tyypeistä</Text>
             <ResultGroup />
+            <Spacer height={20}/>
+            <ShareResultButton/>
           </ScrollView>
 
         </View>

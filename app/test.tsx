@@ -11,6 +11,7 @@ import Spacer from '@/components/ui/Spacer';
 import StepProgressbar from '@/components/custom/step-progressbar';
 import IconButton from '@/components/custom/icon-button';
 import QuestionGroup from '@/components/custom/question-group';
+import NavigationButtons from '@/components/custom/navigation-buttons';
 
 export default function TestScreen() {
     const questionKeys = Object.keys(QUESTIONS);
@@ -91,15 +92,11 @@ export default function TestScreen() {
                             }}
                         />
 
-                        <View style={styles.navigation}>
-                            <Button onPress={goPrevious}>
-                                <Text>{currentIndex === 0 ? "Takaisin" : "Edellinen"}</Text>
-                            </Button>
-                            <Spacer width={20} />
-                            <Button onPress={goNext} disabled={!canGoNext}>
-                                <Text>{currentIndex === questionKeys.length - 1 ? "Valmis" : "Seuraava"}</Text>
-                            </Button>
-                        </View>
+                        <NavigationButtons
+                            onNext={goNext}
+                            onPrevious={goPrevious}
+                            containerStyle={styles.navigationContainer}
+                        />
                     </ScrollView>
 
                 </View>
@@ -144,10 +141,7 @@ const styles = StyleSheet.create({
         marginHorizontal: '10%', // adjustable between 5%–15%
         justifyContent: 'space-between',
     },
-    navigation: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20,
-    },
+    navigationContainer: {
+        marginTop: 20
+    }
 });
