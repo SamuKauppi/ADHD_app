@@ -1,4 +1,5 @@
 import { StyleSheet, View } from 'react-native'
+import { Text } from '../ui/text'
 import { QUESTIONS } from '@/lib/questions'
 import { ADHD_TYPE, getADHDImage } from '@/lib/adhd-types'
 import { useEffect, useState } from 'react'
@@ -24,6 +25,7 @@ const ResultGroup = () => {
       value: 0,
     }))
   );
+  const [highestTypeLabel, setHighestTypeLabel] = useState<string>('Tulossivu');
   const questionCount = Object.keys(QUESTIONS).length;
 
   const checkAndIncrement = async (questionKey: string, optionIndex: number): Promise<boolean> => {
@@ -74,11 +76,14 @@ const ResultGroup = () => {
     // Store best result
     let highest = updatedArray[0];
     for (const item of updatedArray) {
-      if (item.value > highest.value) highest = item;
+      if (item.value > highest.value) {
+        highest = item;
+      }
     }
     await AsyncStorage.setItem('result:highest', highest.key);
 
     setAdhdArray(updatedArray); // trigger re-render
+    setHighestTypeLabel(highest.label);
   }
 
   const handlePress = (typeKey: string) => {
@@ -97,6 +102,9 @@ const ResultGroup = () => {
 
   return (
     <View style={styles.container}>
+
+      <Text style={styles.title}>{`Tulokset`}</Text>
+      <Text style={styles.extraText}>Jotain tekstiä adhd tyypeistä</Text>
       {[...adhdArray] // make a copy so we don’t mutate state
         .sort((a, b) => b.value - a.value) // descending order
         .map(({ key, label, value, image }, index) => (
@@ -144,5 +152,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 19,
-  }
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 35,
+    lineHeight: 40,
+  },
+  extraText: {
+    marginBottom: 20,
+    marginTop: 5,
+    fontSize: 18
+  },
 });

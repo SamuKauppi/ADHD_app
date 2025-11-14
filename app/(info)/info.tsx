@@ -24,6 +24,7 @@ import HeaderWithProgress from '@/components/custom/header-progressbar'
 import AccordionGroup from '@/components/custom/info-page/accordion-group'
 import ReadMoreContent from '@/components/custom/info-page/read-more-content'
 import NavigationButtons from '@/components/custom/navigation-buttons'
+import { useSwipe } from '@/components/hooks/swipe'
 
 const InfoPage = () => {
   // Search local params
@@ -38,31 +39,50 @@ const InfoPage = () => {
     console.log('Type not found')
     return null
   }
-
   // Proceed with displaying data
+
   const [partIndex, setPartIndex] = useState(0)
   const partCount = Object.keys(selectedType).length
   const totalCount = partCount + 2 // +2 is from Accordion page and Read More Page
   const currentPart = getAdhdPart(selectedType, partIndex)
+  const panHandlers = useSwipe({
+    onSwipeLeft: () => { goNext(); },
+    onSwipeRight: () => { goPrevious(); }
+  });
+
 
   // navigation handlers
   const goNext = () => {
-    if (partIndex < totalCount - 1) {
-      setPartIndex(partIndex + 1)
-    } else {
+    setPartIndex(prev => {
+      const next = prev + 1;
+      if (prev >= totalCount - 1) {
+        return prev;
+      }
+      return next;
+    });
+
+    if (partIndex >= totalCount - 1) {
       router.push({
         pathname: '/read-more',
-        params: { typeOfResult: typeOfResult }
-      })
+        params: { typeOfResult }
+      });
     }
-  }
+  };
+
   const goPrevious = () => {
-    if (partIndex > 0) {
-      setPartIndex(partIndex - 1)
-    } else {
-      router.back()
+    setPartIndex(prev => {
+      const next = prev - 1;
+      if (prev <= 0) {
+        return prev;
+      }
+      return next;
+    });
+
+    if (partIndex <= 0) {
+      router.back();
     }
-  }
+  };
+
 
   // Content loading
   let content = null
@@ -117,9 +137,9 @@ const InfoPage = () => {
         />
         <NavigationButtons
           containerStyle={styles.navigationContainer}
+          hideNext={true}
           onNext={goNext}
-          onPrevious={goPrevious}
-          disableNext={true} />
+          onPrevious={goPrevious} />
       </>
     )
   }
@@ -129,7 +149,7 @@ const InfoPage = () => {
   return (
     <>
       <Stack.Screen />
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} {...panHandlers}>
         <ScrollView>
           <View style={styles.scrollMargin}>
             <HeaderWithProgress currentStep={partIndex} maxSteps={totalCount} onClose={router.back} />

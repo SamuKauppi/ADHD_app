@@ -6,8 +6,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import ResultGroup from '@/components/custom/result-group'
 import { Stack } from 'expo-router'
-import { Button } from '@/components/ui/button'
-import { ShareHandling } from '@/components/custom/share-handling'
 import Spacer from '@/components/ui/Spacer'
 import ShareResultButton from '@/components/custom/share-button'
 
@@ -36,7 +34,7 @@ const ResultPage = () => {
         <Text>No test data available. Please complete the test first.</Text>
       </SafeAreaView>
     )
-  }  
+  }
 
 
   // Test has been completed. Display results in ResultGroup
@@ -46,13 +44,12 @@ const ResultPage = () => {
       <SafeAreaView style={styles.container}>
         <View style={styles.scrollView}>
           <ScrollView >
-            <Text style={styles.title}>Tulossivu</Text>
-            <Text style={styles.extraText}>Jotain tekstiä adhd tyypeistä</Text>
             <ResultGroup />
-            <Spacer height={20}/>
-            <ShareResultButton/>
+            <Spacer height={15} />
+            <View style={styles.shareContainer}>
+              <ShareResultButton style={styles.shareButton} txtStyle={styles.shareBtnText}/>
+            </View>
           </ScrollView>
-
         </View>
       </SafeAreaView>
     </>
@@ -67,16 +64,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1
   },
-  extraText: {
-
-  },
   scrollView: {
     width: '92%',
     flex: 1,
   },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 30,
-    marginTop: 50,
+  shareContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+
+  },
+  shareButton: {
+    height: 55,
+    width: '46%'
+  },
+  shareBtnText: {
+    fontSize: 18,
+    fontWeight: 'bold'
   }
+
 })

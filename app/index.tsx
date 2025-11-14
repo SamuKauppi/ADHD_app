@@ -14,7 +14,7 @@ export default function Screen() {
 
   return (
     <>
-      <Stack.Screen/>
+      <Stack.Screen />
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}>Devpage</Text>
 

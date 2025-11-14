@@ -1,17 +1,15 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Stack, useRouter } from 'expo-router';
-import { Text } from '@/components/ui/text';
-import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { QUESTIONS } from '../lib/questions';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Spacer from '@/components/ui/Spacer';
 import StepProgressbar from '@/components/custom/step-progressbar';
 import IconButton from '@/components/custom/icon-button';
 import QuestionGroup from '@/components/custom/question-group';
 import NavigationButtons from '@/components/custom/navigation-buttons';
+import { useSwipe } from '@/components/hooks/swipe';
 
 export default function TestScreen() {
     const questionKeys = Object.keys(QUESTIONS);
@@ -21,16 +19,25 @@ export default function TestScreen() {
     const router = useRouter();
 
     const [canGoNext, setCanGoNext] = useState(false);
+    const panHandlers = useSwipe({
+        onSwipeLeft: () => { if (canGoNext) goNext(); },
+        onSwipeRight: () => { goPrevious(); },
+    });
 
     useEffect(() => {
         updateCanGoNext(currentKey, currentQuestion.options.length)
     }, [currentKey]);
 
     const goNext = () => {
-        if (currentIndex < questionKeys.length - 1) {
-            setCurrentIndex(currentIndex + 1);
-            setCanGoNext(false);
-        } else {
+        setCurrentIndex(prev => {
+            const next = prev + 1;
+            if (prev >= questionKeys.length - 1) {
+                return prev;
+            }
+            return next;
+        });
+
+        if (currentIndex >= questionKeys.length - 1) {
             try {
                 AsyncStorage.setItem('testCompleted', 'true');
                 router.replace('/result');
@@ -38,15 +45,23 @@ export default function TestScreen() {
                 console.warn('Failed to finalize test', error);
             }
         }
+
+
     };
 
     const goPrevious = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1);
-        } else {
+        setCurrentIndex(prev => {
+            const next = prev - 1;
+            if(prev <= 0)
+                return prev;
+            return next;
+        });
+
+        if(currentIndex <= 0) {
             router.back();
         }
     };
+
 
     const updateCanGoNext = async (questionKey: string, optionCount: number) => {
         try {
@@ -65,7 +80,7 @@ export default function TestScreen() {
     return (
         <>
             <Stack.Screen />
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.container}  {...panHandlers}>
                 <View style={styles.headers}>
                     <IconButton
                         iconName='close'
@@ -96,6 +111,7 @@ export default function TestScreen() {
                             onNext={goNext}
                             onPrevious={goPrevious}
                             containerStyle={styles.navigationContainer}
+                            disableNext={!canGoNext}
                         />
                     </ScrollView>
 

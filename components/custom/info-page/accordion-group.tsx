@@ -1,8 +1,7 @@
 // CustomAccordion.tsx
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-import NavigationButtons from '../navigation-buttons';
 
 interface CustomAccordionProps {
     accordionParts: any[];
@@ -10,10 +9,10 @@ interface CustomAccordionProps {
 
 const AccordionGroup = ({ accordionParts}: CustomAccordionProps) => {
     return (
-        <Accordion type="single" style={styles.accordionContainer}>
+        <Accordion type="single" style={styles.accordionContainer} defaultValue='0'>
             {accordionParts.map((part: { title: string; text: string[] }, idx: number) => (
                 <AccordionItem key={idx} value={idx.toString()} style={styles.accordionItem}>
-                    <AccordionTrigger>
+                    <AccordionTrigger style={styles.accordionTrigger}>
                         <Text style={styles.accordionTitle}>{part.title}</Text>
                     </AccordionTrigger>
                     <AccordionContent>
@@ -34,7 +33,8 @@ export default AccordionGroup;
 
 const styles = StyleSheet.create({
     accordionContainer: {},
-    accordionItem: { marginVertical: 10 },
-    accordionTitle: { fontSize: 24, fontWeight: 'bold', marginBottom: 10 },
+    accordionItem: { marginTop: 10, justifyContent: 'center' },
+    accordionTrigger: {alignItems: 'center'},
+    accordionTitle: { fontSize: 24, fontWeight: 'bold', lineHeight: 30 },
     accordionText: { fontSize: 20, lineHeight: 24, marginVertical: 7 },
 });
