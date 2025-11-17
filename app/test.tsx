@@ -9,7 +9,8 @@ import StepProgressbar from '@/components/custom/step-progressbar';
 import IconButton from '@/components/custom/icon-button';
 import QuestionGroup from '@/components/custom/question-group';
 import NavigationButtons from '@/components/custom/navigation-buttons';
-import { useSwipe } from '@/components/hooks/swipe';
+import { useSwipe } from '@/components/custom/hooks/swipe';
+import HeaderWithProgress from '@/components/custom/header-progressbar';
 
 export default function TestScreen() {
     const questionKeys = Object.keys(QUESTIONS);
@@ -52,12 +53,12 @@ export default function TestScreen() {
     const goPrevious = () => {
         setCurrentIndex(prev => {
             const next = prev - 1;
-            if(prev <= 0)
+            if (prev <= 0)
                 return prev;
             return next;
         });
 
-        if(currentIndex <= 0) {
+        if (currentIndex <= 0) {
             router.back();
         }
     };
@@ -81,23 +82,14 @@ export default function TestScreen() {
         <>
             <Stack.Screen />
             <SafeAreaView style={styles.container}  {...panHandlers}>
-                <View style={styles.headers}>
-                    <IconButton
-                        iconName='close'
-                        style={styles.closeIconContainer}
-                        onPress={() => router.back()}
-                    />
-                </View>
+                <HeaderWithProgress
+                    currentStep={currentIndex}
+                    maxSteps={questionKeys.length}
+                    onClose={router.back}
+                />
+                <ScrollView style={styles.scrollMargin}>
 
-                <View style={styles.content}>
-                    <ScrollView>
-                        <View style={styles.progressWrapper}>
-                            <StepProgressbar
-                                maxSteps={questionKeys.length}
-                                currentStep={currentIndex}
-                                buttonStyle={styles.progressbarBtn}
-                            />
-                        </View>
+                    <View style={styles.content}>
 
                         <QuestionGroup
                             questionData={currentQuestion}
@@ -113,9 +105,10 @@ export default function TestScreen() {
                             containerStyle={styles.navigationContainer}
                             disableNext={!canGoNext}
                         />
-                    </ScrollView>
 
-                </View>
+                    </View>
+                </ScrollView>
+
             </SafeAreaView>
         </>
     );
@@ -127,34 +120,12 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         justifyContent: 'space-between',
     },
-    headers: {
-        marginTop: 10,
-        paddingHorizontal: '4%',
-        width: '100%',
-        alignItems: 'flex-end',
-        marginBottom: 8
-    },
-    progressWrapper: {
-        flex: 1,
-        marginRight: 12,
-        minWidth: 0, // lets bar shrink instead of pushing icon out
-        alignSelf: 'flex-end',
-        flexDirection: 'row',
-        alignItems: 'flex-end'
-    },
-    closeIconContainer: {
-        width: 35,
-        height: 35,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    progressbarBtn: {
-        height: 6,
-        borderRadius: 6,
+    scrollMargin: {
+        marginHorizontal: '3%'
     },
     content: {
         flex: 1,
-        marginHorizontal: '10%', // adjustable between 5%–15%
+        marginHorizontal: '7%',
         justifyContent: 'space-between',
     },
     navigationContainer: {

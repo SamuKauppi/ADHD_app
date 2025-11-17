@@ -1,4 +1,3 @@
-// NavigationButtons.tsx
 import { View, StyleSheet, ViewStyle } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
@@ -14,6 +13,8 @@ interface NavigationButtonsProps {
   hidePrev?: boolean;
   disableNext?: boolean;
   disablePrev?: boolean;
+  nextArrowDir?: 'left' | 'right' | 'up' | 'down';
+  prevArrowDir?: 'left' | 'right' | 'up' | 'down';
   containerStyle?: ViewStyle;
 }
 
@@ -26,8 +27,11 @@ const NavigationButtons = ({
   hidePrev,
   disableNext,
   disablePrev,
+  nextArrowDir = 'right',
+  prevArrowDir = 'left',
   containerStyle
 }: NavigationButtonsProps) => {
+
   return (
     <View style={[styles.navigationContainer, containerStyle]}>
       {/* Previous Button */}
@@ -35,7 +39,12 @@ const NavigationButtons = ({
         <View style={styles.navigationBtn} />
       ) : (
         <Button onPress={onPrevious} disabled={disablePrev} style={styles.navigationBtn}>
-          <IconButton iconName="chevron" oppositeColor={true} style={styles.navigationBtnImg} mirror={true} />
+          <IconButton 
+          iconName="chevron" 
+          oppositeColor={true} 
+          style={styles.navigationBtnImg}
+          direction={prevArrowDir}
+          />
           <Text style={styles.navigationBtnTxt}>{prevText ?? 'Edellinen'}</Text>
         </Button>
       )}
@@ -48,7 +57,11 @@ const NavigationButtons = ({
       ) : (
         <Button onPress={onNext} disabled={disableNext} style={styles.navigationBtn}>
           <Text style={styles.navigationBtnTxt}>{nextText ?? 'Seuraava'}</Text>
-          <IconButton iconName="chevron" oppositeColor={true} style={styles.navigationBtnImg} />
+          <IconButton 
+          iconName="chevron" 
+          oppositeColor={true} 
+          style={styles.navigationBtnImg} 
+          direction={nextArrowDir}/>
         </Button>
       )}
     </View>
@@ -71,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   navigationBtnTxt: {
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: 'bold',
     marginHorizontal: 5,
   },

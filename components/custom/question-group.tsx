@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginVertical: 20
+        marginBottom: 20,
+        marginTop: 10
     },
     optionText: {
         fontSize: 16,

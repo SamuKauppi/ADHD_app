@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
     accordionContainer: {},
     accordionItem: { marginTop: 10, justifyContent: 'center' },
     accordionTrigger: {alignItems: 'center'},
-    accordionTitle: { fontSize: 24, fontWeight: 'bold', lineHeight: 30 },
-    accordionText: { fontSize: 20, lineHeight: 24, marginVertical: 7 },
+    accordionTitle: { fontSize: 26, fontWeight: 'bold', lineHeight: 30 },
+    accordionText: { fontSize: 18, lineHeight: 24, marginVertical: 7 },
 });

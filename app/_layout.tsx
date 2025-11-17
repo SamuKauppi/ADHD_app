@@ -28,7 +28,6 @@ export default function RootLayout() {
           }}>
           <Stack.Screen name="index" />
           <Stack.Screen name="test" />
-          <Stack.Screen name="result" />
         </Stack>
         <PortalHost />
       </ThemeProvider>

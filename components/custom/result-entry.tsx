@@ -34,7 +34,7 @@ const ResultEntry = ({
     const percentage = score && maxScore ? (score / maxScore) * 100 : 0;
 
     return (
-        <Pressable style={[style, { borderColor: theme.border }]} onPress={() => onPress?.(typeKey)}>
+        <Pressable style={[style, { borderColor: theme.border, backgroundColor: theme.card }]} onPress={() => onPress?.(typeKey)}>
             <Image
                 source={imgSource}
                 resizeMode='cover'

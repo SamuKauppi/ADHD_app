@@ -1,19 +1,24 @@
-import { Pressable, Image, GestureResponderEvent, ViewStyle, ImageStyle, useColorScheme, StyleSheet, View } from 'react-native'
+import { Pressable, Image, GestureResponderEvent, ViewStyle, ImageStyle, useColorScheme, StyleSheet, View, StyleProp } from 'react-native';
 import { iconMap } from '@/lib/icon';
 
 type IconButtonProps = {
-  /** base name of the icon file, without L/D or .png */
-  iconName: string
-  style?: ViewStyle
-  imgStyle?: ImageStyle
-  onPress?: (event: GestureResponderEvent) => void
-  oppositeColor?: boolean
-  mirror?: boolean
+  iconName: string;
+  style?: ViewStyle;
+  imgStyle?: StyleProp<ImageStyle>;
+  onPress?: (event: GestureResponderEvent) => void;
+  oppositeColor?: boolean;
+  direction?: 'left' | 'right' | 'up' | 'down';
 }
 
-const IconButton = ({ iconName, style, imgStyle, onPress, oppositeColor, mirror }: IconButtonProps) => {
-
- const scheme = useColorScheme();
+const IconButton = ({
+  iconName,
+  style,
+  imgStyle,
+  onPress,
+  oppositeColor,
+  direction = 'right',
+}: IconButtonProps) => {
+  const scheme = useColorScheme();
   const color = !oppositeColor ? 'light' : 'dark';
   const themeSuffix = scheme === color ? 'D' : 'L';
 
@@ -24,10 +29,16 @@ const IconButton = ({ iconName, style, imgStyle, onPress, oppositeColor, mirror 
     return null;
   }
 
-  const imageStyles = [
+  // Determine transforms
+  const transforms: { rotate?: string; scaleX?: number }[] = [];
+  if (direction === 'left') transforms.push({ scaleX: -1 });
+  if (direction === 'up') transforms.push({ rotate: '-90deg' });
+  if (direction === 'down') transforms.push({ rotate: '90deg' });
+
+  const imageStyles: StyleProp<ImageStyle> = [
     styles.icon,
     imgStyle,
-    mirror && { transform: [{ scaleX: -1 }] }
+    transforms.length ? { transform: transforms as any } : undefined, // cast to any to satisfy TypeScript
   ];
 
   if (onPress) {
@@ -43,14 +54,14 @@ const IconButton = ({ iconName, style, imgStyle, onPress, oppositeColor, mirror 
       <Image style={imageStyles} source={source} />
     </View>
   );
-}
+};
 
-export default IconButton
+export default IconButton;
 
 const styles = StyleSheet.create({
   icon: {
     height: '100%',
     width: '100%',
-    objectFit: 'fill'
+    resizeMode: 'contain',
   },
 });

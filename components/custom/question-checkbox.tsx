@@ -21,7 +21,7 @@ const QuestionCheckbox = ({ question, checked, onChange, style, textStyle }: Que
       onPress={() => onChange(!checked)}
       style={[
         styles.container,
-        { borderColor: theme.border },
+        { borderColor: theme.border, backgroundColor: theme.card },
         style,
       ]}>
       <Text style={[styles.text, textStyle]}>

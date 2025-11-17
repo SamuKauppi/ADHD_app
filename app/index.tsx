@@ -1,16 +1,33 @@
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { Stack, useRouter } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Spacer from '@/components/ui/Spacer';
-import * as React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTestCompleted } from '@/components/custom/use-test-completed';
+import { useEffect } from 'react';
 
 export default function Screen() {
 
-  const router = useRouter()
+  const router = useRouter();
+  const testCompleted = useTestCompleted();
+
+  useEffect(() => {
+    if (testCompleted) {
+      router.replace('/home');
+    }
+  }, [testCompleted]);
+
+
+  if (testCompleted === null) {
+    return null; // loading
+  }
+
+  if (testCompleted === true) {
+    return null; // redirect handled above
+  }
 
   return (
     <>

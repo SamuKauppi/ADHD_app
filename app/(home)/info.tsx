@@ -24,7 +24,7 @@ import HeaderWithProgress from '@/components/custom/header-progressbar'
 import AccordionGroup from '@/components/custom/info-page/accordion-group'
 import ReadMoreContent from '@/components/custom/info-page/read-more-content'
 import NavigationButtons from '@/components/custom/navigation-buttons'
-import { useSwipe } from '@/components/hooks/swipe'
+import { useSwipe } from '@/components/custom/hooks/swipe'
 
 const InfoPage = () => {
   // Search local params
@@ -63,7 +63,7 @@ const InfoPage = () => {
 
     if (partIndex >= totalCount - 1) {
       router.push({
-        pathname: '/read-more',
+        pathname: '/result',
         params: { typeOfResult }
       });
     }
@@ -137,9 +137,9 @@ const InfoPage = () => {
         />
         <NavigationButtons
           containerStyle={styles.navigationContainer}
-          hideNext={true}
+          nextText='Tuloksiin'
           onNext={goNext}
-          onPrevious={goPrevious} />
+          onPrevious={goPrevious}/>
       </>
     )
   }
@@ -150,9 +150,10 @@ const InfoPage = () => {
     <>
       <Stack.Screen />
       <SafeAreaView style={styles.container} {...panHandlers}>
-        <ScrollView>
-          <View style={styles.scrollMargin}>
-            <HeaderWithProgress currentStep={partIndex} maxSteps={totalCount} onClose={router.back} />
+        <HeaderWithProgress currentStep={partIndex} maxSteps={totalCount} onClose={router.back} />
+
+        <ScrollView style={styles.scrollMargin}>
+          <View style={styles.content}>
             {content}
           </View>
         </ScrollView>
@@ -166,21 +167,27 @@ export default InfoPage
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: '3%',
-    paddingVertical: 10
+    paddingVertical: 10,
+    justifyContent: 'space-between',
   },
   scrollMargin: {
-    marginHorizontal: '7%'
+    marginHorizontal: '3%'
+  },
+  content: {
+    flex: 1,
+    marginHorizontal: '7%',
+    justifyContent: 'space-between',
   },
   title: {
+    marginTop: 10,
     marginBottom: 20,
     fontWeight: 'bold',
-    fontSize: 28,
+    fontSize: 26,
     lineHeight: 32
   },
   text: {
     marginBottom: 16,
-    fontSize: 20,
+    fontSize: 18,
     lineHeight: 26
   },
   navigationContainer: {

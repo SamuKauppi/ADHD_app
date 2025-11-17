@@ -4,3 +4,5 @@ export const kutriColors = [
   "#cffaff", "#00baff", "#ff8a00", "#ffd99f", "#fd679d", "#1163c4",
   "#182196", "#0fc8de", "#00a2e8", "#cdf6ff", "#f9c51a"
 ];
+
+// #094f7c, #ff8a00
