@@ -11,41 +11,37 @@ import { useTestCompleted } from '@/components/custom/use-test-completed';
 const ResultPage = () => {
   const testCompleted = useTestCompleted();
 
-  // 1. While loading (null), render nothing
   if (testCompleted === null) {
-    return null;
+    return null; // loading
   }
 
-  // 2. Test not completed
-  if (testCompleted === false) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Text>No test data available. Please complete the test first.</Text>
-      </SafeAreaView>
-    );
-  }
-
-  // 3. Test completed
   return (
     <>
       <Stack.Screen />
       <SafeAreaView style={styles.container}>
         <View style={styles.scrollView}>
           <ScrollView>
-            <ResultGroup />
-            <Spacer height={15} />
-            <View style={styles.shareContainer}>
-              <ShareResultButton
-                style={styles.shareButton}
-                txtStyle={styles.shareBtnText}
-              />
-            </View>
+            {testCompleted ? (
+              <>
+                <ResultGroup />
+                <Spacer height={15} />
+                <View style={styles.shareContainer}>
+                  <ShareResultButton
+                    style={styles.shareButton}
+                    txtStyle={styles.shareBtnText}
+                  />
+                </View>
+              </>
+            ) : (
+              <Text>No test data available. Please complete the test first.</Text>
+            )}
           </ScrollView>
         </View>
       </SafeAreaView>
     </>
   );
 };
+
 
 export default ResultPage;
 

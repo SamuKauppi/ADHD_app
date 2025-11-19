@@ -132,7 +132,7 @@ const InfoPage = () => {
           data={{
             title: selectedReadMore?.title ?? '',
             text: selectedReadMore?.text ?? [],
-            link: selectedReadMore?.link // optional — ReadMoreContent handles undefined safely
+            link: selectedReadMore?.link
           }}
         />
         <NavigationButtons

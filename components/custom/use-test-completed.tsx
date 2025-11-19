@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useTestCompleted = () => {
@@ -12,7 +12,7 @@ export const useTestCompleted = () => {
       } catch {
         setCompleted(false);
       }
-    };
+    }
     load();
   }, []);
 

@@ -22,13 +22,25 @@ export default function RootLayout() {
       <ThemeProvider value={theme} >
         <StatusBar />
         <Stack
-          screenOptions={{
-            headerShown: false,
-            animation: 'simple_push'
-          }}>
+          screenOptions={({ route }) => {
+            let animation: 'default' | 'none' = 'default';
+
+            // Disable animation only for index <-> (home)/home transitions
+            if (route.name === 'index' || route.name === '(home)/home') {
+              animation = 'none';
+            }
+
+            return {
+              headerShown: false,
+              animation,
+            };
+          }}
+        >
           <Stack.Screen name="index" />
           <Stack.Screen name="test" />
         </Stack>
+
+
         <PortalHost />
       </ThemeProvider>
     </SafeAreaProvider>

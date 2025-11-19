@@ -5,8 +5,6 @@ import { QUESTIONS } from '../lib/questions';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import StepProgressbar from '@/components/custom/step-progressbar';
-import IconButton from '@/components/custom/icon-button';
 import QuestionGroup from '@/components/custom/question-group';
 import NavigationButtons from '@/components/custom/navigation-buttons';
 import { useSwipe } from '@/components/custom/hooks/swipe';
@@ -32,23 +30,18 @@ export default function TestScreen() {
     const goNext = () => {
         setCurrentIndex(prev => {
             const next = prev + 1;
+
+            // We are at the LAST question now
             if (prev >= questionKeys.length - 1) {
-                return prev;
+                AsyncStorage.setItem('testCompleted', 'true')
+                router.replace('/result');
+                return prev; // stay on last index
             }
+
             return next;
         });
-
-        if (currentIndex >= questionKeys.length - 1) {
-            try {
-                AsyncStorage.setItem('testCompleted', 'true');
-                router.replace('/result');
-            } catch (error) {
-                console.warn('Failed to finalize test', error);
-            }
-        }
-
-
     };
+
 
     const goPrevious = () => {
         setCurrentIndex(prev => {

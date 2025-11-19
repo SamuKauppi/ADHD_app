@@ -1,39 +1,48 @@
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
-import { Stack, useRouter } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { Stack, useRouter, useFocusEffect } from 'expo-router';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTestCompleted } from '@/components/custom/use-test-completed';
+import { useCallback } from 'react';
 
 import Spacer from '@/components/ui/Spacer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useTestCompleted } from '@/components/custom/use-test-completed';
-import { useEffect } from 'react';
+
 
 export default function Screen() {
 
   const router = useRouter();
   const testCompleted = useTestCompleted();
 
-  useEffect(() => {
-    if (testCompleted) {
-      router.replace('/home');
-    }
-  }, [testCompleted]);
+  useFocusEffect(
+    useCallback(() => {
+      let mounted = true;
+      (async () => {
+        try {
+          const val = await AsyncStorage.getItem('testCompleted');
+          if (!mounted) return;
+          if (val === 'true') {
+            router.replace('/home');
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      })();
 
+      return () => { mounted = false; };
+    }, [router])
+  );
 
-  if (testCompleted === null) {
-    return null; // loading
-  }
-
-  if (testCompleted === true) {
-    return null; // redirect handled above
-  }
+  // TODO: Add loading screen
+  if (testCompleted == null) return null;
+  if (testCompleted === true) return null;
 
   return (
     <>
       <Stack.Screen />
       <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>Devpage</Text>
+        <Text style={styles.title}>Starting Page</Text>
 
         <Spacer height={50} />
 
@@ -51,14 +60,6 @@ export default function Screen() {
 
         <Button
           style={styles.button}
-          onPress={() => router.push('/result')}>
-          <Text>Result</Text>
-        </Button>
-
-        <Spacer height={20} />
-
-        <Button
-          style={styles.button}
           onPress={async () => {
             try {
               await AsyncStorage.clear();
@@ -70,13 +71,6 @@ export default function Screen() {
           <Text>Reset data</Text>
         </Button>
 
-        <Spacer height={20} />
-
-        <Button
-          style={styles.button}
-          onPress={() => router.push('/info')}>
-          <Text>Test type</Text>
-        </Button>
       </SafeAreaView>
     </>
   );
