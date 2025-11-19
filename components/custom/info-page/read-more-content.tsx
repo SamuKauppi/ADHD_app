@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Pressable, Linking, StyleSheet } from 'react-native';
 import { Text } from '@/components/ui/text';
-import NavigationButtons from '@/components/custom/navigation-buttons';
+import NavigationButtons from '@/components/custom/navigation/navigation-buttons';
 
 export interface ReadMoreData {
   title: string;
@@ -14,6 +14,8 @@ interface ReadMoreContentProps {
   data: ReadMoreData;
 }
 
+
+// Read more content
 const ReadMoreContent = ({data}: ReadMoreContentProps) => {
 
   const openLink = async (url?: string) => {

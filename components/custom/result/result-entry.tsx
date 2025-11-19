@@ -3,7 +3,7 @@ import { Text } from '@/components/ui/text';
 import { THEME } from '@/lib/theme';
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 
-import IconButton from './icon-button';
+import IconButton from '../navigation/icon-button';
 
 type ResultEntryProps = {
     typeKey: string;
@@ -17,6 +17,7 @@ type ResultEntryProps = {
     onPress?: (typeKey: string) => void;
 };
 
+// One entry in ResultGroup
 const ResultEntry = ({
     typeKey,
     typeLabel,

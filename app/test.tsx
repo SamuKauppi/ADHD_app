@@ -3,14 +3,16 @@ import { Stack, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { QUESTIONS } from '../lib/questions';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSwipe } from '@/components/custom/hooks/swipe';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import QuestionGroup from '@/components/custom/question-group';
-import NavigationButtons from '@/components/custom/navigation-buttons';
-import { useSwipe } from '@/components/custom/hooks/swipe';
-import HeaderWithProgress from '@/components/custom/header-progressbar';
+import QuestionGroup from '@/components/custom/question/question-group';
+import NavigationButtons from '@/components/custom/navigation/navigation-buttons';
+import HeaderWithProgress from '@/components/custom/navigation/header-progressbar';
 
+// Test page
 export default function TestScreen() {
+    // Load questions from questions.ts
     const questionKeys = Object.keys(QUESTIONS);
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentKey = questionKeys[currentIndex];

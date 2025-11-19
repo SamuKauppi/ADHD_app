@@ -2,12 +2,13 @@ import { StyleSheet, ScrollView, View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import ResultGroup from '@/components/custom/result-group';
+import ResultGroup from '@/components/custom/result/result-group';
 import { Stack } from 'expo-router';
 import Spacer from '@/components/ui/Spacer';
-import ShareResultButton from '@/components/custom/share-button';
-import { useTestCompleted } from '@/components/custom/use-test-completed';
+import ShareResultButton from '@/components/custom/share-button/share-button';
+import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 
+// Loads and displays results from AsyncStorage
 const ResultPage = () => {
   const testCompleted = useTestCompleted();
 

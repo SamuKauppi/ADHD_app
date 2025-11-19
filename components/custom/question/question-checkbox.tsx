@@ -5,13 +5,15 @@ import { THEME } from '@/lib/theme';
 import { Checkbox } from '@/components/ui/checkbox';
 
 type QuestionCheckboxProps = {
-  question: string;
+  question: string;                 
   checked: boolean;
   onChange: (value: boolean) => void;
   style?: ViewStyle;
   textStyle?: TextStyle;
 };
 
+// Pressable containing text and a checkbox
+// Used in QuestionGroup
 const QuestionCheckbox = ({ question, checked, onChange, style, textStyle }: QuestionCheckboxProps) => {
   const scheme = useColorScheme();
   const theme = THEME[scheme ?? 'light'];

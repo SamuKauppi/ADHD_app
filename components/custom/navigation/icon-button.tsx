@@ -2,14 +2,15 @@ import { Pressable, Image, GestureResponderEvent, ViewStyle, ImageStyle, useColo
 import { iconMap } from '@/lib/icon';
 
 type IconButtonProps = {
-  iconName: string;
-  style?: ViewStyle;
-  imgStyle?: StyleProp<ImageStyle>;
-  onPress?: (event: GestureResponderEvent) => void;
-  oppositeColor?: boolean;
-  direction?: 'left' | 'right' | 'up' | 'down';
+  iconName: string;                                 // name of the image
+  style?: ViewStyle;                                // optional styles for container
+  imgStyle?: StyleProp<ImageStyle>;                 // optional style for image
+  onPress?: (event: GestureResponderEvent) => void; // on press functionality
+  oppositeColor?: boolean;                          // swap colors (TODO: remove if no dark mode support)
+  direction?: 'left' | 'right' | 'up' | 'down';     // direction the image is facing
 }
 
+// Icon that can be pressable
 const IconButton = ({
   iconName,
   style,

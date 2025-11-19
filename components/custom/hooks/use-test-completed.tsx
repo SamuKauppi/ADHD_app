@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Function for fetching if the test has been done
 export const useTestCompleted = () => {
   const [completed, setCompleted] = useState<boolean | null>(null);
 

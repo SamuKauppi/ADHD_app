@@ -10,6 +10,7 @@ type StepProgressbarProps = {
     onStepPress?: (stepIndex: number) => void;
 };
 
+// Progressbar with steps
 const StepProgressbar = ({
     maxSteps,
     currentStep = 0,

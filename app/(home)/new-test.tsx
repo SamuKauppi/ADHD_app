@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 
+// Page to start a new test
 const TestAgain = () => {
   return (
     <View>
-      <Text>TestAgain</Text>
     </View>
   )
 }

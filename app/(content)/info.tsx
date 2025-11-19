@@ -20,12 +20,14 @@ import { ADHD_ACCORDION } from '@/lib/adhd-accordion'
 import { getReadMoreType } from '@/lib/adhd-read-more'
 
 // Local, reusable components (header, accordion group, read-more)
-import HeaderWithProgress from '@/components/custom/header-progressbar'
+import HeaderWithProgress from '@/components/custom/navigation/header-progressbar'
 import AccordionGroup from '@/components/custom/info-page/accordion-group'
 import ReadMoreContent from '@/components/custom/info-page/read-more-content'
-import NavigationButtons from '@/components/custom/navigation-buttons'
+import NavigationButtons from '@/components/custom/navigation/navigation-buttons'
 import { useSwipe } from '@/components/custom/hooks/swipe'
 
+
+// Displays info based on localSearchParams
 const InfoPage = () => {
   // Search local params
   const { typeOfResult } = useLocalSearchParams<{ typeOfResult: string }>()

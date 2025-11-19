@@ -1,8 +1,8 @@
 // components/custom/header-with-progress.tsx
 import React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
-import StepProgressbar from '@/components/custom/step-progressbar';
-import IconButton from '@/components/custom/icon-button';
+import StepProgressbar from '@/components/custom/navigation/step-progressbar';
+import IconButton from '@/components/custom/navigation/icon-button';
 
 interface HeaderWithProgressProps {
   currentStep: number;        // 0-based current step
@@ -11,6 +11,8 @@ interface HeaderWithProgressProps {
   progressStyle?: ViewStyle;  // optional additional style for the progress bar
 }
 
+// Header with a progressbar
+// Used in test and info page
 const HeaderWithProgress = ({
   currentStep,
   maxSteps,

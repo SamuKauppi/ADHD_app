@@ -3,12 +3,13 @@ import { Text } from '@/components/ui/text';
 import { Stack, useRouter, useFocusEffect } from 'expo-router';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useTestCompleted } from '@/components/custom/use-test-completed';
+import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 import { useCallback } from 'react';
 
 import Spacer from '@/components/ui/Spacer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Home screen. Redirects to Index if test is not complete
 const Home = () => {
 
   const router = useRouter();

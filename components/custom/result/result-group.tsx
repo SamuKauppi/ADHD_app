@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native'
-import { Text } from '../ui/text'
+import { Text } from '../../ui/text'
 import { QUESTIONS } from '@/lib/questions'
 import { ADHD_TYPE, getADHDImage } from '@/lib/adhd-types'
 import { useEffect, useState } from 'react'
@@ -15,6 +15,8 @@ type ADHDItem = {
   value: number;
 }
 
+// Loads group of ResultEntries
+// Values for them are from AsyncStorage which were stored during test
 const ResultGroup = () => {
 
   const [adhdArray, setAdhdArray] = useState<ADHDItem[]>(

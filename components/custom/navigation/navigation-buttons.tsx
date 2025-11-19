@@ -2,22 +2,29 @@ import { View, StyleSheet, ViewStyle } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
 import Spacer from '@/components/ui/Spacer';
-import IconButton from '@/components/custom/icon-button';
+import IconButton from '@/components/custom/navigation/icon-button';
 
 interface NavigationButtonsProps {
-  onNext: () => void;
-  onPrevious: () => void;
+  onNext: () => void;               // On next functionality
+  onPrevious: () => void;           // On previous functionality
+  // Button texts 
   nextText?: string;
-  prevText?: string;
+  prevText?: string;                
+  // Hide one of the buttons
   hideNext?: boolean;
   hidePrev?: boolean;
+  // Disable one of the buttons
   disableNext?: boolean;
   disablePrev?: boolean;
+  // Button arrow orientations
   nextArrowDir?: 'left' | 'right' | 'up' | 'down';
   prevArrowDir?: 'left' | 'right' | 'up' | 'down';
+  // Style
   containerStyle?: ViewStyle;
 }
 
+// Navigation footer
+// Used in test and info page
 const NavigationButtons = ({
   onNext,
   onPrevious,

@@ -8,6 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+// Layout page responsible for dashboard
 const HomeLayout = () => {
     const { colorScheme } = useColorScheme();
     const theme = NAV_THEME[colorScheme ?? 'light'];

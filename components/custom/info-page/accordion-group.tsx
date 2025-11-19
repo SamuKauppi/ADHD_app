@@ -1,4 +1,3 @@
-// CustomAccordion.tsx
 import { StyleSheet } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
@@ -7,6 +6,7 @@ interface CustomAccordionProps {
     accordionParts: any[];
 }
 
+// Accordion group and their content
 const AccordionGroup = ({ accordionParts}: CustomAccordionProps) => {
     return (
         <Accordion type="single" style={styles.accordionContainer} defaultValue='0'>

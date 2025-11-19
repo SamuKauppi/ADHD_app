@@ -8,6 +8,7 @@ type UseSwipeConfig = {
   threshold?: number;
 };
 
+// Hook for swiping pages
 export function useSwipe({ onSwipeLeft, onSwipeRight, threshold = 50 }: UseSwipeConfig) {
   // keep latest callbacks in a ref so PanResponder always calls latest versions
   const callbacksRef = useRef<{ onSwipeLeft?: typeof onSwipeLeft; onSwipeRight?: typeof onSwipeRight }>({

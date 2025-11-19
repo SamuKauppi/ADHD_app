@@ -5,6 +5,7 @@ type ShareProps = {
     url?: string
 };
 
+// Handles the sharewindow opening
 export async function ShareHandling({ message, url }: ShareProps) {
     try {
         await Share.share({

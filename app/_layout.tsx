@@ -13,6 +13,7 @@ export {
   ErrorBoundary,
 } from 'expo-router';
 
+// Layout for other pages
 export default function RootLayout() {
   const { colorScheme } = useColorScheme();
   const theme = NAV_THEME[colorScheme ?? 'light']

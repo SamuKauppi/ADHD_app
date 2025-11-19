@@ -13,6 +13,7 @@ type ShareProps = {
     txtStyle?: TextStyle;
 }
 
+// Button that opens the sharewindow
 const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
     const [loading, setLoading] = useState(false);
 
