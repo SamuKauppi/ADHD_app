@@ -3,10 +3,10 @@ import { ADHD_TYPE } from "@/lib/adhd-types";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ShareHandling } from "./share-handling";
-import { Button } from "../ui/button";
-import { Text } from "../ui/text";
+import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
 import { StyleSheet, TextStyle, ViewStyle } from "react-native";
-import IconButton from "./icon-button";
+import IconButton from "../navigation/icon-button";
 
 type ShareProps = {
     style?: ViewStyle;
