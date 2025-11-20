@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ShareHandling } from "./share-handling";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
-import { StyleSheet, TextStyle, ViewStyle } from "react-native";
+import { Pressable, StyleSheet, TextStyle, ViewStyle } from "react-native";
 import IconButton from "../navigation/icon-button";
 
 type ShareProps = {
@@ -45,7 +45,7 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
     }
 
     return (
-        <Button onPress={handleShare} style={[styles.container, style]}>
+        <Pressable onPress={handleShare} style={[styles.container, style]}>
             <IconButton
                 iconName="share"
                 oppositeColor={true}
@@ -54,7 +54,7 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
                 {loading ? 'Lataa...' : 'Jaa Tuloksesi!'}
             </Text>
 
-        </Button>
+        </Pressable>
     )
 }
 
@@ -67,6 +67,10 @@ const styles = StyleSheet.create({
     },
     container: {
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'black',
+        flexDirection: 'row',
+        borderRadius: 10,
+        padding: 10
     }
 })

@@ -1,12 +1,11 @@
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 
 import ResultGroup from '@/components/custom/result/result-group';
-import { Stack } from 'expo-router';
 import Spacer from '@/components/ui/Spacer';
 import ShareResultButton from '@/components/custom/share-button/share-button';
-import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 
 // Loads and displays results from AsyncStorage
 const ResultPage = () => {
@@ -18,14 +17,13 @@ const ResultPage = () => {
 
   return (
     <>
-      <Stack.Screen />
       <SafeAreaView style={styles.container}>
-        <View style={styles.scrollView}>
-          <ScrollView>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.scrollMargin}>
             {testCompleted ? (
               <>
-                <ResultGroup />
-                <Spacer height={15} />
+                <ResultGroup style={styles.resultGroupContainer} />
+                <Spacer height={5} />
                 <View style={styles.shareContainer}>
                   <ShareResultButton
                     style={styles.shareButton}
@@ -36,8 +34,9 @@ const ResultPage = () => {
             ) : (
               <Text>No test data available. Please complete the test first.</Text>
             )}
-          </ScrollView>
-        </View>
+
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </>
   );
@@ -48,17 +47,27 @@ export default ResultPage;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollView: {
+    flex: 1,
+    width: '98%',
+  },
+  scrollMargin: {
+    paddingTop: 30,
+    marginHorizontal: '2%',
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
   },
-  scrollView: {
-    width: '92%',
-    flex: 1,
+  resultGroupContainer: {
+    width: '90%',
   },
   shareContainer: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   shareButton: {
     height: 55,
@@ -67,5 +76,6 @@ const styles = StyleSheet.create({
   shareBtnText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: 'white'
   },
 });

@@ -10,31 +10,31 @@ export const ADHD_TYPE: Record<string, ADHDType> = {
   t0: {
     name: "Kärsimätön vitkuttelija",
     images: [
-      { src: require("../assets/images/kuormittuvajanis.png"), imgType: "result-mini" },
+      { src: require("../assets/images/types/vitkuttelija.jpg"), imgType: "result-mini" },
     ],
   },
   t1: {
     name: "Kuormittuva sähköjänis",
     images: [
-      { src: require("../assets/images/kuormittuvajanis.png"), imgType: "result-mini" },
+      { src: require("../assets/images/types/kuormittuvatjanikset.jpg"), imgType: "result-mini" },
     ],
   },
   t2: {
     name: "Hajamielinen haaveilija",
     images: [
-      { src: require("../assets/images/kuormittuvajanis.png"), imgType: "result-mini" },
+      { src: require("../assets/images/types/haaveilija.jpg"), imgType: "result-mini" },
     ],
   },
   t3: {
     name: "Kuohuva herkkis",
     images: [
-      { src: require("../assets/images/kuormittuvajanis.png"), imgType: "result-mini" },
+      { src: require("../assets/images/types/herkkis.jpg"), imgType: "result-mini" },
     ],
   },
   t4: {
     name: "Kömpelö jumittaja",
     images: [
-      { src: require("../assets/images/kuormittuvajanis.png"), imgType: "result-mini" },
+      { src: require("../assets/images/types/jumittaja.jpg"), imgType: "result-mini" },
     ],
   },
 };

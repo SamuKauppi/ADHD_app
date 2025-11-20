@@ -14,25 +14,26 @@ const HomeLayout = () => {
     const theme = NAV_THEME[colorScheme ?? 'light'];
 
     return (
-        <SafeAreaProvider style={{ backgroundColor: theme.colors.background }}>
-            <ThemeProvider value={theme}>
-                <StatusBar />
-                <Tabs
-                    screenOptions={{
-                        headerShown: false,
-                        tabBarStyle: {
-                            backgroundColor: theme.colors.card,
-                        },
-                    }}
-                >
-                    <Tabs.Screen name="home" options={{ title: 'Koti' }} />
-                    <Tabs.Screen name="result" options={{ title: 'Tulossivu' }} />
-                    <Tabs.Screen name='new-test' options={{title: 'Testaa Uudelleen'}}/>
-                    <Tabs.Screen name='hint' options={{title: 'Päivän Vinkki'}}/>
-                </Tabs>
-                <PortalHost />
-            </ThemeProvider>
-        </SafeAreaProvider>
+        <>
+            <SafeAreaProvider style={{ backgroundColor: theme.colors.background }}>
+                <ThemeProvider value={theme}>
+                    <StatusBar />
+                    <Tabs
+                        screenOptions={{
+                            headerShown: false,
+                            tabBarStyle: {
+                                backgroundColor: theme.colors.card,
+                            },
+                        }}>
+                        <Tabs.Screen name="home" options={{ title: 'Koti' }} />
+                        <Tabs.Screen name="result" options={{ title: 'Tulokset' }} />
+                        <Tabs.Screen name='new-test' options={{ title: 'Testaa Uudelleen' }} />
+                        <Tabs.Screen name='hint' options={{ title: 'Päivän Vinkki' }} />
+                    </Tabs>
+                    <PortalHost />
+                </ThemeProvider>
+            </SafeAreaProvider>
+        </>
     );
 };
 

@@ -42,7 +42,7 @@ const ResultEntry = ({
                 style={styles.resultImage} />
             <View style={styles.textContainer}>
                 <AnimatedCircularProgress
-                    size={90}
+                    size={82}
                     width={15}
                     fill={percentage}
                     tintColor="#00a2e8"
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     resultImage: {
         width: '25%',
         aspectRatio: 1,
-        borderRadius: 10,
+        borderRadius: 5,
         overflow: 'hidden',
     },
     nextIconContainer: {

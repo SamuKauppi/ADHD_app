@@ -2,12 +2,13 @@ import { StyleSheet } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 
-interface CustomAccordionProps {
+interface AccordionProps {
     accordionParts: any[];
 }
 
-// Accordion group and their content
-const AccordionGroup = ({ accordionParts}: CustomAccordionProps) => {
+// Accordion group
+// Content is loaded in result.tsx
+const AccordionGroup = ({ accordionParts}: AccordionProps) => {
     return (
         <Accordion type="single" style={styles.accordionContainer} defaultValue='0'>
             {accordionParts.map((part: { title: string; text: string[] }, idx: number) => (
@@ -35,6 +36,6 @@ const styles = StyleSheet.create({
     accordionContainer: {},
     accordionItem: { marginTop: 10, justifyContent: 'center' },
     accordionTrigger: {alignItems: 'center'},
-    accordionTitle: { fontSize: 26, fontWeight: 'bold', lineHeight: 30 },
+    accordionTitle: { fontSize: 22, fontWeight: 'bold', lineHeight: 30 },
     accordionText: { fontSize: 18, lineHeight: 24, marginVertical: 7 },
 });

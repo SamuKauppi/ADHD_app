@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, ViewStyle } from 'react-native'
 import { Text } from '../../ui/text'
 import { QUESTIONS } from '@/lib/questions'
 import { ADHD_TYPE, getADHDImage } from '@/lib/adhd-types'
@@ -15,9 +15,13 @@ type ADHDItem = {
   value: number;
 }
 
+type ResultProp = {
+  style?: ViewStyle;
+}
+
 // Loads group of ResultEntries
 // Values for them are from AsyncStorage which were stored during test
-const ResultGroup = () => {
+const ResultGroup = ({style}:ResultProp) => {
 
   const [adhdArray, setAdhdArray] = useState<ADHDItem[]>(
     Object.entries(ADHD_TYPE).map(([key, { name }]) => ({
@@ -103,7 +107,7 @@ const ResultGroup = () => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={style}>
 
       <Text style={styles.title}>{`Tulokset`}</Text>
       <Text style={styles.extraText}>Jotain tekstiä adhd tyypeistä</Text>
@@ -131,10 +135,6 @@ const ResultGroup = () => {
 export default ResultGroup
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30,
-    flex: 1,
-  },
   resultEntry: {
     borderWidth: 3,
     borderRadius: 10,

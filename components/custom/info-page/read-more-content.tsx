@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, Pressable, Linking, StyleSheet } from 'react-native';
 import { Text } from '@/components/ui/text';
-import NavigationButtons from '../navigation/navigation-buttons';
 
 export interface ReadMoreData {
   title: string;

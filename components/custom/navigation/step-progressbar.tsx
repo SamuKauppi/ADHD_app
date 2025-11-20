@@ -3,10 +3,12 @@ import React from 'react';
 import { StyleSheet, View, Pressable, useColorScheme } from 'react-native';
 
 type StepProgressbarProps = {
-    maxSteps: number;
-    currentStep?: number;
-    style?: object;
+    maxSteps: number;       // How many steps there will be
+    currentStep?: number;   // Current step
+    // Styles
+    style?: object;         
     buttonStyle?: object;
+    // What does pressing one step does
     onStepPress?: (stepIndex: number) => void;
 };
 
