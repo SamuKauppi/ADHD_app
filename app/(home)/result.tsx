@@ -23,12 +23,9 @@ const ResultPage = () => {
             {testCompleted ? (
               <>
                 <ResultGroup style={styles.resultGroupContainer} />
-                <Spacer height={5} />
+                <Spacer height={20} />
                 <View style={styles.shareContainer}>
-                  <ShareResultButton
-                    style={styles.shareButton}
-                    txtStyle={styles.shareBtnText}
-                  />
+                  <ShareResultButton/>
                 </View>
               </>
             ) : (
@@ -69,13 +66,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  shareButton: {
-    height: 55,
-    width: 200,
-  },
-  shareBtnText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white'
-  },
+
 });

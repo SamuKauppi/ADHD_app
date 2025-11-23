@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 import { useCallback } from 'react';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 import Spacer from '@/components/ui/Spacer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: KUTRI_COLORS.background
   },
   button: {
     padding: 50,

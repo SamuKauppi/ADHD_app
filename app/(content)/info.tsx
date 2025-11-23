@@ -1,30 +1,29 @@
-// InfoPage.tsx
-import React, { useState } from 'react' // react + hooks
+import { useState } from 'react'
 
 // Router (expo-router) — navigation, route params and screen wrapper
 import { router, Stack, useLocalSearchParams } from 'expo-router'
 
 // React Native primitives used in this file
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View, Text } from 'react-native'
 
 // Safe area wrapper
 import { SafeAreaView } from 'react-native-safe-area-context'
-
-// App UI primitives
-import { Text } from '@/components/ui/text'
 
 // Data + utils for selecting content
 import { getAdhdPart, getAdhdType } from '@/lib/adhd-utils'
 import { ADHD_DATA } from '@/lib/adhd-data'
 import { ADHD_ACCORDION } from '@/lib/adhd-accordion'
 import { getReadMoreType } from '@/lib/adhd-read-more'
+import { useSwipe } from '@/components/custom/hooks/swipe'
+import { KUTRI_COLORS } from '@/lib/brand-colors'
 
 // Local, reusable components (header, accordion group, read-more)
 import HeaderWithProgress from '@/components/custom/navigation/header-progressbar'
 import AccordionGroup from '@/components/custom/info-page/accordion-group'
 import ReadMoreContent from '@/components/custom/info-page/read-more-content'
 import NavigationButtons from '@/components/custom/navigation/navigation-buttons'
-import { useSwipe } from '@/components/custom/hooks/swipe'
+import { renderWithBold } from '@/components/custom/functions/render-with-bold'
+
 
 
 // Displays info based on localSearchParams
@@ -98,12 +97,12 @@ const InfoPage = () => {
         {currentPart?.text.map((line: string, idx: number) => (
           <Text
             key={idx}
-            style={[styles.text, idx === 0 && { fontWeight: 'bold' }]}
-            accessibilityRole="text"
-          >
-            {line}
-          </Text>
-        ))}
+            style={[styles.text,
+            idx === 0 && { fontWeight: 'bold' }]}
+            accessibilityRole="text" >
+            {renderWithBold(line, currentPart.bold)}
+          </Text>))}
+
         <NavigationButtons
           onNext={goNext}
           onPrevious={goPrevious}
@@ -141,7 +140,7 @@ const InfoPage = () => {
           containerStyle={styles.navigationContainer}
           nextText='Tuloksiin'
           onNext={goNext}
-          onPrevious={goPrevious}/>
+          onPrevious={goPrevious} />
       </>
     )
   }
@@ -152,7 +151,14 @@ const InfoPage = () => {
     <>
       <Stack.Screen />
       <SafeAreaView style={styles.container} {...panHandlers}>
-        <HeaderWithProgress currentStep={partIndex} maxSteps={totalCount} onClose={router.back} />
+        <View style={styles.headerMargin}>
+          <HeaderWithProgress
+            currentStep={partIndex}
+            maxSteps={totalCount}
+            onClose={router.back}
+            style={styles.headerExtra} />
+
+        </View>
 
         <ScrollView style={styles.scrollMargin}>
           <View style={styles.content}>
@@ -170,15 +176,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 10,
-    justifyContent: 'space-between',
+    backgroundColor: KUTRI_COLORS.background
+  },
+  headerMargin: {
+    marginHorizontal: '3%',
+    paddingTop: '1%',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    backgroundColor: KUTRI_COLORS.foreground
+  },
+  headerExtra: {
+    marginLeft: '7%',
+    marginRight: '1%'
   },
   scrollMargin: {
     marginHorizontal: '3%'
   },
   content: {
     flex: 1,
-    marginHorizontal: '7%',
     justifyContent: 'space-between',
+
+    paddingHorizontal: '7%',
+    paddingBottom: '7%',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: KUTRI_COLORS.foreground
   },
   title: {
     marginTop: 10,

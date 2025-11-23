@@ -1,3 +1,4 @@
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 import { THEME } from '@/lib/theme';
 import React from 'react';
 import { StyleSheet, View, Pressable, useColorScheme } from 'react-native';
@@ -21,9 +22,6 @@ const StepProgressbar = ({
     onStepPress,
 }: StepProgressbarProps) => {
 
-    const scheme = useColorScheme()
-    const theme = THEME[scheme ?? 'light'];
-
     return (
         <View style={[styles.container, style]}>
             {Array.from({ length: maxSteps }).map((_, index) => {
@@ -38,8 +36,8 @@ const StepProgressbar = ({
                             buttonStyle,
                             {
                                 backgroundColor: active
-                                    ? theme.foreground
-                                    : theme.mutedForeground,
+                                    ? KUTRI_COLORS.cardForeground
+                                    : KUTRI_COLORS.cardBackground,
                             },
                         ]}
                         disabled={active}

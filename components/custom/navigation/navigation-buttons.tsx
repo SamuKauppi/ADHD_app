@@ -1,8 +1,7 @@
-import { View, StyleSheet, ViewStyle } from 'react-native';
-import { Text } from '@/components/ui/text';
-import { Button } from '@/components/ui/button';
+import { View, StyleSheet, ViewStyle, Text, Pressable } from 'react-native';
 import Spacer from '@/components/ui/Spacer';
 import IconButton from '@/components/custom/navigation/icon-button';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 interface NavigationButtonsProps {
   onNext: () => void;               // On next functionality
@@ -45,15 +44,19 @@ const NavigationButtons = ({
       {hidePrev ? (
         <View style={styles.navigationBtn} />
       ) : (
-        <Button onPress={onPrevious} disabled={disablePrev} style={styles.navigationBtn}>
+        <Pressable 
+        onPress={onPrevious} 
+        disabled={disablePrev}
+        style={[styles.navigationBtn, {
+          backgroundColor: KUTRI_COLORS.foreground,
+        }]}>
           <IconButton 
-          iconName="chevron" 
-          oppositeColor={true} 
+          iconName="chevronD" 
           style={styles.navigationBtnImg}
           direction={prevArrowDir}
           />
           <Text style={styles.navigationBtnTxt}>{prevText ?? 'Edellinen'}</Text>
-        </Button>
+        </Pressable>
       )}
 
       <Spacer width={20} />
@@ -62,14 +65,18 @@ const NavigationButtons = ({
       {hideNext ? (
         <View style={styles.navigationBtn} />
       ) : (
-        <Button onPress={onNext} disabled={disableNext} style={styles.navigationBtn}>
+        <Pressable 
+        onPress={onNext} 
+        disabled={disableNext} 
+        style={[styles.navigationBtn, {
+          backgroundColor: KUTRI_COLORS.button,
+        }]}>
           <Text style={styles.navigationBtnTxt}>{nextText ?? 'Seuraava'}</Text>
           <IconButton 
-          iconName="chevron" 
-          oppositeColor={true} 
+          iconName="chevronD" 
           style={styles.navigationBtnImg} 
           direction={nextArrowDir}/>
-        </Button>
+        </Pressable>
       )}
     </View>
   );
@@ -88,7 +95,11 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    borderColor: KUTRI_COLORS.cardForeground,
+    borderWidth: 2
   },
   navigationBtnTxt: {
     fontSize: 19,
@@ -97,6 +108,6 @@ const styles = StyleSheet.create({
   },
   navigationBtnImg: {
     width: 15,
-    height: 15,
+    height: 20,
   },
 });

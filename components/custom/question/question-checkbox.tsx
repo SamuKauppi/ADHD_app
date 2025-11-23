@@ -1,8 +1,7 @@
 // components/custom/QuestionCheckbox.tsx
-import { StyleSheet, Pressable, ViewStyle, TextStyle, useColorScheme } from 'react-native';
-import { Text } from '@/components/ui/text';
-import { THEME } from '@/lib/theme';
+import { StyleSheet, Pressable, ViewStyle, TextStyle, Text } from 'react-native';
 import { Checkbox } from '@/components/ui/checkbox';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 type QuestionCheckboxProps = {
   question: string;                 
@@ -15,15 +14,13 @@ type QuestionCheckboxProps = {
 // Pressable containing text and a checkbox
 // Used in QuestionGroup
 const QuestionCheckbox = ({ question, checked, onChange, style, textStyle }: QuestionCheckboxProps) => {
-  const scheme = useColorScheme();
-  const theme = THEME[scheme ?? 'light'];
 
   return (
     <Pressable
       onPress={() => onChange(!checked)}
       style={[
         styles.container,
-        { borderColor: theme.border, backgroundColor: theme.card },
+        { borderColor: KUTRI_COLORS.cardForeground, backgroundColor: KUTRI_COLORS.foreground},
         style,
       ]}>
       <Text style={[styles.text, textStyle]}>
@@ -39,7 +36,7 @@ export default QuestionCheckbox;
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    borderWidth: 3,
+    borderWidth: 2,
     borderRadius: 10,
     marginVertical: 5,
     width: '100%',

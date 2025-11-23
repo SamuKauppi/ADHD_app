@@ -1,10 +1,11 @@
 type Part = {
-    title: string;
-    text: string[];
+  title: string;
+  text: string[];
+  bold: string[];
 };
 
 type Type = {
-    [key: string]: Part; // p1, p2, etc.
+  [key: string]: Part; // p1, p2, etc.
 };
 
 // Generic function to get ADHD type from any dataset

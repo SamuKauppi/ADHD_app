@@ -1,3 +1,4 @@
+import IconButton from '@/components/custom/navigation/icon-button';
 import '@/global.css';
 
 import { NAV_THEME } from '@/lib/theme';
@@ -25,10 +26,45 @@ const HomeLayout = () => {
                                 backgroundColor: theme.colors.card,
                             },
                         }}>
-                        <Tabs.Screen name="home" options={{ title: 'Koti' }} />
-                        <Tabs.Screen name="result" options={{ title: 'Tulokset' }} />
-                        <Tabs.Screen name='new-test' options={{ title: 'Testaa Uudelleen' }} />
-                        <Tabs.Screen name='hint' options={{ title: 'Päivän Vinkki' }} />
+                        <Tabs.Screen name="home" options={{
+                            title: 'Koti',
+                            tabBarIcon: ({ focused }) => (
+                                <IconButton
+                                    iconName={focused ? 'homeOpenD' : 'homeClosedD'}
+                                    style={{
+                                        width: 25,
+                                        height: 25
+                                    }}
+                                />
+                            )
+                        }} />
+                        <Tabs.Screen name="result" options={{
+                            title: 'Tulokset',
+                            tabBarIcon: ({ focused }) => (
+                                <IconButton
+                                    iconName={focused ? 'resultOpenD' : 'resultClosedD'}
+                                    style={{
+                                        width: 25,
+                                        height: 25
+                                    }}
+                                />
+                            )
+                        }} />
+                        <Tabs.Screen name='new-test' options={{
+                            title: 'Testaa Uudelleen',
+                            tabBarIcon: ({ focused }) => (
+                                <IconButton
+                                    iconName={focused ? 'testOpenD' : 'testOpenD'}
+                                    style={{
+                                        width: 25,
+                                        height: 25
+                                    }}
+                                />
+                            )
+                        }} />
+                        <Tabs.Screen name='hint' options={{
+                            title: 'Päivän Vinkki',
+                        }} />
                     </Tabs>
                     <PortalHost />
                 </ThemeProvider>

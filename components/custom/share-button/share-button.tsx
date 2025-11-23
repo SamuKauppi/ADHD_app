@@ -1,12 +1,11 @@
+import { Pressable, StyleSheet, TextStyle, ViewStyle, Text, View } from "react-native";
 import { useState } from "react"
 import { ADHD_TYPE } from "@/lib/adhd-types";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ShareHandling } from "./share-handling";
-import { Button } from "@/components/ui/button";
-import { Text } from "@/components/ui/text";
-import { Pressable, StyleSheet, TextStyle, ViewStyle } from "react-native";
+
 import IconButton from "../navigation/icon-button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { KUTRI_COLORS } from "@/lib/brand-colors";
 
 type ShareProps = {
     style?: ViewStyle;
@@ -46,12 +45,14 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
 
     return (
         <Pressable onPress={handleShare} style={[styles.container, style]}>
-            <IconButton
-                iconName="share"
-                oppositeColor={true}
+            <View>
+                <IconButton
+                iconName="shareD"
                 style={styles.iconSize} />
-            <Text style={txtStyle}>
-                {loading ? 'Lataa...' : 'Jaa Tuloksesi!'}
+            </View>
+
+            <Text style={[styles.shareBtnText, txtStyle]}>
+                {loading ? 'Lataa...' : 'JAA TULOKSESI!'}
             </Text>
 
         </Pressable>
@@ -62,15 +63,24 @@ export default ShareResultButton;
 
 const styles = StyleSheet.create({
     iconSize: {
-        height: 20,
-        width: 20
+        height: 30,
+        width: 30
     },
     container: {
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
         flexDirection: 'row',
+        gap: 10,
         borderRadius: 10,
-        padding: 10
-    }
+        padding: 10,
+        height: 55,
+        width: 200,
+        backgroundColor: KUTRI_COLORS.button,
+        borderColor: KUTRI_COLORS.buttonHighlight,
+        borderWidth: 3
+    },
+    shareBtnText: {
+        fontSize: 17,
+        fontWeight: 'bold',
+    },
 })

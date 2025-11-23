@@ -1,12 +1,11 @@
 import { Pressable, Image, GestureResponderEvent, ViewStyle, ImageStyle, useColorScheme, StyleSheet, View, StyleProp } from 'react-native';
-import { iconMap } from '@/lib/icon';
+import { iconMap } from '@/lib/icons';
 
 type IconButtonProps = {
   iconName: string;                                 // name of the image
   style?: ViewStyle;                                // optional styles for container
   imgStyle?: StyleProp<ImageStyle>;                 // optional style for image
   onPress?: (event: GestureResponderEvent) => void; // on press functionality
-  oppositeColor?: boolean;                          // swap colors (TODO: remove if no dark mode support)
   direction?: 'left' | 'right' | 'up' | 'down';     // direction the image is facing
 }
 
@@ -16,17 +15,12 @@ const IconButton = ({
   style,
   imgStyle,
   onPress,
-  oppositeColor,
   direction = 'right',
 }: IconButtonProps) => {
-  const scheme = useColorScheme();
-  const color = !oppositeColor ? 'light' : 'dark';
-  const themeSuffix = scheme === color ? 'D' : 'L';
-
-  const source = iconMap[`${iconName}${themeSuffix}`];
+  const source = iconMap[`${iconName}`];
 
   if (!source) {
-    console.warn(`Icon "${iconName}${themeSuffix}" not found in iconMap.`);
+    console.warn(`Icon "${iconName}" not found in iconMap.`);
     return null;
   }
 
@@ -39,7 +33,7 @@ const IconButton = ({
   const imageStyles: StyleProp<ImageStyle> = [
     styles.icon,
     imgStyle,
-    transforms.length ? { transform: transforms as any } : undefined, // cast to any to satisfy TypeScript
+    transforms.length ? { transform: transforms as any } : undefined
   ];
 
   if (onPress) {

@@ -1,6 +1,7 @@
 type Part = {
     title: string;
     text: string[];
+    bold: string[];
 };
 
 type Type = {
@@ -17,7 +18,8 @@ export const ADHD_DATA: Record<string, Type> = {
                 "Ei jaksa odottaa vuoroaan - tai mitään muutakaan. Hutiloi koska ei viitsi lukea ohjeita loppuun tai tarkastaa asioita kahteen kertaan.",
                 "Innostuu nopeasti ja syöksyy toimintaan miettimättä mitä kannattaisi tehdä ensin. Jättää hommat kesken kun kyllästyy tai innostuu jostain muusta.",
                 "Elämä tuntuu joskus yhdeltä kaaoskierteeltä, mutta ikuinen optimismi auttaa jaksamaan.",
-            ]
+            ],
+            bold: ["Jättää hommat kesken"]
         },
         p1: {
             title: "Mistä johtuu?",
@@ -26,7 +28,8 @@ export const ADHD_DATA: Record<string, Type> = {
                 "Niitä voi erittyä normaalisti, mutta ne eivät pääse hermo-solusta toiseen tai ehdi vai-kuttaa tarpeeksi kauan vastaanottavassa hermosolussa.",
                 "Siksi kärsimättömät vitkuttelijat jaksavat keskittyä vain heitä aidosti kiinnostaviin, uusiin tai jännittäviin juttuihin, jotka vapauttavat tavallista enemmän dopamiinia.",
                 '"Viime hetken paniikki", puolestaan aiheuttaa noradre-naliinipiikin, joka auttaa aivoja "heräämään".',
-            ]
+            ],
+            bold: [""]
         },
         p2: {
             title: "Mitä voi tehdä",
@@ -35,7 +38,8 @@ export const ADHD_DATA: Record<string, Type> = {
                 "Amfetamiinijohdannaiset ADHD-lääkkeet kuten Elvanse lisäävät myös dopamiinin ja nodadrenaliinin eritystä.",
                 "Liikunta on kaikkein tehokkain kotikonsti dopamiini- ja noradrenaliinitasojen nostamiseen.",
                 "Jo muutaman minuutin reipas liikuntasessio kuten yhden biisin tanssiminen lempimusiikin tahdissa, voi auttaa."
-            ]
+            ],
+            bold: [""]
         },
         p3: {
             title: "Ylikeskittyminen avuksi",
@@ -44,7 +48,8 @@ export const ADHD_DATA: Record<string, Type> = {
                 'Ne nimittäin voivat auttaa heitä pääsemään ns. ylikeskittymis- tilaan, jossa heidän huomionsa "lukittuu" tehtävään tehtävään.',
                 'Tässä tilassa ADHD-ihminen voi saada ns. ihmeitä aikaan ja jaksaa työskennellä tuntikausia saman asian parissa.',
                 'Ylikeskittymistilan kääntöpuolena on se, että ADHD-ihminen unohtaa usein syödä, juoda ja jopa käydä vessassa.'
-            ]
+            ],
+            bold: [""]
         }
     },
 
@@ -52,7 +57,8 @@ export const ADHD_DATA: Record<string, Type> = {
     t1: {
         p0: {
             title: "",
-            text: []
+            text: [],
+            bold: [""]
         }
     },
 
@@ -60,7 +66,8 @@ export const ADHD_DATA: Record<string, Type> = {
     t2: {
         p0: {
             title: "",
-            text: []
+            text: [],
+            bold: [""]
         }
     },
 
@@ -68,7 +75,8 @@ export const ADHD_DATA: Record<string, Type> = {
     t3: {
         p0: {
             title: "",
-            text: []
+            text: [],
+            bold: [""]
         }
     },
     
@@ -76,7 +84,8 @@ export const ADHD_DATA: Record<string, Type> = {
     t4: {
         p0: {
             title: "",
-            text: []
+            text: [],
+            bold: [""]
         }
     }
 }

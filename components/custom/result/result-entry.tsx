@@ -45,8 +45,8 @@ const ResultEntry = ({
                     size={82}
                     width={15}
                     fill={percentage}
-                    tintColor="#00a2e8"
-                    backgroundColor="#cffaff"
+                    tintColor="#ff8a00"
+                    backgroundColor="#ffe07c"
                     rotation={0}
                 >
                     {() => (
@@ -62,7 +62,7 @@ const ResultEntry = ({
                 >{typeLabel}</Text>
             </View>
             <IconButton
-                iconName='chevron'
+                iconName='chevronD'
                 style={styles.nextIconContainer}
                 onPress={() => onPress?.(typeKey)}
             />

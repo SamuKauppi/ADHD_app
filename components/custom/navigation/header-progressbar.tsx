@@ -1,5 +1,3 @@
-// components/custom/header-with-progress.tsx
-import React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
 import StepProgressbar from '@/components/custom/navigation/step-progressbar';
 import IconButton from '@/components/custom/navigation/icon-button';
@@ -7,8 +5,8 @@ import IconButton from '@/components/custom/navigation/icon-button';
 interface HeaderWithProgressProps {
   currentStep: number;        // 0-based current step
   maxSteps: number;           // total number of steps
-  onClose?: () => void;        // close/back handler
-  progressStyle?: ViewStyle;  // optional additional style for the progress bar
+  onClose?: () => void;       // close/back handler
+  style?: ViewStyle;          // optional style for container
 }
 
 // Header with a progressbar
@@ -17,20 +15,20 @@ const HeaderWithProgress = ({
   currentStep,
   maxSteps,
   onClose,
-  progressStyle
+  style
 }: HeaderWithProgressProps) => {
   return (
-    <View style={styles.headerContainer}>
+    <View style={[styles.headerContainer, style]}>
       <View style={styles.progressWrapper}>
         <StepProgressbar
           maxSteps={maxSteps}
           currentStep={currentStep}
-          buttonStyle={[styles.progressbar, progressStyle]}
+          buttonStyle={styles.progressbar}
         />
       </View>
 
       <IconButton
-        iconName="close"
+        iconName="closeD"
         style={styles.iconContainer}
         onPress={onClose}
       />

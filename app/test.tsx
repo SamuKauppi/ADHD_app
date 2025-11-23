@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import QuestionGroup from '@/components/custom/question/question-group';
 import NavigationButtons from '@/components/custom/navigation/navigation-buttons';
 import HeaderWithProgress from '@/components/custom/navigation/header-progressbar';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 // Test page
 export default function TestScreen() {
@@ -77,11 +78,15 @@ export default function TestScreen() {
         <>
             <Stack.Screen />
             <SafeAreaView style={styles.container}  {...panHandlers}>
-                <HeaderWithProgress
-                    currentStep={currentIndex}
-                    maxSteps={questionKeys.length}
-                    onClose={router.back}
-                />
+                <View style={styles.headerMargin}>
+                    <HeaderWithProgress
+                        currentStep={currentIndex}
+                        maxSteps={questionKeys.length}
+                        onClose={router.back}
+                        style={styles.headerExtra}
+                    />
+                </View>
+
                 <ScrollView style={styles.scrollMargin}>
 
                     <View style={styles.content}>
@@ -114,14 +119,31 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 10,
         justifyContent: 'space-between',
+        backgroundColor: KUTRI_COLORS.background
+    },
+    headerMargin: {
+        marginHorizontal: '3%',
+        paddingTop: '1%',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        backgroundColor: KUTRI_COLORS.foreground
+    },
+    headerExtra: {
+        marginLeft: '7%',
+        marginRight: '1%'
     },
     scrollMargin: {
         marginHorizontal: '3%'
     },
     content: {
         flex: 1,
-        marginHorizontal: '7%',
         justifyContent: 'space-between',
+
+        paddingHorizontal: '7%',
+        paddingBottom: '7%',
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        backgroundColor: KUTRI_COLORS.foreground
     },
     navigationContainer: {
         marginTop: 20

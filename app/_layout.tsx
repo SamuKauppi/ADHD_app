@@ -1,11 +1,9 @@
 import '@/global.css';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 
-import { NAV_THEME } from '@/lib/theme';
-import { ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useColorScheme } from 'nativewind';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export {
@@ -15,12 +13,9 @@ export {
 
 // Layout for other pages
 export default function RootLayout() {
-  const { colorScheme } = useColorScheme();
-  const theme = NAV_THEME[colorScheme ?? 'light']
 
   return (
-    <SafeAreaProvider style={{ backgroundColor: theme.colors.background }}>
-      <ThemeProvider value={theme} >
+    <SafeAreaProvider style={{backgroundColor: KUTRI_COLORS.background}}>
         <StatusBar />
         <Stack
           screenOptions={({ route }) => {
@@ -41,7 +36,6 @@ export default function RootLayout() {
           <Stack.Screen name="test" />
         </Stack>
         <PortalHost />
-      </ThemeProvider>
     </SafeAreaProvider>
   );
 }
