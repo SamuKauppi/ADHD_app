@@ -54,7 +54,7 @@ const HomeLayout = () => {
                             title: 'Testaa Uudelleen',
                             tabBarIcon: ({ focused }) => (
                                 <IconButton
-                                    iconName={focused ? 'testOpenD' : 'testOpenD'}
+                                    iconName={focused ? 'testOpenD' : 'testClosedD'}
                                     style={{
                                         width: 25,
                                         height: 25

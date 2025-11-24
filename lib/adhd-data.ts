@@ -19,7 +19,7 @@ export const ADHD_DATA: Record<string, Type> = {
                 "Innostuu nopeasti ja syöksyy toimintaan miettimättä mitä kannattaisi tehdä ensin. Jättää hommat kesken kun kyllästyy tai innostuu jostain muusta.",
                 "Elämä tuntuu joskus yhdeltä kaaoskierteeltä, mutta ikuinen optimismi auttaa jaksamaan.",
             ],
-            bold: ["Jättää hommat kesken"]
+            bold: ["Jättää hommat kesken", "Hutiloi"]
         },
         p1: {
             title: "Mistä johtuu?",

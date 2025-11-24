@@ -1,6 +1,5 @@
-import { StyleSheet, View } from 'react-native'
-import { Button } from '@/components/ui/button'
-import { Text } from '@/components/ui/text'
+import { StyleSheet, View, Text } from 'react-native'
+import Button from '@/components/custom/generic/button'
 import { router } from 'expo-router'
 import React from 'react'
 
@@ -9,9 +8,8 @@ const TestAgain = () => {
   return (
     <View style={styles.container}>
       <Button
-        onPress={() => router.push('/test')}>
-        <Text>Testaa uudelleen</Text>
-      </Button>
+        onPress={() => router.push('/test')} 
+        text='Testaa uudelleen'/>
     </View>
   )
 }
@@ -23,5 +21,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  }
+  },
 })

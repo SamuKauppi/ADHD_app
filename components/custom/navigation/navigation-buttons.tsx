@@ -1,7 +1,8 @@
-import { View, StyleSheet, ViewStyle, Text, Pressable } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import Spacer from '@/components/ui/Spacer';
 import IconButton from '@/components/custom/navigation/icon-button';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
+import Button from '@/components/custom/generic/button';
 
 interface NavigationButtonsProps {
   onNext: () => void;               // On next functionality
@@ -44,19 +45,14 @@ const NavigationButtons = ({
       {hidePrev ? (
         <View style={styles.navigationBtn} />
       ) : (
-        <Pressable 
-        onPress={onPrevious} 
-        disabled={disablePrev}
-        style={[styles.navigationBtn, {
-          backgroundColor: KUTRI_COLORS.foreground,
-        }]}>
-          <IconButton 
-          iconName="chevronD" 
-          style={styles.navigationBtnImg}
-          direction={prevArrowDir}
-          />
-          <Text style={styles.navigationBtnTxt}>{prevText ?? 'Edellinen'}</Text>
-        </Pressable>
+        <Button
+          onPress={onPrevious}
+          disabled={disablePrev}
+          style={[styles.navigationBtn, { backgroundColor: KUTRI_COLORS.foreground }]}
+          textStyle={styles.navigationBtnTxt}
+          leftIcon={<IconButton iconName="chevronD" style={styles.navigationBtnImg} direction={prevArrowDir} />}
+          text={prevText ?? 'Edellinen'}
+        />
       )}
 
       <Spacer width={20} />
@@ -65,18 +61,14 @@ const NavigationButtons = ({
       {hideNext ? (
         <View style={styles.navigationBtn} />
       ) : (
-        <Pressable 
-        onPress={onNext} 
-        disabled={disableNext} 
-        style={[styles.navigationBtn, {
-          backgroundColor: KUTRI_COLORS.button,
-        }]}>
-          <Text style={styles.navigationBtnTxt}>{nextText ?? 'Seuraava'}</Text>
-          <IconButton 
-          iconName="chevronD" 
-          style={styles.navigationBtnImg} 
-          direction={nextArrowDir}/>
-        </Pressable>
+        <Button
+          onPress={onNext}
+          disabled={disableNext}
+          style={[styles.navigationBtn, { backgroundColor: KUTRI_COLORS.button }]}
+          textStyle={styles.navigationBtnTxt}
+          rightIcon={<IconButton iconName="chevronD" style={styles.navigationBtnImg} direction={nextArrowDir} />}
+          text={nextText ?? 'Seuraava'}
+        />
       )}
     </View>
   );
@@ -104,6 +96,7 @@ const styles = StyleSheet.create({
   navigationBtnTxt: {
     fontSize: 19,
     fontWeight: 'bold',
+    color: 'black',
     marginHorizontal: 5,
   },
   navigationBtnImg: {

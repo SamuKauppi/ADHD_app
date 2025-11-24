@@ -1,7 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
+import Button from '@/components/custom/generic/button';
 import { Stack, useRouter, useFocusEffect } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 import { useCallback } from 'react';
@@ -51,23 +50,18 @@ const Home = () => {
         <Spacer />
 
         <Button
-          style={styles.button}
-          onPress={() => router.push('/test')}>
-          <Text>Test</Text>
-        </Button>
+          onPress={() => router.push('/test')}
+          text='Test'/>
 
         <Spacer height={20} />
 
         <Button
-          style={styles.button}
-          onPress={() => router.push('/result')}>
-          <Text>Result</Text>
-        </Button>
+          onPress={() => router.push('/result')}
+          text='Result'/>
 
         <Spacer height={20} />
 
         <Button
-          style={styles.button}
           onPress={async () => {
             try {
               await AsyncStorage.clear();
@@ -76,9 +70,8 @@ const Home = () => {
             } catch {
               console.log('Failed to clear AsyncStorage');
             }
-          }}>
-          <Text>Reset data</Text>
-        </Button>
+          }}
+          text='Reset data'/>
 
       </SafeAreaView>
     </>
@@ -96,9 +89,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  button: {
-    padding: 50,
-    width: '60%'
   }
 });

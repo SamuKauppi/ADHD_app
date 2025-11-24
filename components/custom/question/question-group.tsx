@@ -1,5 +1,4 @@
-import { View, StyleSheet } from 'react-native';
-import { Text } from '@/components/ui/text';
+import { View, StyleSheet, Text } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

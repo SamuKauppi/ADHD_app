@@ -1,5 +1,4 @@
-import { StyleSheet, View, ViewStyle } from 'react-native'
-import { Text } from '../../ui/text'
+import { StyleSheet, View, ViewStyle, Text } from 'react-native'
 import { QUESTIONS } from '@/lib/questions'
 import { ADHD_TYPE, getADHDImage } from '@/lib/adhd-types'
 import { useEffect, useState } from 'react'

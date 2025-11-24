@@ -1,9 +1,9 @@
-import { Pressable, Image, GestureResponderEvent, ViewStyle, ImageStyle, useColorScheme, StyleSheet, View, StyleProp } from 'react-native';
+import { Pressable, Image, GestureResponderEvent, ImageStyle, useColorScheme, StyleSheet, View, StyleProp } from 'react-native';
 import { iconMap } from '@/lib/icons';
 
 type IconButtonProps = {
   iconName: string;                                 // name of the image
-  style?: ViewStyle;                                // optional styles for container
+  style?: StyleProp<View['props']> | StyleProp<any>; // optional styles for container (flexible)
   imgStyle?: StyleProp<ImageStyle>;                 // optional style for image
   onPress?: (event: GestureResponderEvent) => void; // on press functionality
   direction?: 'left' | 'right' | 'up' | 'down';     // direction the image is facing

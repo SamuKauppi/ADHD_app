@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, TextStyle, ViewStyle, Text, View } from "react-native";
+import { StyleSheet, TextStyle, ViewStyle, Text, View } from "react-native";
 import { useState } from "react"
 import { ADHD_TYPE } from "@/lib/adhd-types";
 import { ShareHandling } from "./share-handling";
@@ -6,6 +6,7 @@ import { ShareHandling } from "./share-handling";
 import IconButton from "../navigation/icon-button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KUTRI_COLORS } from "@/lib/brand-colors";
+import Button from '@/components/custom/generic/button'
 
 type ShareProps = {
     style?: ViewStyle;
@@ -44,18 +45,13 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
     }
 
     return (
-        <Pressable onPress={handleShare} style={[styles.container, style]}>
-            <View>
-                <IconButton
-                iconName="shareD"
-                style={styles.iconSize} />
-            </View>
-
-            <Text style={[styles.shareBtnText, txtStyle]}>
-                {loading ? 'Lataa...' : 'JAA TULOKSESI!'}
-            </Text>
-
-        </Pressable>
+        <Button
+            onPress={handleShare}
+            style={[styles.container, style]}
+            textStyle={[styles.shareBtnText, txtStyle]}
+            leftIcon={<IconButton iconName="shareD" style={styles.iconSize} />}
+            text={loading ? 'Lataa...' : 'JAA TULOKSESI!'}
+        />
     )
 }
 
@@ -82,5 +78,6 @@ const styles = StyleSheet.create({
     shareBtnText: {
         fontSize: 17,
         fontWeight: 'bold',
+        color: 'black'
     },
 })

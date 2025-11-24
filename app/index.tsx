@@ -1,7 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
+import Button from '@/components/custom/generic/button';
 import { Stack, useRouter, useFocusEffect } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 import { useCallback } from 'react';
@@ -53,9 +52,9 @@ export default function Screen() {
 
         <Button
           style={styles.button}
-          onPress={() => router.push('/test')}>
-          <Text>Test</Text>
-        </Button>
+          onPress={() => router.push('/test')}
+          text={'Test'}
+          />
 
         <Spacer height={20} />
 
@@ -68,9 +67,9 @@ export default function Screen() {
             } catch {
               console.log('Failed to clear AsyncStorage');
             }
-          }}>
-          <Text>Reset data</Text>
-        </Button>
+          }}
+          text={'Reset data'}
+        />
 
       </SafeAreaView>
     </>

@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   iconContainer: {
+    marginRight: 5,
     width: 35,
     height: 35,
     justifyContent: 'center',
