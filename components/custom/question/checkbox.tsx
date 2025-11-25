@@ -5,9 +5,11 @@ import IconButton from '../navigation/icon-button'
 type CheckboxProps = {
     enabled: boolean;
     style?: ViewStyle;
+    color?: string;
 }
 
-const Checkbox = ({ enabled, style }: CheckboxProps) => {
+const Checkbox = ({ enabled, style, color }: CheckboxProps) => {
+
     return (
         <View
             style={[

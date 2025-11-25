@@ -7,6 +7,8 @@ import { useCallback } from 'react';
 
 import Spacer from '@/components/ui/Spacer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import RssList from '@/components/custom/rss/rss-list';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 // Home screen. Redirects to Index if test is not complete
 const Home = () => {
@@ -45,33 +47,7 @@ const Home = () => {
 
         <Spacer height={50} />
 
-        <Text>This is a starter template for building React Native apps with reusable components.</Text>
-
-        <Spacer />
-
-        <Button
-          onPress={() => router.push('/test')}
-          text='Test'/>
-
-        <Spacer height={20} />
-
-        <Button
-          onPress={() => router.push('/result')}
-          text='Result'/>
-
-        <Spacer height={20} />
-
-        <Button
-          onPress={async () => {
-            try {
-              await AsyncStorage.clear();
-              console.log('AsyncStorage cleared');
-              router.replace('/')
-            } catch {
-              console.log('Failed to clear AsyncStorage');
-            }
-          }}
-          text='Reset data'/>
+        <RssList url="https://kutri.net/osiot/adhd/feed/" limit={5} />          
 
       </SafeAreaView>
     </>
@@ -82,6 +58,7 @@ export default Home
 
 const styles = StyleSheet.create({
   title: {
+    marginTop: 50,
     fontSize: 24,
     fontWeight: 'bold',
   },
@@ -89,5 +66,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: KUTRI_COLORS.background,
   }
 });

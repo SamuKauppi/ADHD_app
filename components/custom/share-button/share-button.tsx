@@ -48,9 +48,12 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
         <Button
             onPress={handleShare}
             style={[styles.container, style]}
+            contentStyle={styles.buttonContent}
             textStyle={[styles.shareBtnText, txtStyle]}
+            color={KUTRI_COLORS.button}
+            pressedColor={KUTRI_COLORS.buttonHighlight}
             leftIcon={<IconButton iconName="shareD" style={styles.iconSize} />}
-            text={loading ? 'Lataa...' : 'JAA TULOKSESI!'}
+            text={loading ? 'LATAA...' : 'JAA TULOKSESI!'}
         />
     )
 }
@@ -63,17 +66,17 @@ const styles = StyleSheet.create({
         width: 30
     },
     container: {
-        justifyContent: 'center',
-        alignItems: 'center',
         flexDirection: 'row',
-        gap: 10,
         borderRadius: 10,
-        padding: 10,
-        height: 55,
+        height: 60,
         width: 200,
         backgroundColor: KUTRI_COLORS.button,
-        borderColor: KUTRI_COLORS.buttonHighlight,
-        borderWidth: 3
+        borderColor: KUTRI_COLORS.cardForeground,
+        borderWidth: 2
+    },
+    buttonContent: {
+        justifyContent: 'space-between',
+        paddingHorizontal: 8
     },
     shareBtnText: {
         fontSize: 17,

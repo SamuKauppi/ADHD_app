@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Text } from '@/components/ui/text';
+import { Text } from 'react-native';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 
 interface AccordionProps {

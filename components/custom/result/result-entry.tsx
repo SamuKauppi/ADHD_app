@@ -1,6 +1,6 @@
-import { Image, Pressable, StyleSheet, useColorScheme, View, ViewStyle } from 'react-native'
-import { Text } from '@/components/ui/text';
-import { THEME } from '@/lib/theme';
+import { Image, Pressable, StyleSheet, View, ViewStyle, Text } from 'react-native'
+import { useState } from 'react'
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 
 import IconButton from '../navigation/icon-button';
@@ -29,13 +29,19 @@ const ResultEntry = ({
     numberStyle,
     onPress }: ResultEntryProps) => {
 
-    const scheme = useColorScheme();
-    const theme = THEME[scheme ?? 'light'];
-
+    const [pressed, setPressed] = useState(false as boolean)
     const percentage = score && maxScore ? (score / maxScore) * 100 : 0;
 
+    const backgroundColor = pressed ? KUTRI_COLORS.background : KUTRI_COLORS.foreground;
+    const borderColor = KUTRI_COLORS.cardForeground;
+
     return (
-        <Pressable style={[style, { borderColor: theme.border, backgroundColor: theme.card }]} onPress={() => onPress?.(typeKey)}>
+        <Pressable
+            onPress={() => onPress?.(typeKey)}
+            onPressIn={() => setPressed(true)}
+            onPressOut={() => setPressed(false)}
+            style={[style, { borderColor, backgroundColor }]}
+        >
             <Image
                 source={imgSource}
                 resizeMode='cover'
@@ -45,8 +51,8 @@ const ResultEntry = ({
                     size={82}
                     width={15}
                     fill={percentage}
-                    tintColor="#ff8a00"
-                    backgroundColor="#ffe07c"
+                    tintColor={KUTRI_COLORS.logo}
+                    backgroundColor={KUTRI_COLORS.buttonHighlight}
                     rotation={0}
                 >
                     {() => (

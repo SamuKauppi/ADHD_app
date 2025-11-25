@@ -13,5 +13,7 @@ export const iconMap: Record<string, number> = {
   resultClosedD: require('../assets/images/ResultClosedD.png'),
   testOpenD: require('../assets/images/TestOpenD.png'),
   testClosedD: require('../assets/images/TestClosedD.png'),
-  checkmarkD: require('../assets/images/checkmark.png')
+  checkmarkD: require('../assets/images/checkmark.png'),
+  settingsClosedD: require('../assets/images/settingsClosedD.png'),
+  settingsOpenD: require('../assets/images/settingsOpenD.png'),
 }

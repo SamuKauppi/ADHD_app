@@ -15,7 +15,7 @@ export {
 export default function RootLayout() {
 
   return (
-    <SafeAreaProvider style={{backgroundColor: KUTRI_COLORS.background}}>
+    <SafeAreaProvider style={{ backgroundColor: KUTRI_COLORS.background, flex: 1 }}>
         <StatusBar />
         <Stack
           screenOptions={({ route }) => {

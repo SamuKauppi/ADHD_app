@@ -1,4 +1,5 @@
 import { StyleSheet, ScrollView, View } from 'react-native';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 import { Text } from '@/components/ui/text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: KUTRI_COLORS.background,
   },
   scrollView: {
     flex: 1,

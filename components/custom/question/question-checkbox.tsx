@@ -1,5 +1,6 @@
 // components/custom/QuestionCheckbox.tsx
 import { StyleSheet, Pressable, ViewStyle, TextStyle, Text } from 'react-native';
+import { useState } from 'react';
 import Checkbox from './checkbox';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
 
@@ -14,13 +15,18 @@ type QuestionCheckboxProps = {
 // Pressable containing text and a checkbox
 // Used in QuestionGroup
 const QuestionCheckbox = ({ question, checked, onChange, style, textStyle }: QuestionCheckboxProps) => {
+  const [pressed, setPressed] = useState(false);
+
+  const backgroundColor = pressed ? KUTRI_COLORS.background : KUTRI_COLORS.foreground;
 
   return (
     <Pressable
       onPress={() => onChange(!checked)}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
       style={[
         styles.container,
-        { borderColor: KUTRI_COLORS.cardForeground, backgroundColor: KUTRI_COLORS.foreground},
+        { borderColor: KUTRI_COLORS.cardForeground, backgroundColor },
         style,
       ]}>
       <Text style={[styles.text, textStyle]}>

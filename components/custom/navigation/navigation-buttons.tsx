@@ -1,7 +1,8 @@
 import { View, StyleSheet, ViewStyle } from 'react-native';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
+
 import Spacer from '@/components/ui/Spacer';
 import IconButton from '@/components/custom/navigation/icon-button';
-import { KUTRI_COLORS } from '@/lib/brand-colors';
 import Button from '@/components/custom/generic/button';
 
 interface NavigationButtonsProps {
@@ -48,8 +49,10 @@ const NavigationButtons = ({
         <Button
           onPress={onPrevious}
           disabled={disablePrev}
-          style={[styles.navigationBtn, { backgroundColor: KUTRI_COLORS.foreground }]}
+          style={styles.navigationBtn}
           textStyle={styles.navigationBtnTxt}
+          color={KUTRI_COLORS.foreground}
+          pressedColor={KUTRI_COLORS.background}
           leftIcon={<IconButton iconName="chevronD" style={styles.navigationBtnImg} direction={prevArrowDir} />}
           text={prevText ?? 'Edellinen'}
         />
@@ -66,6 +69,8 @@ const NavigationButtons = ({
           disabled={disableNext}
           style={[styles.navigationBtn, { backgroundColor: KUTRI_COLORS.button }]}
           textStyle={styles.navigationBtnTxt}
+          color={KUTRI_COLORS.button}
+          pressedColor={KUTRI_COLORS.buttonHighlight}
           rightIcon={<IconButton iconName="chevronD" style={styles.navigationBtnImg} direction={nextArrowDir} />}
           text={nextText ?? 'Seuraava'}
         />
@@ -88,7 +93,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    paddingHorizontal: 10,
     borderRadius: 10,
     borderColor: KUTRI_COLORS.cardForeground,
     borderWidth: 2

@@ -1,7 +1,7 @@
 // components/custom/read-more-content.tsx
 import React from 'react';
 import { View, Pressable, Linking, StyleSheet } from 'react-native';
-import { Text } from '@/components/ui/text';
+import { Text } from 'react-native';
 
 export interface ReadMoreData {
   title: string;

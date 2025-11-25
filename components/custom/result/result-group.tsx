@@ -135,7 +135,7 @@ export default ResultGroup
 
 const styles = StyleSheet.create({
   resultEntry: {
-    borderWidth: 3,
+    borderWidth: 2,
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
