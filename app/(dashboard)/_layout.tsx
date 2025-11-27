@@ -12,14 +12,14 @@ import { KUTRI_COLORS } from '@/lib/brand-colors';
 const HomeLayout = () => {
 
     return (
-            <SafeAreaProvider style={{ backgroundColor: KUTRI_COLORS.background, flex: 1 }}>
+        <SafeAreaProvider style={{ backgroundColor: KUTRI_COLORS.background, flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: KUTRI_COLORS.background }}>
                 <StatusBar />
                 <PortalHost />
-                <View style={{ flex: 1, backgroundColor: KUTRI_COLORS.background }}>
-                    <Tabs
-                        screenOptions={{
-                            headerShown: false,                            
-                        }}>
+                <Tabs
+                    screenOptions={{
+                        headerShown: false,                        
+                    }}>
                     <Tabs.Screen name="home" options={{
                         title: 'Koti',
                         tabBarIcon: ({ focused }) => (
@@ -57,7 +57,7 @@ const HomeLayout = () => {
                         )
                     }} />
                     <Tabs.Screen name='settings' options={{
-                        title: 'Asetukset',
+                        title: 'Tiedot',
                         tabBarIcon: ({ focused }) => (
                             <IconButton
                                 iconName={focused ? 'settingsOpenD' : 'settingsClosedD'}
@@ -68,9 +68,9 @@ const HomeLayout = () => {
                             />
                         )
                     }} />
-                    </Tabs>
-                </View>
-            </SafeAreaProvider>
+                </Tabs>
+            </View>
+        </SafeAreaProvider>
     );
 };
 

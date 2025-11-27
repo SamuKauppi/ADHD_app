@@ -9,14 +9,14 @@ type SimpleFeedItem = {
     contentSnippet?: string
 }
 
-export async function fetchRss(url: string): Promise<{ items: SimpleFeedItem[] }>{
+export async function fetchRss(url: string): Promise<{ items: SimpleFeedItem[] }> {
     const res = await fetch(url)
     if (!res.ok) throw new Error(`Failed to fetch feed: ${res.status}`)
     const xml = await res.text()
     return parseRssString(xml)
 }
 
-export async function fetchRssFromString(xml: string): Promise<{ items: SimpleFeedItem[] }>{
+export async function fetchRssFromString(xml: string): Promise<{ items: SimpleFeedItem[] }> {
     return parseRssString(xml)
 }
 
@@ -50,7 +50,24 @@ function parseRssString(xml: string) {
 
         // pubDate variants
         let pubDate = extractTag(itemXml, 'pubDate')
-        if (!pubDate) pubDate = extractTag(itemXml, 'published') || extractTag(itemXml, 'dc:date')
+        if (!pubDate) {
+            pubDate = extractTag(itemXml, 'published') || extractTag(itemXml, 'dc:date')
+
+        } 
+        
+        // Format pubDate to a more readable form
+        if (pubDate) {
+            const d = new Date(pubDate)
+            if (!isNaN(d.getTime())) {
+                const formatter = new Intl.DateTimeFormat('fi-FI', {
+                    weekday: 'short',
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                })
+                pubDate = formatter.format(d)
+            }
+        }
 
         // content/description variants
         let description = extractTag(itemXml, 'description')

@@ -1,7 +1,7 @@
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
 import { Text } from '@/components/ui/text';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 
 import ResultGroup from '@/components/custom/result/result-group';
@@ -11,6 +11,7 @@ import ShareResultButton from '@/components/custom/share-button/share-button';
 // Loads and displays results from AsyncStorage
 const ResultPage = () => {
   const testCompleted = useTestCompleted();
+  const insets = useSafeAreaInsets();
 
   if (testCompleted === null) {
     return null; // loading
@@ -18,7 +19,7 @@ const ResultPage = () => {
 
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top }] }>
         <ScrollView style={styles.scrollView}>
           <View style={styles.scrollMargin}>
             {testCompleted ? (
@@ -30,12 +31,12 @@ const ResultPage = () => {
                 </View>
               </>
             ) : (
-              <Text>No test data available. Please complete the test first.</Text>
+              <Text>Testi dataa ei löytynyt. Suorita testi, jotta näet tulokset</Text>
             )}
 
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

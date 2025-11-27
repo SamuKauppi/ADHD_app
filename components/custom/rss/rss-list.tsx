@@ -58,9 +58,6 @@ export default function RssList({ url, limit = 10, scrollbarInset = 16 }: Props)
       style={styles.list}
       data={items}
       keyExtractor={(item, idx) => (item.link ?? item.title ?? String(idx))}
-      // Ensure scroll indicator is inset into the provided margin/padding
-      scrollIndicatorInsets={{ right: scrollbarInset }}
-      contentContainerStyle={{ paddingRight: scrollbarInset }}
       renderItem={({ item }) => (
         <TouchableOpacity
           onPress={() => item.link && Linking.openURL(item.link)}
@@ -87,9 +84,9 @@ export default function RssList({ url, limit = 10, scrollbarInset = 16 }: Props)
 
 const styles = StyleSheet.create({
   list: {
-    marginHorizontal: '10%'
   },
   item: {
+    marginRight: '5%',
     padding: 12,
     backgroundColor: KUTRI_COLORS.foreground,
     borderRadius: 8,

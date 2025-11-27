@@ -26,4 +26,5 @@ export const KUTRI_COLORS = {
   textBackground: '#ffffff',
   button: '#f9c51a',
   buttonHighlight: '#ffe07c',
+  warining: '#e10000ff',
 }

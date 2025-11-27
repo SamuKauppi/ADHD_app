@@ -1,20 +1,20 @@
-import Button from '@/components/custom/generic/button';
 import { Stack, useRouter, useFocusEffect } from 'expo-router';
-import { StyleSheet, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 import { useCallback } from 'react';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 import Spacer from '@/components/ui/Spacer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RssList from '@/components/custom/rss/rss-list';
-import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 // Home screen. Redirects to Index if test is not complete
 const Home = () => {
 
   const router = useRouter();
   const testCompleted = useTestCompleted();
+  const insets = useSafeAreaInsets();
 
   useFocusEffect(
     useCallback(() => {
@@ -42,14 +42,20 @@ const Home = () => {
   return (
     <>
       <Stack.Screen />
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>Home page</Text>
+      <View style={[styles.container, {
+        paddingTop: insets.top,
+      }]}>
+        <View style={styles.inner}>
+          <Text style={styles.title}>Tervetuloa</Text>
 
-        <Spacer height={50} />
+          <Spacer height={20} />
+          <Text>Alla viimeisimmät postaukset kotisivulta</Text>
+          <Spacer height={20} />
 
-        <RssList url="https://kutri.net/osiot/adhd/feed/" limit={5} />          
+          <RssList url="https://kutri.net/osiot/adhd/feed/" limit={5} />
+        </View>
 
-      </SafeAreaView>
+      </View>
     </>
   );
 }
@@ -58,14 +64,18 @@ export default Home
 
 const styles = StyleSheet.create({
   title: {
-    marginTop: 50,
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 20
+  },
+  inner: {
+    paddingHorizontal: '10%',
+    alignItems: 'flex-start',
   },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: KUTRI_COLORS.background,
   }
 });

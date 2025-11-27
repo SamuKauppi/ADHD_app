@@ -4,7 +4,7 @@ import { TextClassContext } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 import * as AlertDialogPrimitive from '@rn-primitives/alert-dialog';
 import * as React from 'react';
-import { Platform, View, type ViewProps } from 'react-native';
+import { Platform, View, Pressable, type ViewProps } from 'react-native';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
 import { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';
 
@@ -19,10 +19,12 @@ const FullWindowOverlay = Platform.OS === 'ios' ? RNFullWindowOverlay : React.Fr
 function AlertDialogOverlay({
   className,
   children,
+  onClose,
   ...props
 }: Omit<AlertDialogPrimitive.OverlayProps, 'asChild'> &
   React.RefAttributes<AlertDialogPrimitive.OverlayRef> & {
     children?: React.ReactNode;
+    onClose?: () => void;
   }) {
   return (
     <FullWindowOverlay>
@@ -35,11 +37,15 @@ function AlertDialogOverlay({
           className
         )}
         {...props}>
-        <NativeOnlyAnimatedView
-          entering={FadeIn.duration(200).delay(50)}
-          exiting={FadeOut.duration(150)}>
-          <>{children}</>
-        </NativeOnlyAnimatedView>
+        <Pressable
+          style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center' }}
+          onPress={() => onClose && onClose()}>
+          <NativeOnlyAnimatedView
+            entering={FadeIn.duration(200).delay(50)}
+            exiting={FadeOut.duration(150)}>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>{children}</View>
+          </NativeOnlyAnimatedView>
+        </Pressable>
       </AlertDialogPrimitive.Overlay>
     </FullWindowOverlay>
   );
@@ -48,14 +54,16 @@ function AlertDialogOverlay({
 function AlertDialogContent({
   className,
   portalHost,
+  onClose,
   ...props
 }: AlertDialogPrimitive.ContentProps &
   React.RefAttributes<AlertDialogPrimitive.ContentRef> & {
     portalHost?: string;
+    onClose?: () => void;
   }) {
   return (
     <AlertDialogPortal hostName={portalHost}>
-      <AlertDialogOverlay>
+      <AlertDialogOverlay onClose={onClose}>
         <AlertDialogPrimitive.Content
           className={cn(
             'bg-background border-border z-50 flex w-full max-w-[calc(100%-2rem)] flex-col gap-4 rounded-lg border p-6 shadow-lg shadow-black/5 sm:max-w-lg',

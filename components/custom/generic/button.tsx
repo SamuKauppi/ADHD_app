@@ -9,6 +9,7 @@ import {
   type TextStyle,
   type StyleProp,
 } from 'react-native';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 type ButtonProps = {
   text?: string;
@@ -19,6 +20,7 @@ type ButtonProps = {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   disabled?: boolean;
+  disabledColor?: string;
   color?: string;
   pressedColor?: string;
   fadeDuration?: number;
@@ -35,6 +37,7 @@ const Button = ({
   disabled = false,
   color = 'black',
   pressedColor = 'white',
+  disabledColor = '#d0d0d0',
   fadeDuration = 200,
 }: ButtonProps) => {
   const anim = useRef(new Animated.Value(0)).current;
@@ -48,10 +51,12 @@ const Button = ({
     }).start();
   };
 
-  const backgroundColor = anim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [color, pressedColor],
-  });
+  const backgroundColor = disabled
+    ? disabledColor
+    : anim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [color, pressedColor],
+      });
 
   return (
     <Pressable
@@ -59,7 +64,7 @@ const Button = ({
       disabled={disabled}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      style={[styles.container, style]}
+      style={[styles.container, style, disabled ? styles.disabledContainer : undefined]}
     >
       {/* Single animated container for background + content */}
       <Animated.View
@@ -104,5 +109,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  disabledContainer: {
+    opacity: 0.6,
   },
 });
