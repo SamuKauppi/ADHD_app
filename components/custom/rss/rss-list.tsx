@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity, 
 import RenderHTML from 'react-native-render-html'
 import { fetchRss } from '@/components/custom/functions/rss-parser'
 import { KUTRI_COLORS } from '@/lib/brand-colors'
+import { APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout'
+import Spacer from '@/components/ui/Spacer'
 
 type RssItem = {
   title?: string
@@ -58,10 +60,10 @@ export default function RssList({ url, limit = 10, scrollbarInset = 16 }: Props)
       style={styles.list}
       data={items}
       keyExtractor={(item, idx) => (item.link ?? item.title ?? String(idx))}
-      renderItem={({ item }) => (
+      renderItem={({ item, index }) => (
         <TouchableOpacity
           onPress={() => item.link && Linking.openURL(item.link)}
-          style={styles.item}
+          style={[styles.item, index === 0 && { marginTop: 10 }]}
         >
           <Text style={styles.title}>{item.title}</Text>
           {item.pubDate ? <Text style={styles.date}>{item.pubDate}</Text> : null}
@@ -84,9 +86,9 @@ export default function RssList({ url, limit = 10, scrollbarInset = 16 }: Props)
 
 const styles = StyleSheet.create({
   list: {
+    paddingHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
   },
   item: {
-    marginRight: '5%',
     padding: 12,
     backgroundColor: KUTRI_COLORS.foreground,
     borderRadius: 8,

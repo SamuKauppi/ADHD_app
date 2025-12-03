@@ -8,6 +8,8 @@ import { KUTRI_COLORS } from '@/lib/brand-colors';
 import Spacer from '@/components/ui/Spacer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RssList from '@/components/custom/rss/rss-list';
+import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
+import HeaderTitle from '@/components/custom/navigation/header-title';
 
 // Home screen. Redirects to Index if test is not complete
 const Home = () => {
@@ -42,15 +44,13 @@ const Home = () => {
   return (
     <>
       <Stack.Screen />
-      <View style={[styles.container, {
-        paddingTop: insets.top,
-      }]}>
-        <View style={styles.inner}>
-          <Text style={styles.title}>Tervetuloa</Text>
 
-          <Spacer height={20} />
-          <Text>Alla viimeisimmät postaukset kotisivulta</Text>
-          <Spacer height={20} />
+      <HeaderTitle
+        title='Tervetuloa'
+        containerStyle={{paddingTop: insets.top}}
+      />
+      <View style={styles.container}>
+        <View style={styles.inner}>
 
           <RssList url="https://kutri.net/osiot/adhd/feed/" limit={5} />
         </View>
@@ -66,10 +66,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 20
+  },
+  text: {
+    fontSize: 16,
   },
   inner: {
-    paddingHorizontal: '10%',
+    paddingHorizontal: APP_HORIZONTAL_MARGIN,
     alignItems: 'flex-start',
   },
   container: {

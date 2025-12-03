@@ -66,7 +66,7 @@ const ReadMoreContent = ({data}: ReadMoreContentProps) => {
 export default ReadMoreContent;
 
 const styles = StyleSheet.create({
-  title: { marginBottom: 20, fontWeight: 'bold', fontSize: 28, lineHeight: 32 },
+  title: { marginBottom: 20, fontWeight: 'bold', fontSize: 28, lineHeight: 32, marginTop: 50 },
   text: { marginBottom: 16, fontSize: 20, lineHeight: 26 },
   linkText: {
     marginBottom: 16,

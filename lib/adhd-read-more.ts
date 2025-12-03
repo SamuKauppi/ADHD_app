@@ -13,26 +13,41 @@ const ADHD_READ_MORE: Record<string, Type> = {
             "kutri.net/ADHD"
         ],
         link: "https://kutri.net/"
-
     },
     t1: {
-        title: "",
-        text: [""],
+        title: "Lisää luettavaa",
+        text: [
+            "Löydät lisää tietoa ja käytännön vinkkejä kutri.net:in ilmaisilta ADHD-jäsensivuilta ja maksullisesta ADHD haltuun -puuhakirjasta.",
+            "Lue lisää molemmista täältä:",
+            "kutri.net/ADHD"
+        ],
         link: "https://kutri.net/"
     },
     t2: {
-        title: "",
-        text: [""],
+        title: "Lisää luettavaa",
+        text: [
+            "Löydät lisää tietoa ja käytännön vinkkejä kutri.net:in ilmaisilta ADHD-jäsensivuilta ja maksullisesta ADHD haltuun -puuhakirjasta.",
+            "Lue lisää molemmista täältä:",
+            "kutri.net/ADHD"
+        ],
         link: "https://kutri.net/"
     },
     t3: {
-        title: "",
-        text: [""],
+        title: "Lisää luettavaa",
+        text: [
+            "Löydät lisää tietoa ja käytännön vinkkejä kutri.net:in ilmaisilta ADHD-jäsensivuilta ja maksullisesta ADHD haltuun -puuhakirjasta.",
+            "Lue lisää molemmista täältä:",
+            "kutri.net/ADHD"
+        ],
         link: "https://kutri.net/"
     },
     t4: {
-        title: "",
-        text: [""],
+        title: "Lisää luettavaa",
+        text: [
+            "Löydät lisää tietoa ja käytännön vinkkejä kutri.net:in ilmaisilta ADHD-jäsensivuilta ja maksullisesta ADHD haltuun -puuhakirjasta.",
+            "Lue lisää molemmista täältä:",
+            "kutri.net/ADHD"
+        ],
         link: "https://kutri.net/"
     }
 };

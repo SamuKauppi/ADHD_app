@@ -1,4 +1,4 @@
-import { StyleSheet, View, ViewStyle, Text } from 'react-native'
+import { StyleSheet, View, ViewStyle } from 'react-native'
 import { QUESTIONS } from '@/lib/questions'
 import { ADHD_TYPE, getADHDImage } from '@/lib/adhd-types'
 import { useEffect, useState } from 'react'
@@ -106,10 +106,7 @@ const ResultGroup = ({style}:ResultProp) => {
 
 
   return (
-    <View style={style}>
-
-      <Text style={styles.title}>{`Tulokset`}</Text>
-      <Text style={styles.extraText}>Jotain tekstiä adhd tyypeistä</Text>
+    <View style={[styles.group, style]}>
       {[...adhdArray] // make a copy so we don’t mutate state
         .sort((a, b) => b.value - a.value) // descending order
         .map(({ key, label, value, image }, index) => (
@@ -134,6 +131,10 @@ const ResultGroup = ({style}:ResultProp) => {
 export default ResultGroup
 
 const styles = StyleSheet.create({
+  group: {
+  width: '100%',
+  paddingHorizontal: 0, 
+  },
   resultEntry: {
     borderWidth: 2,
     borderRadius: 10,
@@ -153,15 +154,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 19,
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 35,
-    lineHeight: 40,
-  },
-  extraText: {
-    marginBottom: 20,
-    marginTop: 5,
-    fontSize: 18
-  },
+  }
 });

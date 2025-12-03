@@ -5,6 +5,8 @@ import { KUTRI_COLORS } from '@/lib/brand-colors';
 import Spacer from '@/components/ui/Spacer';
 import React from 'react';
 import ResetPopup from '@/components/custom/alert-window/reset-popup';
+import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
+import HeaderTitle from '@/components/custom/navigation/header-title';
 
 const SettingsPage = () => {
   const router = useRouter();
@@ -14,13 +16,16 @@ const SettingsPage = () => {
   return (
     <>
       <Stack.Screen />
-      <View style={[styles.container, { paddingTop: insets.top }]}>
+      <HeaderTitle
+        title='Tietoja Sovelluksesta'
+        containerStyle={{ paddingTop: insets.top }}
+      />
+      <View style={styles.container}>
         <ScrollView style={styles.scrollMargin}>
 
+          <Spacer height={10} />
           <View style={styles.content}>
-            <Text style={styles.title}>Tietoa sovellusesta</Text>
 
-            <Spacer height={25} />
             <Text style={styles.title2}>
               Tietosuoja
             </Text>
@@ -76,22 +81,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: KUTRI_COLORS.background,
   },
+  title: {
+    backgroundColor: KUTRI_COLORS.foreground,
+    padding: 15,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: KUTRI_COLORS.cardForeground,
+    marginVertical: 10,
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
   scrollMargin: {
-    marginTop: '10%',
-    marginHorizontal: '6%'
+    marginHorizontal: APP_HORIZONTAL_MARGIN,
+    paddingHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
   },
   content: {
-    marginHorizontal: '2%',
     justifyContent: 'center',
     alignItems: 'flex-start',
     flex: 1,
     backgroundColor: KUTRI_COLORS.foreground,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: KUTRI_COLORS.cardForeground,
     padding: '5%'
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
   },
   title2: {
     fontSize: 20,
