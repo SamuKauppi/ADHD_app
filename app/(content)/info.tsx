@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 // Router (expo-router) — navigation, route params and screen wrapper
 import { router, Stack, useLocalSearchParams } from 'expo-router'
@@ -7,7 +7,7 @@ import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { ScrollView, StyleSheet, View, Text } from 'react-native'
 
 // Safe area wrapper
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // Data + utils for selecting content
 import { getAdhdPart, getAdhdType } from '@/lib/adhd-utils'
@@ -16,13 +16,15 @@ import { ADHD_ACCORDION } from '@/lib/adhd-accordion'
 import { getReadMoreType } from '@/lib/adhd-read-more'
 import { useSwipe } from '@/components/custom/hooks/swipe'
 import { KUTRI_COLORS } from '@/lib/brand-colors'
+import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout'
+import { renderWithBold } from '@/components/custom/functions/render-with-bold'
 
 // Local, reusable components (header, accordion group, read-more)
 import HeaderWithProgress from '@/components/custom/navigation/header-progressbar'
 import AccordionGroup from '@/components/custom/info-page/accordion-group'
 import ReadMoreContent from '@/components/custom/info-page/read-more-content'
 import NavigationButtons from '@/components/custom/navigation/navigation-buttons'
-import { renderWithBold } from '@/components/custom/functions/render-with-bold'
+import HeaderTitle from '@/components/custom/navigation/header-title'
 
 
 
@@ -40,8 +42,8 @@ const InfoPage = () => {
     console.log('Type not found')
     return null
   }
-  // Proceed with displaying data
 
+  // Proceed with displaying data
   const [partIndex, setPartIndex] = useState(0)
   const partCount = Object.keys(selectedType).length
   const totalCount = partCount + 2 // +2 is from Accordion page and Read More Page
@@ -50,6 +52,11 @@ const InfoPage = () => {
     onSwipeLeft: () => { goNext(); },
     onSwipeRight: () => { goPrevious(); }
   });
+  const insets = useSafeAreaInsets();
+  const scrollRef = useRef<ScrollView | null>(null)
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ x: 0, y: 0, animated: false })
+  }, [partIndex])
 
 
   // navigation handlers
@@ -150,21 +157,24 @@ const InfoPage = () => {
   return (
     <>
       <Stack.Screen />
+      <HeaderTitle titleStyle={{ margin: insets.top / 2 }} />
       <SafeAreaView style={styles.container} {...panHandlers}>
-        <View style={styles.headerMargin}>
-          <HeaderWithProgress
-            currentStep={partIndex}
-            maxSteps={totalCount}
-            onClose={router.back}
-            style={styles.headerExtra} />
-
-        </View>
-
-        <ScrollView style={styles.scrollMargin}>
-          <View style={styles.content}>
-            {content}
+        <View style={{ paddingHorizontal: APP_HORIZONTAL_MARGIN, flex: 1 }}>
+          <View style={styles.headerMargin}>
+            <HeaderWithProgress
+              currentStep={partIndex}
+              maxSteps={totalCount}
+              onClose={router.back}
+              style={styles.headerExtra} />
           </View>
-        </ScrollView>
+
+          {/*-1 margin fixes one pixel gap bug (I don't know why it's there)*/}
+          <ScrollView style={{ marginTop: -1, marginBottom: 10 }} ref={scrollRef}>
+            <View style={styles.content}>
+              {content}
+            </View>
+          </ScrollView>
+        </View>
       </SafeAreaView>
     </>
   )
@@ -175,32 +185,35 @@ export default InfoPage
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 10,
-    backgroundColor: KUTRI_COLORS.background
+    backgroundColor: KUTRI_COLORS.background,
+    justifyContent: 'flex-start',
   },
   headerMargin: {
-    marginHorizontal: '3%',
-    paddingTop: '1%',
+    marginHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
+    paddingTop: '2%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    backgroundColor: KUTRI_COLORS.foreground
+    backgroundColor: KUTRI_COLORS.foreground,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1
   },
+  // Margins for header children (step-progressbar and close icon)
   headerExtra: {
-    marginLeft: '7%',
+    marginLeft: '5%',
     marginRight: '1%'
   },
-  scrollMargin: {
-    marginHorizontal: '3%'
-  },
   content: {
-    flex: 1,
-    justifyContent: 'space-between',
-
-    paddingHorizontal: '7%',
-    paddingBottom: '7%',
+    marginHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    backgroundColor: KUTRI_COLORS.foreground
+    backgroundColor: KUTRI_COLORS.foreground,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    flex: 1,
+    justifyContent: 'space-between',
+    padding: 10
   },
   title: {
     marginTop: 10,

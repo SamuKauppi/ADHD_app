@@ -1,4 +1,4 @@
-import Button from '@/components/custom/generic/button';
+import Button from '@/components/custom/navigation/button';
 import { Stack, useRouter, useFocusEffect } from 'expo-router';
 import { StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

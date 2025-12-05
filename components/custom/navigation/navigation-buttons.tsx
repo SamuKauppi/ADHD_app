@@ -3,7 +3,7 @@ import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 import Spacer from '@/components/ui/Spacer';
 import IconButton from '@/components/custom/navigation/icon-button';
-import Button from '@/components/custom/generic/button';
+import Button from '@/components/custom/navigation/button';
 
 interface NavigationButtonsProps {
   onNext: () => void;               // On next functionality
@@ -53,7 +53,7 @@ const NavigationButtons = ({
           textStyle={styles.navigationBtnTxt}
           color={KUTRI_COLORS.foreground}
           pressedColor={KUTRI_COLORS.background}
-          leftIcon={<IconButton iconName="chevronD" style={styles.navigationBtnImg} direction={prevArrowDir} />}
+          leftIcon={<IconButton iconName="chevron" style={styles.navigationBtnImg} direction={prevArrowDir} />}
           text={prevText ?? 'Edellinen'}
         />
       )}
@@ -71,7 +71,7 @@ const NavigationButtons = ({
           textStyle={styles.navigationBtnTxt}
           color={KUTRI_COLORS.button}
           pressedColor={KUTRI_COLORS.buttonHighlight}
-          rightIcon={<IconButton iconName="chevronD" style={styles.navigationBtnImg} direction={nextArrowDir} />}
+          rightIcon={<IconButton iconName="chevron" style={styles.navigationBtnImg} direction={nextArrowDir} />}
           text={nextText ?? 'Seuraava'}
         />
       )}

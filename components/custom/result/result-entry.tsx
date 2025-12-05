@@ -68,7 +68,7 @@ const ResultEntry = ({
                 >{typeLabel}</Text>
             </View>
             <IconButton
-                iconName='chevronD'
+                iconName='chevron'
                 style={styles.nextIconContainer}
                 onPress={() => onPress?.(typeKey)}
             />

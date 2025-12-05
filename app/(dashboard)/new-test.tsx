@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { APP_HORIZONTAL_MARGIN } from '@/lib/layout'
 import { router } from 'expo-router'
 
-import Button from '@/components/custom/generic/button'
+import Button from '@/components/custom/navigation/button'
 
 // Page to start a new test
 const TestAgain = () => {

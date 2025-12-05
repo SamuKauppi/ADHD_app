@@ -10,6 +10,7 @@ import QuestionGroup from '@/components/custom/question/question-group';
 import NavigationButtons from '@/components/custom/navigation/navigation-buttons';
 import HeaderWithProgress from '@/components/custom/navigation/header-progressbar';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
+import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING, APP_HORIZONTAL_TOTAL_MARGIN } from '@/lib/layout';
 
 // Test page
 export default function TestScreen() {
@@ -122,28 +123,35 @@ const styles = StyleSheet.create({
         backgroundColor: KUTRI_COLORS.background
     },
     headerMargin: {
-        marginHorizontal: '3%',
         paddingTop: '1%',
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
-        backgroundColor: KUTRI_COLORS.foreground
+        borderTopWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        backgroundColor: KUTRI_COLORS.foreground,
+        marginHorizontal: APP_HORIZONTAL_TOTAL_MARGIN
     },
     headerExtra: {
         marginLeft: '7%',
         marginRight: '1%'
     },
     scrollMargin: {
-        marginHorizontal: '3%'
+        marginTop: -1,
+        marginHorizontal: APP_HORIZONTAL_MARGIN
     },
     content: {
         flex: 1,
         justifyContent: 'space-between',
-
-        paddingHorizontal: '7%',
         paddingBottom: '7%',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
-        backgroundColor: KUTRI_COLORS.foreground
+        borderBottomWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        paddingHorizontal: '2%',
+        backgroundColor: KUTRI_COLORS.foreground,
+        marginHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
     },
     navigationContainer: {
         marginTop: 20

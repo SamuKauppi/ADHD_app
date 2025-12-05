@@ -1,70 +1,88 @@
-import IconButton from '@/components/custom/navigation/icon-button';
 import '@/global.css';
+
+import IconButton from '@/components/custom/navigation/icon-button';
+import * as NavigationBar from 'expo-navigation-bar';
 
 import { PortalHost } from '@rn-primitives/portal';
 import { Tabs } from 'expo-router';
-import { View } from 'react-native';
+import { Platform, StyleSheet, useColorScheme, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
+import { useEffect } from 'react';
 
-// Layout page responsible for dashboard
 const HomeLayout = () => {
+    const theme = useColorScheme();
+    const backgroundColor = theme === 'light' ? KUTRI_COLORS.foreground : KUTRI_COLORS.cardForeground;
+    const activeText = theme === 'light' ? KUTRI_COLORS.text : KUTRI_COLORS.textLight;
+    const inactiveText = theme === 'light' ? KUTRI_COLORS.textInactive : KUTRI_COLORS.textInactiveLight;
+
+    useEffect(() => {
+        if (Platform.OS === 'android') {
+            NavigationBar.setButtonStyleAsync(theme === 'light' ? 'dark' : 'light');
+        }
+    }, [backgroundColor]);
 
     return (
         <SafeAreaProvider style={{ backgroundColor: KUTRI_COLORS.background, flex: 1 }}>
             <View style={{ flex: 1, backgroundColor: KUTRI_COLORS.background }}>
-                <StatusBar />
+                <StatusBar
+                    animated={true}
+                    style='light' />
                 <PortalHost />
                 <Tabs
                     screenOptions={{
-                        headerShown: false,                        
+                        headerShown: false,
+                        tabBarStyle: {
+                            backgroundColor: backgroundColor,
+                        },
+                        tabBarActiveTintColor: activeText,
+                        tabBarInactiveTintColor: inactiveText,
                     }}>
                     <Tabs.Screen name="home" options={{
                         title: 'Koti',
                         tabBarIcon: ({ focused }) => (
                             <IconButton
-                                iconName={focused ? 'homeOpenD' : 'homeClosedD'}
-                                style={{
-                                    width: 25,
-                                    height: 25
-                                }}
+                                iconName={focused ? 'homeOpen' : 'homeClosed'}
+                                style={styles.iconStyle}
+                                useColorMode={true}
+                                oppositeColorMode={true}
                             />
                         )
                     }} />
+
                     <Tabs.Screen name="result" options={{
                         title: 'Tulokset',
                         tabBarIcon: ({ focused }) => (
                             <IconButton
-                                iconName={focused ? 'resultOpenD' : 'resultClosedD'}
-                                style={{
-                                    width: 25,
-                                    height: 25
-                                }}
+                                iconName={focused ? 'resultOpen' : 'resultClosed'}
+                                style={styles.iconStyle}
+                                useColorMode={true}
+                                oppositeColorMode={true}
                             />
                         )
                     }} />
+
                     <Tabs.Screen name='new-test' options={{
                         title: 'Testaa Uudelleen',
                         tabBarIcon: ({ focused }) => (
                             <IconButton
-                                iconName={focused ? 'testOpenD' : 'testClosedD'}
-                                style={{
-                                    width: 25,
-                                    height: 25
-                                }}
+                                iconName={focused ? 'testOpen' : 'testClosed'}
+                                style={styles.iconStyle}
+                                useColorMode={true}
+                                oppositeColorMode={true}
                             />
                         )
                     }} />
+
                     <Tabs.Screen name='settings' options={{
                         title: 'Tiedot',
                         tabBarIcon: ({ focused }) => (
                             <IconButton
-                                iconName={focused ? 'settingsOpenD' : 'settingsClosedD'}
-                                style={{
-                                    width: 25,
-                                    height: 25
-                                }}
+                                iconName={focused ? 'settingsOpen' : 'settingsClosed'}
+                                style={styles.iconStyle}
+                                useColorMode={true}
+                                oppositeColorMode={true}
                             />
                         )
                     }} />
@@ -75,3 +93,10 @@ const HomeLayout = () => {
 };
 
 export default HomeLayout;
+
+const styles = StyleSheet.create({
+    iconStyle: {
+        width: 25,
+        height: 25,
+    }
+});

@@ -6,7 +6,7 @@ import { ShareHandling } from "./share-handling";
 import IconButton from "../navigation/icon-button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KUTRI_COLORS } from "@/lib/brand-colors";
-import Button from '@/components/custom/generic/button'
+import Button from '@/components/custom/navigation/button'
 
 type ShareProps = {
     style?: ViewStyle;
@@ -52,7 +52,7 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
             textStyle={[styles.shareBtnText, txtStyle]}
             color={KUTRI_COLORS.button}
             pressedColor={KUTRI_COLORS.buttonHighlight}
-            leftIcon={<IconButton iconName="shareD" style={styles.iconSize} />}
+            leftIcon={<IconButton iconName="share" style={styles.iconSize} />}
             text={loading ? 'LATAA...' : 'JAA TULOKSESI!'}
         />
     )

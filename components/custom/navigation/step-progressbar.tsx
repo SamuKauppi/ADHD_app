@@ -37,7 +37,7 @@ const StepProgressbar = ({
                             {
                                 backgroundColor: active
                                     ? KUTRI_COLORS.cardForeground
-                                    : KUTRI_COLORS.cardBackground,
+                                    : KUTRI_COLORS.background,
                             },
                         ]}
                         disabled={active}
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 6,
         borderRadius: 6,
+        borderWidth: 1,
         marginHorizontal: 3,
         minWidth: 0,
     }

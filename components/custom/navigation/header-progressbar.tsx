@@ -28,7 +28,7 @@ const HeaderWithProgress = ({
       </View>
 
       <IconButton
-        iconName="closeD"
+        iconName="close"
         style={styles.iconContainer}
         onPress={onClose}
       />

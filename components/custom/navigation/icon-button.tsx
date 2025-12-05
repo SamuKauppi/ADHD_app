@@ -7,6 +7,8 @@ type IconButtonProps = {
   imgStyle?: StyleProp<ImageStyle>;                 // optional style for image
   onPress?: (event: GestureResponderEvent) => void; // on press functionality
   direction?: 'left' | 'right' | 'up' | 'down';     // direction the image is facing
+  useColorMode?: boolean;                           // whether to use color scheme suffix (default: dark)
+  oppositeColorMode?: boolean;                      // whether to use opposite color scheme suffix
 }
 
 // Icon that can be pressable
@@ -16,13 +18,29 @@ const IconButton = ({
   imgStyle,
   onPress,
   direction = 'right',
+  useColorMode = false,
+  oppositeColorMode = false,
 }: IconButtonProps) => {
-  const source = iconMap[`${iconName}`];
+  const scheme = useColorScheme();
+
+  // Determine suffix
+  let suffix: 'L' | 'D' = 'D';
+
+  if (useColorMode) {
+    suffix = scheme === 'light' ? 'L' : 'D';
+  }
+
+  if (oppositeColorMode) {
+    suffix = suffix === 'L' ? 'D' : 'L';
+  }
+
+  const source = iconMap[`${iconName}${suffix}`];
 
   if (!source) {
-    console.warn(`Icon "${iconName}" not found in iconMap.`);
+    console.warn(`Icon "${iconName}${suffix}" not found in iconMap.`);
     return null;
   }
+
 
   // Determine transforms
   const transforms: { rotate?: string; scaleX?: number }[] = [];

@@ -19,7 +19,7 @@ const Checkbox = ({ enabled, style, color }: CheckboxProps) => {
             ]}
         >
             {enabled && (
-                <IconButton iconName='checkmarkD' style={styles.icon} />
+                <IconButton iconName='checkmark' style={styles.icon} />
             )}
         </View>
     )
