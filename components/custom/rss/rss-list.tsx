@@ -4,7 +4,6 @@ import RenderHTML from 'react-native-render-html'
 import { fetchRss } from '@/components/custom/functions/rss-parser'
 import { KUTRI_COLORS } from '@/lib/brand-colors'
 import { APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout'
-import Spacer from '@/components/ui/Spacer'
 
 type RssItem = {
   title?: string
@@ -52,7 +51,14 @@ export default function RssList({ url, limit = 10, scrollbarInset = 16 }: Props)
     return () => { mounted = false }
   }, [url, limit])
 
-  if (loading) return <ActivityIndicator color={KUTRI_COLORS.cardForeground} />
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={KUTRI_COLORS.cardForeground} />
+      </View>
+    )
+  }
+
   if (error) return <Text style={styles.error}>Feed error: {error}</Text>
 
   return (
@@ -87,6 +93,11 @@ export default function RssList({ url, limit = 10, scrollbarInset = 16 }: Props)
 const styles = StyleSheet.create({
   list: {
     paddingHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   item: {
     padding: 12,

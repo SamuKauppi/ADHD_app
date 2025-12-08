@@ -1,24 +1,24 @@
 import { Stack, useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
+import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
+
 import Spacer from '@/components/ui/Spacer';
 import React from 'react';
 import ResetPopup from '@/components/custom/alert-window/reset-popup';
-import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
 import HeaderTitle from '@/components/custom/navigation/header-title';
+import NavbarStyle from '@/components/custom/hooks/navbar-style';
 
 const SettingsPage = () => {
   const router = useRouter();
 
-  const insets = useSafeAreaInsets();
-
   return (
     <>
       <Stack.Screen />
+      <NavbarStyle/>
+
       <HeaderTitle
-        title='Tietoja Sovelluksesta'
-        containerStyle={{ paddingTop: insets.top }}
+        title='TIETOA SOVELLUKSESTA'
       />
       <View style={styles.container}>
         <ScrollView style={styles.scrollMargin}>

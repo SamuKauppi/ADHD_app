@@ -1,22 +1,20 @@
 import { Stack, useRouter, useFocusEffect } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StyleSheet, View } from 'react-native';
 import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 import { useCallback } from 'react';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
 
-import Spacer from '@/components/ui/Spacer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RssList from '@/components/custom/rss/rss-list';
-import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
+import { APP_HORIZONTAL_MARGIN } from '@/lib/layout';
 import HeaderTitle from '@/components/custom/navigation/header-title';
+import NavbarStyle from '@/components/custom/hooks/navbar-style';
 
 // Home screen. Redirects to Index if test is not complete
 const Home = () => {
 
   const router = useRouter();
   const testCompleted = useTestCompleted();
-  const insets = useSafeAreaInsets();
 
   useFocusEffect(
     useCallback(() => {
@@ -44,10 +42,9 @@ const Home = () => {
   return (
     <>
       <Stack.Screen />
-
+      <NavbarStyle/>
       <HeaderTitle
-        title='Tervetuloa'
-        containerStyle={{paddingTop: insets.top}}
+        title='TERVETULOA'
       />
       <View style={styles.container}>
         <View style={styles.inner}>
@@ -72,12 +69,12 @@ const styles = StyleSheet.create({
   },
   inner: {
     paddingHorizontal: APP_HORIZONTAL_MARGIN,
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     backgroundColor: KUTRI_COLORS.background,
   }
 });

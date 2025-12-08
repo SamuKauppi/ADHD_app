@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
         backgroundColor: KUTRI_COLORS.foreground,
         width: 24,
         height: 24,
-        padding: 5,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
         backgroundColor: KUTRI_COLORS.background
     },
     icon: {
-        width: 19,
-        height: 19
+        width: 20,
+        height: 20
     }
 })

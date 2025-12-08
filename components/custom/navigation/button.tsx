@@ -37,7 +37,7 @@ const Button = ({
   disabled = false,
   color = 'black',
   pressedColor = 'white',
-  disabledColor = '#d0d0d0',
+  disabledColor = '#e7e7e7ff',
   fadeDuration = 200,
 }: ButtonProps) => {
   const anim = useRef(new Animated.Value(0)).current;
@@ -54,9 +54,9 @@ const Button = ({
   const backgroundColor = disabled
     ? disabledColor
     : anim.interpolate({
-        inputRange: [0, 1],
-        outputRange: [color, pressedColor],
-      });
+      inputRange: [0, 1],
+      outputRange: [color, pressedColor],
+    });
 
   return (
     <Pressable
@@ -66,20 +66,22 @@ const Button = ({
       onPressOut={handlePressOut}
       style={[styles.container, style, disabled ? styles.disabledContainer : undefined]}
     >
-      {/* Single animated container for background + content */}
+      {/* Animated background */}
       <Animated.View
         style={[
-          StyleSheet.absoluteFill, // fill the Pressable
-          styles.contentDefault,
-          contentStyle,
+          StyleSheet.absoluteFill,
           { backgroundColor },
+          { borderRadius: 10 }, // match container
         ]}
-      >
+      />
+      {/* Content */}
+      <View style={[styles.contentDefault, contentStyle]}>
         {leftIcon && <View style={styles.iconWrapper}>{leftIcon}</View>}
-        {text && <Text style={[styles.txt, textStyle]}>{text}</Text>}
+        {text && <Text style={[styles.txt, textStyle, disabled && { opacity: 0.25 }]}>{text}</Text>}
         {rightIcon && <View style={styles.iconWrapper}>{rightIcon}</View>}
-      </Animated.View>
+      </View>
     </Pressable>
+
   );
 };
 
@@ -87,23 +89,22 @@ export default Button;
 
 const styles = StyleSheet.create({
   container: {
-    width: '50%',
-    height: 50,
+    width: 150,       // fallback fixed width
+    height: 50,       // fallback fixed height
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
     borderRadius: 10,
   },
   contentDefault: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
-    zIndex: 1, // ensure content is above any backgrounds
+    zIndex: 1, // above background
   },
   txt: {
     color: 'white',
+    fontWeight: '600',
   },
   iconWrapper: {
     marginHorizontal: 5,
@@ -111,6 +112,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   disabledContainer: {
-    opacity: 0.6,
+    opacity: 0.7,
   },
 });

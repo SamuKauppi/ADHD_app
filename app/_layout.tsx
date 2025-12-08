@@ -4,10 +4,7 @@ import { KUTRI_COLORS } from '@/lib/brand-colors';
 import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import * as NavigationBar from 'expo-navigation-bar';
-import { Platform } from 'react-native';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -16,12 +13,6 @@ export {
 
 // Layout for other pages
 export default function RootLayout() {
-
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      NavigationBar.setButtonStyleAsync('dark');
-    }
-  }, [])
 
   return (
     <SafeAreaProvider style={{ backgroundColor: KUTRI_COLORS.background, flex: 1 }}>

@@ -21,14 +21,15 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
         setLoading(true);
 
         try {
-            const highestKey = await AsyncStorage.getItem('result:highest');
+            // Use the new finalResult keys
+            const highestKey = await AsyncStorage.getItem('finalResult:highest');
             if (!highestKey) {
-                console.log('No highest in memory')
+                console.log('No highest in memory');
                 setLoading(false);
                 return;
             }
 
-            const valueStr = await AsyncStorage.getItem(`result:${highestKey}`)
+            const valueStr = await AsyncStorage.getItem(`finalResult:${highestKey}`);
             const value = valueStr ? parseInt(valueStr) : 0;
 
             const typeName = ADHD_TYPE[highestKey]?.name || highestKey;
@@ -43,6 +44,7 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
             setLoading(false);
         }
     }
+
 
     return (
         <Button
@@ -69,14 +71,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderRadius: 10,
         height: 60,
-        width: 200,
+        width: '100%',
         backgroundColor: KUTRI_COLORS.button,
         borderColor: KUTRI_COLORS.cardForeground,
         borderWidth: 2
     },
     buttonContent: {
-        justifyContent: 'space-between',
-        paddingHorizontal: 8
+        justifyContent: 'center',
+        gap: 10
     },
     shareBtnText: {
         fontSize: 17,

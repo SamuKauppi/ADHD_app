@@ -1,53 +1,91 @@
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
+import { Linking } from 'react-native';
 
 import ResultGroup from '@/components/custom/result/result-group';
 import Spacer from '@/components/ui/Spacer';
 import ShareResultButton from '@/components/custom/share-button/share-button';
 import HeaderTitle from '@/components/custom/navigation/header-title';
+import NavbarStyle from '@/components/custom/hooks/navbar-style';
 
 // Loads and displays results from AsyncStorage
 const ResultPage = () => {
   const testCompleted = useTestCompleted();
-  const insets = useSafeAreaInsets();
-
   if (testCompleted === null) {
     return null; // loading
   }
 
   return (
     <>
-    <HeaderTitle 
-    title='Tulokset'
-    containerStyle={{paddingTop: insets.top}}
-    />
+      <NavbarStyle />
+      <HeaderTitle title="TULOKSET" />
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <Spacer height={10}/>
+          <Spacer height={10} />
           <View style={styles.scrollMargin}>
             {testCompleted ? (
               <>
-                <ResultGroup style={styles.resultGroupContainer} />
+                <View style={styles.subtitleContainer}>
+                  <Text style={styles.subtitle}>
+                    Alla näet miten paljon sinussa on eri ADHD-tyyppien piirteitä. On täysin normaalia, että saat useammasta tyypistä täydet pisteet.
+                  </Text>
+                  <Spacer height={10} />
+                  <Text style={styles.subtitle}>
+                    Klikkaamalla eri tyyppejä voit lukea lisää tietoa kyseisestä tyypistä.
+                  </Text>
+                </View>
+                <Spacer height={10} />
 
-                <Spacer height={20} />
+                <ResultGroup />
+
+                <View style={styles.subtitleContainer}>
+                  <Text style={[styles.subtitle, styles.subtitleBold]}>Yllättivätkö testin tulokset?</Text>
+                  <Text style={styles.subtitle}>Jaa ajatuksesi ja testi kaverin kanssa.</Text>
+                  <Text style={styles.subtitle}>Halutessasi merkitse Katri postaukseen tunnuksella @kutrinet</Text>
+                </View>
+                <Spacer height={10} />
+
                 <View style={styles.shareContainer}>
                   <ShareResultButton />
                 </View>
+                <Spacer height={10} />
+
+                <View style={styles.subtitleContainer}>
+                  <Text style={[styles.subtitle, styles.subtitleBold]}>
+                    Haluatko oppia hallitsemaan omaa ADHD:ta?
+                  </Text>
+                  <Text style={styles.subtitle}>
+                    On kiva tietää oma ADHD-tyyppi – mutta se ei vielä siivoa kaaosta kalenterista tai keittiöstä.
+                  </Text>
+                  <Text style={styles.subtitle}>
+                    Kutri.net:in ilmainen ADHD-jäsenyys tarjoaa vertaistukea ja webinaareja.
+                  </Text>
+                  <Text style={styles.subtitle}>
+                    ADHD haltuun -puuhakirja selittää ymmärrettävästi aivojesi toimintaa ja antaa vinkkejä ja työkaluja omien oireiden hallintaan.
+                  </Text>
+                  <Text style={[styles.subtitle, {fontWeight: 'bold'}]}>
+                    Lue kummastakin lisää täältä:
+                  </Text>
+                  <Text style={[styles.subtitle, { color: 'blue' }]} onPress={() => Linking.openURL('https://kutri.net/ADHD')}>
+                    kutri.net/ADHD
+                  </Text>
+                </View>
+                <Spacer height={10} />
               </>
             ) : (
-              <Text>Testi dataa ei löytynyt. Suorita testi, jotta näet tulokset</Text>
+              <Text style={styles.subtitle}>
+                Testi dataa ei löytynyt. Suorita testi, jotta näet tulokset
+              </Text>
             )}
-
           </View>
+          <Spacer height={10} />
         </ScrollView>
       </View>
     </>
   );
 };
-
 
 export default ResultPage;
 
@@ -60,36 +98,34 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    width: '100%',
-    paddingHorizontal: APP_HORIZONTAL_SCROLL_PADDING
+    marginHorizontal: APP_HORIZONTAL_MARGIN,
   },
   scrollMargin: {
-    marginHorizontal: APP_HORIZONTAL_MARGIN,
+    marginHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
   },
-  resultGroupContainer: {
-    width: '100%',
-  },
   shareContainer: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '100%'
   },
-  titleContariner: {
-    alignItems: 'flex-start',
+  subtitleContainer: {
     width: '100%',
+    padding: 10,
+    paddingHorizontal: 15,
+    backgroundColor: KUTRI_COLORS.foreground,
+    borderColor: KUTRI_COLORS.cardForeground,
+    borderWidth: 2,
+    borderRadius: 10
   },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 24,
-    lineHeight: 40,
-    textAlign: 'left',
-  },
-  extraText: {
-    marginBottom: 20,
-    marginTop: 5,
+  subtitle: {
     fontSize: 18,
     textAlign: 'left',
   },
+  subtitleBold: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  }
 });

@@ -1,27 +1,19 @@
 import '@/global.css';
 
 import IconButton from '@/components/custom/navigation/icon-button';
-import * as NavigationBar from 'expo-navigation-bar';
 
 import { PortalHost } from '@rn-primitives/portal';
 import { Tabs } from 'expo-router';
-import { Platform, StyleSheet, useColorScheme, View } from 'react-native';
+import { StyleSheet, useColorScheme, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
-import { useEffect } from 'react';
 
 const HomeLayout = () => {
     const theme = useColorScheme();
     const backgroundColor = theme === 'light' ? KUTRI_COLORS.foreground : KUTRI_COLORS.cardForeground;
     const activeText = theme === 'light' ? KUTRI_COLORS.text : KUTRI_COLORS.textLight;
     const inactiveText = theme === 'light' ? KUTRI_COLORS.textInactive : KUTRI_COLORS.textInactiveLight;
-
-    useEffect(() => {
-        if (Platform.OS === 'android') {
-            NavigationBar.setButtonStyleAsync(theme === 'light' ? 'dark' : 'light');
-        }
-    }, [backgroundColor]);
 
     return (
         <SafeAreaProvider style={{ backgroundColor: KUTRI_COLORS.background, flex: 1 }}>
@@ -34,10 +26,14 @@ const HomeLayout = () => {
                     screenOptions={{
                         headerShown: false,
                         tabBarStyle: {
-                            backgroundColor: backgroundColor,
+                            backgroundColor: backgroundColor
                         },
                         tabBarActiveTintColor: activeText,
                         tabBarInactiveTintColor: inactiveText,
+                        tabBarLabelStyle: {
+                            fontSize: 10,
+                            marginTop: 5
+                        }
                     }}>
                     <Tabs.Screen name="home" options={{
                         title: 'Koti',
@@ -96,7 +92,7 @@ export default HomeLayout;
 
 const styles = StyleSheet.create({
     iconStyle: {
-        width: 25,
-        height: 25,
+        width: 30,
+        height: 30,
     }
 });

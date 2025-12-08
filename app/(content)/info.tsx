@@ -26,7 +26,9 @@ import ReadMoreContent from '@/components/custom/info-page/read-more-content'
 import NavigationButtons from '@/components/custom/navigation/navigation-buttons'
 import HeaderTitle from '@/components/custom/navigation/header-title'
 
-
+import * as NavigationBar from 'expo-navigation-bar';
+import { Platform } from 'react-native';
+import NavbarStyle from '@/components/custom/hooks/navbar-style'
 
 // Displays info based on localSearchParams
 const InfoPage = () => {
@@ -154,10 +156,17 @@ const InfoPage = () => {
 
   if (content == null) return null
 
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setButtonStyleAsync('dark');
+    }
+  }, [])
+
   return (
     <>
       <Stack.Screen />
-      <HeaderTitle titleStyle={{ margin: insets.top / 2 }} />
+      <NavbarStyle buttonStyle='dark'/>
+      <HeaderTitle/>
       <SafeAreaView style={styles.container} {...panHandlers}>
         <View style={{ paddingHorizontal: APP_HORIZONTAL_MARGIN, flex: 1 }}>
           <View style={styles.headerMargin}>

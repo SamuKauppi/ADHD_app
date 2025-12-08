@@ -9,6 +9,7 @@ type IconButtonProps = {
   direction?: 'left' | 'right' | 'up' | 'down';     // direction the image is facing
   useColorMode?: boolean;                           // whether to use color scheme suffix (default: dark)
   oppositeColorMode?: boolean;                      // whether to use opposite color scheme suffix
+  opacity?: number;                                 // opacity of the icon
 }
 
 // Icon that can be pressable
@@ -20,6 +21,7 @@ const IconButton = ({
   direction = 'right',
   useColorMode = false,
   oppositeColorMode = false,
+  opacity = 1
 }: IconButtonProps) => {
   const scheme = useColorScheme();
 
@@ -51,7 +53,8 @@ const IconButton = ({
   const imageStyles: StyleProp<ImageStyle> = [
     styles.icon,
     imgStyle,
-    transforms.length ? { transform: transforms as any } : undefined
+    transforms.length ? { transform: transforms as any } : undefined,
+    { opacity }
   ];
 
   if (onPress) {

@@ -74,5 +74,6 @@ const styles = StyleSheet.create({
     lineHeight: 26,
     textDecorationLine: 'underline',
     fontWeight: 'bold',
+    color: 'blue'
   },
 });

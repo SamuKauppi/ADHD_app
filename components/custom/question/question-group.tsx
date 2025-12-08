@@ -13,11 +13,12 @@ type QuestionItemProps = {
     questionData: Question;
     questionKey: string;
     onChange?: (checkedStates: boolean[]) => void;
+    loadOldAnswers?: boolean;
 };
 
 // Loads QuestionChekboxes and displays
 // Questions are loaded form question.ts in test.tsx
-export default function QuestionItem({ questionData, questionKey, onChange }: QuestionItemProps) {
+export default function QuestionItem({ questionData, questionKey, onChange, loadOldAnswers }: QuestionItemProps) {
     
     const [checkedStates, setCheckedStates] = useState<boolean[]>(
         Array(questionData.options.length).fill(false)
@@ -80,6 +81,7 @@ export default function QuestionItem({ questionData, questionKey, onChange }: Qu
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{questionData.question}</Text>
+            <Text style={styles.subtitle}>Valitse kaikki sopivat</Text>
             {questionData.options.map((option, index) => (
                 <QuestionCheckbox
                     key={index}
@@ -103,8 +105,14 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 20,
-        marginTop: 10
+        marginTop: 10,
+        marginBottom: 5
+    },
+    subtitle: {
+        fontSize: 16,
+        textAlign: 'center',
+        width: '100%',
+        marginBottom: 15,
     },
     optionText: {
         fontSize: 16,

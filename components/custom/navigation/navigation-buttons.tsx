@@ -10,7 +10,7 @@ interface NavigationButtonsProps {
   onPrevious: () => void;           // On previous functionality
   // Button texts 
   nextText?: string;
-  prevText?: string;                
+  prevText?: string;
   // Hide one of the buttons
   hideNext?: boolean;
   hidePrev?: boolean;
@@ -53,7 +53,14 @@ const NavigationButtons = ({
           textStyle={styles.navigationBtnTxt}
           color={KUTRI_COLORS.foreground}
           pressedColor={KUTRI_COLORS.background}
-          leftIcon={<IconButton iconName="chevron" style={styles.navigationBtnImg} direction={prevArrowDir} />}
+          leftIcon={
+            <IconButton
+              iconName="chevron"
+              style={styles.navigationBtnImg}
+              direction={prevArrowDir}
+              opacity={disablePrev ? 0.5 : 1}
+            />
+          }
           text={prevText ?? 'Edellinen'}
         />
       )}
@@ -71,7 +78,14 @@ const NavigationButtons = ({
           textStyle={styles.navigationBtnTxt}
           color={KUTRI_COLORS.button}
           pressedColor={KUTRI_COLORS.buttonHighlight}
-          rightIcon={<IconButton iconName="chevron" style={styles.navigationBtnImg} direction={nextArrowDir} />}
+          rightIcon={
+            <IconButton
+              iconName="chevron"
+              style={styles.navigationBtnImg}
+              direction={nextArrowDir}
+              opacity={disableNext ? 0.5 : 1}
+            />
+          }
           text={nextText ?? 'Seuraava'}
         />
       )}
@@ -95,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     borderRadius: 10,
     borderColor: KUTRI_COLORS.cardForeground,
-    borderWidth: 2
+    borderWidth: 1
   },
   navigationBtnTxt: {
     fontSize: 19,
