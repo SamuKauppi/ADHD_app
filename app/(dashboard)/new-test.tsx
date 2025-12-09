@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from 'react-native'
-import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_TOTAL_MARGIN } from '@/lib/layout'
+import { APP_HORIZONTAL_TOTAL_MARGIN } from '@/lib/layout'
 import { router } from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -39,22 +39,26 @@ const TestAgain = () => {
       <NavbarStyle />
       <HeaderTitle title='TESTAA UUDELLEEN' />
       <View style={styles.inner}>
-        <Text style={styles.description}>
-          Haluatko aloittaa testin alusta?
-        </Text>
-        
-        <Text style={styles.description}>
-          Aiemmat testitulokset säilyy vaikka et tekisi testiä loppuun
-        </Text>
-        <Spacer height={10}/>
-        <Button
-          onPress={handleRestartTest}
-          text='Testaa uudelleen' 
-          color={KUTRI_COLORS.foreground}
-          textStyle={styles.btnText}
-          style={{width: 200, height: 60}}
-          contentStyle={{borderWidth: 1}}
-        />
+        <View style={styles.content}>
+          <Text style={styles.description}>
+            Haluatko aloittaa testin alusta?
+          </Text>
+
+          <Text style={styles.description}>
+            Aiemmat testitulokset säilyy vaikka et tekisi testiä loppuun.
+          </Text>
+          <Spacer height={30} />
+          <View style={styles.btnContainer}>
+            <Button
+              onPress={handleRestartTest}
+              text='Testaa uudelleen'
+              color={KUTRI_COLORS.button}
+              pressedColor={KUTRI_COLORS.buttonHighlight}
+              textStyle={styles.btnText}
+              style={styles.btn}
+            />
+          </View>
+        </View>
       </View>
     </>
   )
@@ -65,17 +69,30 @@ export default TestAgain
 const styles = StyleSheet.create({
   inner: {
     width: '100%',
-    paddingHorizontal: APP_HORIZONTAL_TOTAL_MARGIN,
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
     backgroundColor: KUTRI_COLORS.background,
   },
+  content: {
+    marginHorizontal: APP_HORIZONTAL_TOTAL_MARGIN,
+    backgroundColor: KUTRI_COLORS.foreground,
+    padding: 20,
+    borderRadius: 10,
+    borderWidth: 1
+  },
   description: {
     fontSize: 16,
     color: KUTRI_COLORS.text,
     textAlign: 'left',
-    width: '100%'
+  },
+  btnContainer: {
+    alignItems: 'center',
+  },
+  btn: {
+    width: 200,
+    height: 60,
+    borderWidth: 1,
   },
   btnText: {
     color: 'black',

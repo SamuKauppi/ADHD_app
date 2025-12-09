@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ADHD_app",
+    "name": "ADHD Testi",
     "slug": "ADHD_app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.ADHD_app"
     },
     "web": {
       "bundler": "metro",

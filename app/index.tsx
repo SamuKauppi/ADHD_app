@@ -9,6 +9,7 @@ import { APP_HORIZONTAL_TOTAL_MARGIN } from '@/lib/layout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HeaderTitle from '@/components/custom/navigation/header-title';
 import Button from '@/components/custom/navigation/button';
+import NavbarStyle from '@/components/custom/hooks/navbar-style';
 
 // Index page. Redirects to home if test has been completed
 export default function Screen() {
@@ -45,15 +46,15 @@ export default function Screen() {
     <>
       <Stack.Screen />
       <HeaderTitle />
+      <NavbarStyle buttonStyle='dark' />
       <View
         style={[
           styles.container,
-          {
-            paddingBottom: insets.bottom,
-          },
         ]}
       >
-        <View style={styles.content}>
+        <View style={[styles.content, {
+          paddingBottom: insets.bottom,
+        },]}>
           <Image source={require('../assets/images/adhdtyypit_appiin.png')} style={styles.image} />
 
           <ScrollView style={styles.scollView}>
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     padding: 20,
-    marginVertical: 10,
+    marginBottom: 10,
   },
   image: {
     width: '100%',

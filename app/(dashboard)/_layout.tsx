@@ -92,7 +92,7 @@ export default HomeLayout;
 
 const styles = StyleSheet.create({
     iconStyle: {
-        width: 30,
-        height: 30,
+        width: 28,
+        height: 28,
     }
 });
