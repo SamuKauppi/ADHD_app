@@ -109,16 +109,18 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     marginBottom: 4,
+    fontSize: 18,
   },
   date: {
     color: '#666',
-    fontSize: 12,
+    fontSize: 14,
     marginBottom: 6,
   },
   snippet: {
     color: '#222',
     // Allow rendered HTML to flow naturally; RenderHTML will apply styles
     lineHeight: 18,
+    fontSize: 16
   },
   htmlWrapper: {
     marginTop: 6,

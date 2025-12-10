@@ -34,5 +34,11 @@ export const iconMap: Record<string, number> = {
   checkmarkD: require('../assets/images/checkmark.png'),
   checkmarkL: require('../assets/images/checkmark.png'),
 
-  startCoverD: require('../assets/images/adhdtyypit_appiin.png'),
+  coverD: require('../assets/images/adhdtyypit_appiin.png'),
+
+  // App logo
+  logoD: require('../assets/images/icons/logoD.png'),
+  logoL: require('../assets/images/icons/logoL.png'),
+  textLogoD: require('../assets/images/icons/textLogoD.png'),
+  textLogoL: require('../assets/images/icons/textLogoL.png'),
 };

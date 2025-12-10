@@ -16,7 +16,6 @@ const NavbarStyle = ({ buttonStyle }: NavbarProps) => {
         const styleToApply =
           buttonStyle ?? (colorScheme === 'dark' ? 'light' : 'dark'); // use prop if given, otherwise invert system theme
         NavigationBar.setButtonStyleAsync(styleToApply);
-        NavigationBar.setBackgroundColorAsync('#ffffff00');
       }
     }, [buttonStyle, colorScheme])
   );

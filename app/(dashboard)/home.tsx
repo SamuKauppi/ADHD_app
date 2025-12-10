@@ -18,31 +18,25 @@ const Home = () => {
 
   useFocusEffect(
     useCallback(() => {
-      let mounted = true;
-      (async () => {
-        try {
-          const val = await AsyncStorage.getItem('testCompleted');
-          if (!mounted) return;
-          if (val === 'false') {
-            router.replace('/');
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      })();
+      if (testCompleted === null) return;
 
-      return () => { mounted = false; };
-    }, [router])
+      if (testCompleted === false) {
+        // Test not completed → go back to index
+        while (router.canGoBack()) {
+          router.back();
+        }
+        router.replace('/');
+      }
+    }, [testCompleted])
   );
 
-  // TODO: add loading screen
-  if (testCompleted === null) return null;
-  if (testCompleted === false) return null;
+  // While loading or redirecting, show nothing
+  if (testCompleted === null || testCompleted === false) return null;
 
   return (
     <>
       <Stack.Screen />
-      <NavbarStyle/>
+      <NavbarStyle />
       <HeaderTitle
         title='TERVETULOA'
       />

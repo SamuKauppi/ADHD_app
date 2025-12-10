@@ -38,7 +38,7 @@ const Button = ({
   color = 'black',
   pressedColor = 'white',
   disabledColor = '#e7e7e7ff',
-  fadeDuration = 200,
+  fadeDuration = 100,
 }: ButtonProps) => {
   const anim = useRef(new Animated.Value(0)).current;
 

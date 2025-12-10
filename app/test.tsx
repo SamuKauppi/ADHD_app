@@ -23,20 +23,24 @@ export default function TestScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const [canGoNext, setCanGoNext] = useState(false);
+  const questionCount = questionKeys.length;
 
+  // Swipe handling
   const panHandlers = useSwipe({
     onSwipeLeft: () => { if (canGoNext) goNext(); },
     onSwipeRight: () => { goPrevious(); },
   });
 
+  // Call can go next
   useEffect(() => {
-    updateCanGoNext(currentKey, currentQuestion.options.length);
+    updateCanGoNext(currentKey, questionCount);
   }, [currentKey]);
 
   const goNext = async () => {
     if (currentIndex >= questionKeys.length - 1) {
       // Last question: calculate and save final results
       await SaveFinalResults();
+      router.dismissAll();
       router.replace('/result');
       return;
     }
@@ -77,7 +81,7 @@ export default function TestScreen() {
         <View style={styles.headerMargin}>
           <HeaderWithProgress
             currentStep={currentIndex}
-            maxSteps={questionKeys.length}
+            maxSteps={questionCount}
             onClose={router.back}
             style={styles.headerExtra}
           />
@@ -96,6 +100,8 @@ export default function TestScreen() {
               onPrevious={goPrevious}
               containerStyle={styles.navigationContainer}
               disableNext={!canGoNext}
+              nextText={currentIndex >= questionCount - 1 ? 'Tuloksiin' : 'Seuraava'}
+              prevText={currentIndex <= 0 ? 'Takaisin' : 'Edellinen'}
             />
           </View>
         </ScrollView>

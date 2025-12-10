@@ -19,7 +19,7 @@ export default function RootLayout() {
       <StatusBar />
       <Stack
         screenOptions={({ route }) => {
-          let animation: 'default' | 'none' = 'default';
+          let animation: 'ios_from_right' | 'none' = 'ios_from_right';
 
           // Disable animation only for index <-> (home)/home transitions
           if (route.name === 'index' || route.name === '(home)/home') {
@@ -35,6 +35,10 @@ export default function RootLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="test" />
         <Stack.Screen name='(content)/info' />
+        <Stack.Screen name='about' options={{
+          headerShown: false,
+          animation: 'ios_from_left'
+        }}/>
       </Stack>
       <PortalHost />
     </SafeAreaProvider>

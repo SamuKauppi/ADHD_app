@@ -1,30 +1,44 @@
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
 import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
 
-import Spacer from '@/components/ui/Spacer';
 import React from 'react';
-import ResetPopup from '@/components/custom/alert-window/reset-popup';
+import Spacer from '@/components/ui/Spacer';
 import HeaderTitle from '@/components/custom/navigation/header-title';
 import NavbarStyle from '@/components/custom/hooks/navbar-style';
+import Button from '@/components/custom/navigation/button';
 import AppInfo from '@/components/custom/app-info/app-info';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const SettingsPage = () => {
+const AboutPage = () => {
+  const router = useRouter();
+  const insets = useSafeAreaInsets();
+
   return (
     <>
       <Stack.Screen />
       <NavbarStyle />
       <HeaderTitle title="TIETOA SOVELLUKSESTA" />
 
-      <View style={styles.container}>
+      <View style={[styles.container, {
+        paddingBottom: insets.bottom
+      }]}>
         <ScrollView style={styles.scrollMargin}>
           <Spacer height={10} />
           <View style={styles.content}>
-            <AppInfo showReset={true} />
+            <AppInfo />
 
-            <ResetPopup btnStyle={styles.resetBtn} txtStyle={styles.resetLabel} />
-            <Spacer height={20} />
+            <Spacer height={45} />
+
+            <Button
+              text="TAKAISIN ALOITUSSIVULLE"
+              onPress={() => router.back()}
+              color={KUTRI_COLORS.button}
+              pressedColor={KUTRI_COLORS.buttonHighlight}
+              style={styles.button}
+              textStyle={styles.buttonText}
+            />
           </View>
         </ScrollView>
       </View>
@@ -32,7 +46,7 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default AboutPage;
 
 const styles = StyleSheet.create({
   container: {
@@ -55,17 +69,19 @@ const styles = StyleSheet.create({
     borderColor: KUTRI_COLORS.cardForeground,
     padding: '5%',
   },
-  resetBtn: {
-    padding: 10,
-    paddingHorizontal: 25,
-    backgroundColor: KUTRI_COLORS.warining,
-    borderRadius: 10,
+  button: {
     borderWidth: 1,
+    width: '60%',
+    height: 60,
     borderColor: KUTRI_COLORS.cardForeground,
+    alignSelf: 'center',
+    marginBottom: 20,
   },
-  resetLabel: {
+  buttonText: {
+    color: 'black',
     fontWeight: 'bold',
-    fontSize: 20,
-    color: 'white',
+    textAlign: 'center',
+    fontSize: 18,
+    padding: 5
   },
 });

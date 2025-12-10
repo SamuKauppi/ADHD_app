@@ -33,7 +33,7 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
             const value = valueStr ? parseInt(valueStr) : 0;
 
             const typeName = ADHD_TYPE[highestKey]?.name || highestKey;
-            const message = `Olen ${value}% ${typeName}! Lue lisää osoitteessa: https://kutri.net/`
+            const message = `Olen ${value}% ${typeName}!\nLue lisää osoitteessa: https://kutri.net/`
             const url = '../assets/images/close.png'
 
             await ShareHandling({ message, url });

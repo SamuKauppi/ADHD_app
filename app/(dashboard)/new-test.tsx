@@ -8,6 +8,7 @@ import HeaderTitle from '@/components/custom/navigation/header-title'
 import NavbarStyle from '@/components/custom/hooks/navbar-style'
 import { KUTRI_COLORS } from '@/lib/brand-colors'
 import Spacer from '@/components/ui/Spacer'
+import IconButton from '@/components/custom/navigation/icon-button'
 
 // Page to start a new test
 const TestAgain = () => {
@@ -39,9 +40,15 @@ const TestAgain = () => {
       <NavbarStyle />
       <HeaderTitle title='TESTAA UUDELLEEN' />
       <View style={styles.inner}>
+        <View style={styles.imageWrapper}>
+          <IconButton
+            iconName="cover"
+            imgStyle={styles.image}
+          />
+        </View>
         <View style={styles.content}>
-          <Text style={styles.description}>
-            Haluatko aloittaa testin alusta?
+          <Text style={[styles.description, {fontWeight: 'bold'}]}>
+            Haluatko testata uudelleen?
           </Text>
 
           <Text style={styles.description}>
@@ -51,7 +58,7 @@ const TestAgain = () => {
           <View style={styles.btnContainer}>
             <Button
               onPress={handleRestartTest}
-              text='Testaa uudelleen'
+              text='TESTAA UUDELLEEN'
               color={KUTRI_COLORS.button}
               pressedColor={KUTRI_COLORS.buttonHighlight}
               textStyle={styles.btnText}
@@ -74,6 +81,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: KUTRI_COLORS.background,
   },
+  imageWrapper: {
+    marginHorizontal: APP_HORIZONTAL_TOTAL_MARGIN, // add horizontal margin
+  },
+  image: {
+    width: '100%',
+    height: undefined,
+    aspectRatio: 512 / 392,
+    resizeMode: 'contain',
+  },
   content: {
     marginHorizontal: APP_HORIZONTAL_TOTAL_MARGIN,
     backgroundColor: KUTRI_COLORS.foreground,
@@ -82,7 +98,7 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   description: {
-    fontSize: 16,
+    fontSize: 18,
     color: KUTRI_COLORS.text,
     textAlign: 'left',
   },
@@ -99,4 +115,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16
   },
+
 })
