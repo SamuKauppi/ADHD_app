@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   Animated,
   Pressable,
@@ -9,13 +9,12 @@ import {
   type TextStyle,
   type StyleProp,
 } from 'react-native';
-import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 type ButtonProps = {
   text?: string;
   onPress?: () => void;
-  style?: StyleProp<ViewStyle>;          // container layout
-  contentStyle?: StyleProp<ViewStyle>;   // content + animated view styling
+  style?: StyleProp<ViewStyle>;
+  contentStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -41,22 +40,46 @@ const Button = ({
   fadeDuration = 100,
 }: ButtonProps) => {
   const anim = useRef(new Animated.Value(0)).current;
+  const isPressed = useRef(false);
 
-  const handlePressIn = () => anim.setValue(1); // immediate pressed color
-  const handlePressOut = () => {
+  const updateAnimation = (toValue: number) => {
     Animated.timing(anim, {
-      toValue: 0,
+      toValue,
       duration: fadeDuration,
       useNativeDriver: false,
     }).start();
   };
 
+  // Reset animation whenever disabled changes
+  useEffect(() => {
+    if (disabled) {
+      anim.stopAnimation(); // stop any ongoing animation
+      anim.setValue(0);     // reset to default
+      isPressed.current = false;
+    }
+  }, [disabled, anim]);
+
+  const handlePressIn = () => {
+    if (!disabled) {
+      isPressed.current = true;
+      anim.stopAnimation();
+      anim.setValue(1);
+    }
+  };
+
+  const handlePressOut = () => {
+    if (!disabled) {
+      isPressed.current = false;
+      updateAnimation(0);
+    }
+  };
+
   const backgroundColor = disabled
     ? disabledColor
     : anim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [color, pressedColor],
-    });
+        inputRange: [0, 1],
+        outputRange: [color, pressedColor],
+      });
 
   return (
     <Pressable
@@ -66,22 +89,19 @@ const Button = ({
       onPressOut={handlePressOut}
       style={[styles.container, style, disabled ? styles.disabledContainer : undefined]}
     >
-      {/* Animated background */}
       <Animated.View
         style={[
           StyleSheet.absoluteFill,
           { backgroundColor },
-          { borderRadius: 10 }, // match container
+          { borderRadius: 10 },
         ]}
       />
-      {/* Content */}
       <View style={[styles.contentDefault, contentStyle]}>
         {leftIcon && <View style={styles.iconWrapper}>{leftIcon}</View>}
         {text && <Text style={[styles.txt, textStyle, disabled && { opacity: 0.25 }]}>{text}</Text>}
         {rightIcon && <View style={styles.iconWrapper}>{rightIcon}</View>}
       </View>
     </Pressable>
-
   );
 };
 
@@ -89,8 +109,8 @@ export default Button;
 
 const styles = StyleSheet.create({
   container: {
-    width: 150,       // fallback fixed width
-    height: 50,       // fallback fixed height
+    width: 150,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
@@ -100,7 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 1, // above background
+    zIndex: 1,
   },
   txt: {
     color: 'white',

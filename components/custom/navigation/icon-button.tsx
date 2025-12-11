@@ -43,7 +43,6 @@ const IconButton = ({
     return null;
   }
 
-
   // Determine transforms
   const transforms: { rotate?: string; scaleX?: number }[] = [];
   if (direction === 'left') transforms.push({ scaleX: -1 });

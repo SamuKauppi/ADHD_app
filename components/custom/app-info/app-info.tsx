@@ -2,6 +2,8 @@ import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import Spacer from '@/components/ui/Spacer';
+import ResetPopup from '@/components/custom/alert-window/reset-popup';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
 
 const AppInfo = ({ showReset }: { showReset?: boolean }) => {
   const router = useRouter();
@@ -33,11 +35,12 @@ const AppInfo = ({ showReset }: { showReset?: boolean }) => {
       </Text>
 
       {showReset && (
-        <>
-          <Spacer height={45} />
+        <View style={{alignItems: 'flex-start'}}>
+          <Spacer height={25} />
           <Text style={styles.title2}>Voit poistaa tiedot sovelluksesta alla olevalla painikkeella:</Text>
           <Spacer height={20} />
-        </>
+          <ResetPopup btnStyle={styles.resetBtn} txtStyle={styles.resetLabel} />
+        </View>
       )}
     </View>
   );
@@ -59,5 +62,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textDecorationLine: 'underline',
     color: 'blue',
+  },
+  resetBtn: {
+    padding: 10,
+    paddingHorizontal: 25,
+    backgroundColor: KUTRI_COLORS.warining,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: KUTRI_COLORS.cardForeground,
+    width: '60%'
+  },
+  resetLabel: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'center'
   },
 });

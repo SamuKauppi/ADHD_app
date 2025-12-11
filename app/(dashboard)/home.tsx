@@ -4,7 +4,6 @@ import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 import { useCallback } from 'react';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import RssList from '@/components/custom/rss/rss-list';
 import { APP_HORIZONTAL_MARGIN } from '@/lib/layout';
 import HeaderTitle from '@/components/custom/navigation/header-title';
@@ -37,9 +36,7 @@ const Home = () => {
     <>
       <Stack.Screen />
       <NavbarStyle />
-      <HeaderTitle
-        title='TERVETULOA'
-      />
+      <HeaderTitle title='TERVETULOA' />
       <View style={styles.container}>
         <View style={styles.inner}>
 

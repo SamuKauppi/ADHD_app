@@ -31,7 +31,7 @@ export const QUESTIONS: Record<string, QuestionType> = {
             "Puhut muiden päälle koska et jaksa odottaa vuoroasi tai kuunnella “jaarittelua”",
             "Yllätyt välillä itsekin omista möläytyksistäsi, koska et koe ajatelleesi niitä ensin",
             "Kuulet tai käyt mielessäsi keskusteluja (ehkä jopa kuviteltujen tyyppien kanssa)",
-            "Yliavaudut omista asioistasi puolitutuille ja tuntematto-mille kiusallisella tavalla",
+            "Yliavaudut omista asioistasi puolitutuille ja tuntemattomille kiusallisella tavalla",
             "Puhut muiden päälle koska pelkäät unohtavasi mieleesi tulleen “tärkeän” ajatuksen",
             "Ei mikään ylläolevista"],
     },
@@ -42,7 +42,7 @@ export const QUESTIONS: Record<string, QuestionType> = {
             "Saat poissaolokohtauksia, joista et muista mitään jälkeenpäin",
             "Kun olet syvällä omissa ajatuksissasi, et kuule mitä muut sanovat",
             "Tunnekuohun vallassa sinun on vaikea kuunnella muita etkä muista jälkeenpäin mitä olet sanonut esim. vihaisena",
-            "Sanot “mitä?”, koska koet  ettet ymmärtänyt mitä toinen sanoi - mutta heti perään tajuat mitä hän sanoi.",
+            "Sanot “mitä?”, koska koet  ettet ymmärtänyt mitä toinen sanoi, mutta heti perään tajuat mitä hän sanoi.",
             "Ei mikään ylläolevista"],
     },
     q5: {
@@ -100,7 +100,7 @@ export const QUESTIONS: Record<string, QuestionType> = {
         question: "Kysymys 10",
         options: [
             "Teet huolimattomuusvirheitä koska et viitsi lukea ohjeita tai tarkastaa tehtäviä",
-            "Oireesi pahenevat stressaan-tuneena, kuormittuneena ja stimulaatiosta (ml. lääkkeet)",
+            "Oireesi pahenevat stressaantuneena, kuormittuneena ja stimulaatiosta (ml. lääkkeet)",
             "Saat välillä aistiharhoja (esim. kuulet tai näet olemattomia asioita)",
             "Väsyt sosiaalisissa tilanteissa, koska tarkkailet ja “luet” koko ajan muiden reaktoita",
             "Tunnistat huonosti “kevyitä” kosketuksia (ja tykkäät siksi “kovemmista otteista”)",

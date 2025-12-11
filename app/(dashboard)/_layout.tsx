@@ -14,6 +14,7 @@ const HomeLayout = () => {
     const backgroundColor = theme === 'light' ? KUTRI_COLORS.foreground : KUTRI_COLORS.cardForeground;
     const activeText = theme === 'light' ? KUTRI_COLORS.text : KUTRI_COLORS.textLight;
     const inactiveText = theme === 'light' ? KUTRI_COLORS.textInactive : KUTRI_COLORS.textInactiveLight;
+    const opacity = 0.5
 
     return (
         <SafeAreaProvider style={{ backgroundColor: KUTRI_COLORS.background, flex: 1 }}>
@@ -32,17 +33,17 @@ const HomeLayout = () => {
                         tabBarInactiveTintColor: inactiveText,
                         tabBarLabelStyle: {
                             fontSize: 10,
-                            marginTop: 5
                         }
                     }}>
                     <Tabs.Screen name="home" options={{
                         title: 'Koti',
                         tabBarIcon: ({ focused }) => (
                             <IconButton
-                                iconName={focused ? 'homeOpen' : 'homeClosed'}
+                                iconName={!focused ? 'homeClosed' : 'homeOpen'}
                                 style={styles.iconStyle}
                                 useColorMode={true}
                                 oppositeColorMode={true}
+                                opacity={!focused ? opacity : 1}
                             />
                         )
                     }} />
@@ -51,10 +52,11 @@ const HomeLayout = () => {
                         title: 'Tulokset',
                         tabBarIcon: ({ focused }) => (
                             <IconButton
-                                iconName={focused ? 'resultOpen' : 'resultClosed'}
+                                iconName={!focused ? 'resultClosed' : 'resultOpen'}
                                 style={styles.iconStyle}
                                 useColorMode={true}
                                 oppositeColorMode={true}
+                                opacity={!focused ? opacity : 1}
                             />
                         )
                     }} />
@@ -63,10 +65,11 @@ const HomeLayout = () => {
                         title: 'Testaa Uudelleen',
                         tabBarIcon: ({ focused }) => (
                             <IconButton
-                                iconName={focused ? 'testOpen' : 'testClosed'}
+                                iconName={!focused ? 'testClosed' : 'testOpen'}
                                 style={styles.iconStyle}
                                 useColorMode={true}
                                 oppositeColorMode={true}
+                                opacity={!focused ? opacity : 1}
                             />
                         )
                     }} />
@@ -75,10 +78,11 @@ const HomeLayout = () => {
                         title: 'Tiedot',
                         tabBarIcon: ({ focused }) => (
                             <IconButton
-                                iconName={focused ? 'settingsOpen' : 'settingsClosed'}
+                                iconName={!focused ? 'settingsClosed' : 'settingsOpen'}
                                 style={styles.iconStyle}
                                 useColorMode={true}
                                 oppositeColorMode={true}
+                                opacity={!focused ? opacity : 1}
                             />
                         )
                     }} />
@@ -92,7 +96,7 @@ export default HomeLayout;
 
 const styles = StyleSheet.create({
     iconStyle: {
-        width: 28,
-        height: 28,
+        width: 27,
+        height: 27,
     }
 });

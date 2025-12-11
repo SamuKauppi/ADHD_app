@@ -1,50 +1,24 @@
-import { StyleSheet, TextStyle, ViewStyle, Text, View } from "react-native";
-import { useState } from "react"
-import { ADHD_TYPE } from "@/lib/adhd-types";
+import { StyleSheet, TextStyle, ViewStyle } from "react-native";
+import { useState } from "react";
 import { ShareHandling } from "./share-handling";
+import { KUTRI_COLORS } from "@/lib/brand-colors";
 
 import IconButton from "../navigation/icon-button";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { KUTRI_COLORS } from "@/lib/brand-colors";
-import Button from '@/components/custom/navigation/button'
+import Button from '@/components/custom/navigation/button';
 
 type ShareProps = {
     style?: ViewStyle;
     txtStyle?: TextStyle;
-}
+};
 
-// Button that opens the sharewindow
 const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
     const [loading, setLoading] = useState(false);
 
     const handleShare = async () => {
         setLoading(true);
-
-        try {
-            // Use the new finalResult keys
-            const highestKey = await AsyncStorage.getItem('finalResult:highest');
-            if (!highestKey) {
-                console.log('No highest in memory');
-                setLoading(false);
-                return;
-            }
-
-            const valueStr = await AsyncStorage.getItem(`finalResult:${highestKey}`);
-            const value = valueStr ? parseInt(valueStr) : 0;
-
-            const typeName = ADHD_TYPE[highestKey]?.name || highestKey;
-            const message = `Olen ${value}% ${typeName}!\nLue lisää osoitteessa: https://kutri.net/`
-            const url = '../assets/images/close.png'
-
-            await ShareHandling({ message, url });
-
-        } catch (err) {
-            console.error('Error sharing result', err);
-        } finally {
-            setLoading(false);
-        }
-    }
-
+        await ShareHandling({ url: '../assets/images/close.png' });
+        setLoading(false);
+    };
 
     return (
         <Button
@@ -57,15 +31,15 @@ const ShareResultButton = ({ style, txtStyle }: ShareProps) => {
             leftIcon={<IconButton iconName="share" style={styles.iconSize} />}
             text={loading ? 'LATAA...' : 'JAA TULOKSESI!'}
         />
-    )
-}
+    );
+};
 
 export default ShareResultButton;
 
 const styles = StyleSheet.create({
     iconSize: {
         height: 30,
-        width: 30
+        width: 30,
     },
     container: {
         flexDirection: 'row',
@@ -74,15 +48,15 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: KUTRI_COLORS.button,
         borderColor: KUTRI_COLORS.cardForeground,
-        borderWidth: 2
+        borderWidth: 2,
     },
     buttonContent: {
         justifyContent: 'center',
-        gap: 10
+        gap: 10,
     },
     shareBtnText: {
         fontSize: 17,
         fontWeight: 'bold',
-        color: 'black'
+        color: 'black',
     },
-})
+});

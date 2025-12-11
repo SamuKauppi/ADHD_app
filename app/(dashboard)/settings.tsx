@@ -1,11 +1,10 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
 import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
 
-import Spacer from '@/components/ui/Spacer';
 import React from 'react';
-import ResetPopup from '@/components/custom/alert-window/reset-popup';
+import Spacer from '@/components/ui/Spacer';
 import HeaderTitle from '@/components/custom/navigation/header-title';
 import NavbarStyle from '@/components/custom/hooks/navbar-style';
 import AppInfo from '@/components/custom/app-info/app-info';
@@ -15,15 +14,14 @@ const SettingsPage = () => {
     <>
       <Stack.Screen />
       <NavbarStyle />
-      <HeaderTitle title="TIETOA SOVELLUKSESTA" />
+      <HeaderTitle 
+      title="TIETOA SOVELLUKSESTA"/>
 
       <View style={styles.container}>
         <ScrollView style={styles.scrollMargin}>
           <Spacer height={10} />
           <View style={styles.content}>
             <AppInfo showReset={true} />
-
-            <ResetPopup btnStyle={styles.resetBtn} txtStyle={styles.resetLabel} />
             <Spacer height={20} />
           </View>
         </ScrollView>
@@ -54,18 +52,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: KUTRI_COLORS.cardForeground,
     padding: '5%',
-  },
-  resetBtn: {
-    padding: 10,
-    paddingHorizontal: 25,
-    backgroundColor: KUTRI_COLORS.warining,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: KUTRI_COLORS.cardForeground,
-  },
-  resetLabel: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: 'white',
   },
 });

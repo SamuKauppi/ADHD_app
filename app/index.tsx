@@ -11,6 +11,7 @@ import Button from '@/components/custom/navigation/button';
 import NavbarStyle from '@/components/custom/hooks/navbar-style';
 import IconButton from '@/components/custom/navigation/icon-button';
 import Spacer from '@/components/ui/Spacer';
+import { useSwipe } from '@/components/custom/hooks/swipe';
 
 // Index page. Redirects to home if test has been completed
 export default function Screen() {
@@ -18,6 +19,10 @@ export default function Screen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const testCompleted = useTestCompleted();
+  const panHandlers = useSwipe({
+    onSwipeRight: () => router.push('/about'),
+    onSwipeLeft: () => router.push('/test')
+  })
 
   useFocusEffect(
     useCallback(() => {
@@ -36,7 +41,6 @@ export default function Screen() {
   // While loading or redirecting, show nothing
   if (testCompleted === null || testCompleted === true) return null;
 
-
   // Test has not been completed, show page
   return (
     <>
@@ -47,6 +51,7 @@ export default function Screen() {
         style={[
           styles.container,
         ]}
+        {...panHandlers}
       >
         <View style={[styles.content, {
           paddingBottom: insets.bottom,

@@ -4,7 +4,7 @@
     "slug": "ADHD_app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/",
+    "icon": "./assets/images/icons/logoD.png",
     "scheme": "ADHD_app",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -37,6 +37,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "41caee2e-c828-4f70-952b-7d36bb8f45c5"
+      }
     }
   }
 }

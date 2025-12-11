@@ -173,7 +173,7 @@ export const ADHD_DATA: Record<string, Type> = {
             text: [
                 "Se sama ominaisuus, joka tekee ihmissuhteista välillä raskaita, voi olla valtava voimavara.",
                 "Aivojesi kyky poimia ympäristöstä hienovaraisia emotionaalisia vihjeitä on pohja poikkeukselliselle empatialle ja ihmistuntemukselle. Kun opit erottamaan omat pelkosi ja väärät tulkintasi toisen todellisista tunteista, sinusta voi tulla mestarillinen ihmistuntija.",
-                "Tämä on korvaamaton taito toimiessa niiden kanssa, jotka eivät pysty ilmaisemaan itseään sanallisesti – esimerkiksi pienten lasten, muistisairaiden vanhusten tai eläinten kanssa. Sinä \"kuulet\" sen mitä ei sanota ääneen, ja aistit tunnelman muutokset ennen muita."
+                "Tämä on korvaamaton taito toimiessa niiden kanssa, jotka eivät pysty ilmaisemaan itseään sanallisesti - esimerkiksi pienten lasten, muistisairaiden vanhusten tai eläinten kanssa. Sinä \"kuulet\" sen mitä ei sanota ääneen, ja aistit tunnelman muutokset ennen muita."
             ],
             bold: ["poikkeukselliselle empatialle ja ihmistuntemukselle", "\"kuulet\" sen mitä ei sanota ääneen"]
         }

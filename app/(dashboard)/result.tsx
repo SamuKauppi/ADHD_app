@@ -9,6 +9,7 @@ import Spacer from '@/components/ui/Spacer';
 import ShareResultButton from '@/components/custom/share-button/share-button';
 import HeaderTitle from '@/components/custom/navigation/header-title';
 import NavbarStyle from '@/components/custom/hooks/navbar-style';
+import { router } from 'expo-router';
 
 // Loads and displays results from AsyncStorage
 const ResultPage = () => {
@@ -20,7 +21,7 @@ const ResultPage = () => {
   return (
     <>
       <NavbarStyle />
-      <HeaderTitle title="TULOKSET" />
+      <HeaderTitle title="TULOKSET"/>
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <Spacer height={10} />
@@ -65,7 +66,7 @@ const ResultPage = () => {
                   <Text style={styles.subtitle}>
                     ADHD haltuun -puuhakirja selittää ymmärrettävästi aivojesi toimintaa ja antaa vinkkejä ja työkaluja omien oireiden hallintaan.
                   </Text>
-                  <Text style={[styles.subtitle, {fontWeight: 'bold'}]}>
+                  <Text style={[styles.subtitle, { fontWeight: 'bold' }]}>
                     Lue kummastakin lisää täältä:
                   </Text>
                   <Text style={[styles.subtitle, { color: 'blue' }]} onPress={() => Linking.openURL('https://kutri.net/ADHD')}>

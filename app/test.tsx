@@ -74,7 +74,10 @@ export default function TestScreen() {
   return (
     <>
       <Stack.Screen />
-      <HeaderTitle containerStyle={{ paddingTop: insets.top }} />
+      <HeaderTitle 
+      containerStyle={{ paddingTop: insets.top }}
+      title='Takaisin'
+      showLeftBtn={true}/>
       <NavbarStyle buttonStyle='dark' />
 
       <SafeAreaView style={styles.container} {...panHandlers}>

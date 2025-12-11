@@ -94,6 +94,10 @@ const InfoPage = () => {
     if (Platform.OS === 'android') NavigationBar.setButtonStyleAsync('dark')
   }, [])
 
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ y: 0, animated: true });
+  }, [partIndex])
+
   // ----- CONTENT SELECTION -----
   let content = null
 
@@ -121,7 +125,7 @@ const InfoPage = () => {
       <>
         <Text style={styles.title}>Tässä muutama vinkki!</Text>
         <AccordionGroup accordionParts={Object.values(selectedAccordion)} />
-        <Spacer height={20}/>
+        <Spacer height={20} />
       </>
     )
   } else {
@@ -145,7 +149,10 @@ const InfoPage = () => {
     <>
       <Stack.Screen />
       <NavbarStyle buttonStyle="dark" />
-      <HeaderTitle />
+      <HeaderTitle
+        title='Takaisin'
+        showLeftBtn={true}
+        onPressLeft={() => router.back()} />
 
       <SafeAreaView style={styles.container} {...panHandlers}>
         <View style={{ paddingHorizontal: APP_HORIZONTAL_MARGIN, flex: 1 }}>

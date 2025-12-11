@@ -10,26 +10,30 @@ import NavbarStyle from '@/components/custom/hooks/navbar-style';
 import Button from '@/components/custom/navigation/button';
 import AppInfo from '@/components/custom/app-info/app-info';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import IconButton from '@/components/custom/navigation/icon-button';
+import { useSwipe } from '@/components/custom/hooks/swipe';
 
 const AboutPage = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const panHandlers = useSwipe({
+    onSwipeLeft: () => router.back()
+  })
 
   return (
     <>
       <Stack.Screen />
       <NavbarStyle />
-      <HeaderTitle title="TIETOA SOVELLUKSESTA" />
+      <HeaderTitle
+        title="TIETOA SOVELLUKSESTA"
+        showRightBtn={true} />
 
-      <View style={[styles.container, {
-        paddingBottom: insets.bottom
-      }]}>
+      <View style={[styles.container, { paddingBottom: insets.bottom }]} {...panHandlers}>
         <ScrollView style={styles.scrollMargin}>
-          <Spacer height={10} />
+          <Spacer height={20} />
           <View style={styles.content}>
-            <AppInfo />
-
-            <Spacer height={45} />
+            <AppInfo showReset={true} />
+            <Spacer height={20} />
 
             <Button
               text="TAKAISIN ALOITUSSIVULLE"
@@ -38,6 +42,11 @@ const AboutPage = () => {
               pressedColor={KUTRI_COLORS.buttonHighlight}
               style={styles.button}
               textStyle={styles.buttonText}
+              rightIcon={
+                <IconButton
+                  iconName='chevron'
+                  style={styles.backIcon} />
+              }
             />
           </View>
         </ScrollView>
@@ -71,17 +80,20 @@ const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 1,
-    width: '60%',
+    width: '80%',
     height: 60,
     borderColor: KUTRI_COLORS.cardForeground,
-    alignSelf: 'center',
     marginBottom: 20,
   },
   buttonText: {
     color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 18,
-    padding: 5
+    fontSize: 17,
+    padding: 5,
   },
+  backIcon: {
+    width: 15,
+    height: 20,
+  }
 });

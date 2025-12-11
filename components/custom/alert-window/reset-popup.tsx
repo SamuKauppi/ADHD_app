@@ -47,7 +47,6 @@ const ResetPopup = ({ btnStyle, txtStyle }: ResetPopupProps) => {
             async () => {
               try {
                 await AsyncStorage.clear();
-                console.log('AsyncStorage cleared');
                 router.replace('/');
               } catch (e) {
                 console.log('Failed to clear AsyncStorage', e);
