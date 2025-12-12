@@ -52,7 +52,6 @@ function parseRssString(xml: string) {
         let pubDate = extractTag(itemXml, 'pubDate')
         if (!pubDate) {
             pubDate = extractTag(itemXml, 'published') || extractTag(itemXml, 'dc:date')
-
         } 
         
         // Format pubDate to a more readable form
@@ -73,7 +72,7 @@ function parseRssString(xml: string) {
         let description = extractTag(itemXml, 'description')
         if (!description) description = extractTag(itemXml, 'content:encoded') || extractTag(itemXml, 'summary')
 
-        items.push({ title, link, pubDate, contentSnippet: description })
+        items.push({ title, link })
     }
     return { items }
 }

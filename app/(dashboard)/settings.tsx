@@ -1,7 +1,7 @@
 import { router, Stack } from 'expo-router';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
-import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
+import { BORDER_COLOR, SCROLLVIEW_HORIZONTAL_MARGIN , SCROLL_CONTENT_HORIZONTAL_MARGIN  } from '@/lib/layout';
 
 import React from 'react';
 import Spacer from '@/components/ui/Spacer';
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     backgroundColor: KUTRI_COLORS.background,
   },
   scrollMargin: {
-    marginHorizontal: APP_HORIZONTAL_MARGIN,
-    paddingHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
+    marginHorizontal: SCROLLVIEW_HORIZONTAL_MARGIN ,
+    paddingHorizontal: SCROLL_CONTENT_HORIZONTAL_MARGIN ,
   },
   content: {
     justifyContent: 'center',
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: KUTRI_COLORS.foreground,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: KUTRI_COLORS.cardForeground,
+    borderColor: BORDER_COLOR,
     padding: '5%',
   },
 });

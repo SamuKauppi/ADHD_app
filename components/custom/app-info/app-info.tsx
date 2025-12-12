@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import Spacer from '@/components/ui/Spacer';
 import ResetPopup from '@/components/custom/alert-window/reset-popup';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
+import { BORDER_COLOR } from '@/lib/layout';
 
 const AppInfo = ({ showReset }: { showReset?: boolean }) => {
   const router = useRouter();
@@ -18,9 +19,9 @@ const AppInfo = ({ showReset }: { showReset?: boolean }) => {
         Sovellus ei käytä analytiikkaa, evästeitä, seurantaa tai kolmansien osapuolten SDK:ita.
         RSS-näkymä näyttää kutri.net-blogin uusimmat artikkelit, mutta ei lähetä tai jaa tietoja sinusta kenellekään.
         Voit poistaa kaikki tiedot poistamalla sovelluksen.
-        Lue koko tietosuojailmoitus{' '}
+        Lue koko tietosuojailmoitus osoitteesta:{'\n'}
         <Text style={styles.link} onPress={() => router.push('https://kutri.net/adhd-app-privacy-policy/')}>
-          täältä
+          https://kutri.net/adhd-app-privacy-policy/
         </Text>
       </Text>
 
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: KUTRI_COLORS.warining,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: KUTRI_COLORS.cardForeground,
+    borderColor: BORDER_COLOR,
     width: '60%'
   },
   resetLabel: {

@@ -1,9 +1,10 @@
-import { Image, Pressable, StyleSheet, View, ViewStyle, Text } from 'react-native'
+import { Image, Pressable, StyleSheet, View, Text } from 'react-native'
 import { useState } from 'react'
 import { KUTRI_COLORS } from '@/lib/brand-colors';
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 
 import IconButton from '../navigation/icon-button';
+import { BUTTON_UNSTABLE_DELAY } from '@/lib/layout';
 
 type ResultEntryProps = {
     typeKey: string;
@@ -33,14 +34,14 @@ const ResultEntry = ({
     const percentage = score && maxScore ? (score / maxScore) * 100 : 0;
 
     const backgroundColor = pressed ? KUTRI_COLORS.background : KUTRI_COLORS.foreground;
-    const borderColor = KUTRI_COLORS.cardForeground;
 
     return (
         <Pressable
             onPress={() => onPress?.(typeKey)}
             onPressIn={() => setPressed(true)}
             onPressOut={() => setPressed(false)}
-            style={[style, { borderColor, backgroundColor }]}
+            style={[style, { backgroundColor }]}
+            unstable_pressDelay={BUTTON_UNSTABLE_DELAY}
         >
             <Image
                 source={imgSource}

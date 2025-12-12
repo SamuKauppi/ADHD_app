@@ -6,38 +6,36 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+export { ErrorBoundary } from 'expo-router';
 
-// Layout for other pages
 export default function RootLayout() {
-
   return (
-    <SafeAreaProvider style={{ backgroundColor: KUTRI_COLORS.background, flex: 1 }}>
-      <StatusBar />
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <StatusBar style='light' />
       <Stack
         screenOptions={({ route }) => {
           let animation: 'ios_from_right' | 'none' = 'ios_from_right';
 
-          // Disable animation only for index <-> (home)/home transitions
-          if (route.name === 'index' || route.name === '(home)/home') {
+          if (route.name === '/' || route.name === '(home)/home') {
             animation = 'none';
           }
 
           return {
             headerShown: false,
             animation,
+            contentStyle: { backgroundColor: KUTRI_COLORS.background }, 
+            detachPreviousScreen: false, 
           };
         }}
       >
         <Stack.Screen name="index" />
+        <Stack.Screen name="content" />
         <Stack.Screen name="test" />
         <Stack.Screen name='(content)/info' />
         <Stack.Screen name='about' options={{
           headerShown: false,
-          animation: 'ios_from_left'
+          animation: 'ios_from_left',
+          contentStyle: { backgroundColor: KUTRI_COLORS.background },
         }}/>
       </Stack>
       <PortalHost />

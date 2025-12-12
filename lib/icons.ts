@@ -36,9 +36,12 @@ export const iconMap: Record<string, number> = {
 
   coverD: require('../assets/images/adhdtyypit_appiin.png'),
 
+  forwardD: require('../assets/images/forwardTo.png'),
+
   // App logo
   logoD: require('../assets/images/icons/logoD.png'),
   logoL: require('../assets/images/icons/logoL.png'),
   textLogoD: require('../assets/images/icons/textLogoD.png'),
   textLogoL: require('../assets/images/icons/textLogoL.png'),
+  oravaD: require('../assets/images/icons/oravalogo.png')
 };

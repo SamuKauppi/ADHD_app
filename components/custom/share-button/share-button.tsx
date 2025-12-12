@@ -5,6 +5,7 @@ import { KUTRI_COLORS } from "@/lib/brand-colors";
 
 import IconButton from "../navigation/icon-button";
 import Button from '@/components/custom/navigation/button';
+import { BORDER_COLOR } from "@/lib/layout";
 
 type ShareProps = {
     style?: ViewStyle;
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
         height: 60,
         width: '100%',
         backgroundColor: KUTRI_COLORS.button,
-        borderColor: KUTRI_COLORS.cardForeground,
-        borderWidth: 2,
+        borderColor: BORDER_COLOR,
+        borderWidth: 1,
     },
     buttonContent: {
         justifyContent: 'center',

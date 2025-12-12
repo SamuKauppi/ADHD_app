@@ -11,7 +11,7 @@ import HeaderWithProgress from '@/components/custom/navigation/header-progressba
 import HeaderTitle from '@/components/custom/navigation/header-title';
 import NavbarStyle from '@/components/custom/hooks/navbar-style';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
-import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING, APP_HORIZONTAL_TOTAL_MARGIN } from '@/lib/layout';
+import { SCROLLVIEW_HORIZONTAL_MARGIN, SCROLL_CONTENT_HORIZONTAL_MARGIN, TOTAL_MARGIN } from '@/lib/layout';
 import { useSwipe } from '@/components/custom/hooks/swipe';
 import { SaveFinalResults } from '@/components/custom/functions/save-results';
 
@@ -48,14 +48,13 @@ export default function TestScreen() {
   };
 
   const goPrevious = () => {
-    setCurrentIndex(prev => {
-      if (prev <= 0) {
-        router.back();
-        return 0;
-      }
-      return prev - 1;
-    });
+    if (currentIndex <= 0) {
+      router.back();
+      return;
+    }
+    setCurrentIndex(currentIndex - 1);
   };
+
 
   const updateCanGoNext = async (questionKey: string, optionCount: number) => {
     try {
@@ -74,10 +73,10 @@ export default function TestScreen() {
   return (
     <>
       <Stack.Screen />
-      <HeaderTitle 
-      containerStyle={{ paddingTop: insets.top }}
-      title='Takaisin'
-      showLeftBtn={true}/>
+      <HeaderTitle
+        containerStyle={{ paddingTop: insets.top }}
+        title='Takaisin'
+        showLeftBtn={true} />
       <NavbarStyle buttonStyle='dark' />
 
       <SafeAreaView style={styles.container} {...panHandlers}>
@@ -114,10 +113,45 @@ export default function TestScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingVertical: 10, justifyContent: 'space-between', backgroundColor: KUTRI_COLORS.background },
-  headerMargin: { paddingTop: '1%', borderTopLeftRadius: 10, borderTopRightRadius: 10, borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, backgroundColor: KUTRI_COLORS.foreground, marginHorizontal: APP_HORIZONTAL_TOTAL_MARGIN },
-  headerExtra: { marginLeft: '7%', marginRight: '1%' },
-  scrollMargin: { marginTop: -1, marginHorizontal: APP_HORIZONTAL_MARGIN },
-  content: { flex: 1, justifyContent: 'space-between', borderBottomLeftRadius: 10, borderBottomRightRadius: 10, borderBottomWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, backgroundColor: KUTRI_COLORS.foreground, marginHorizontal: APP_HORIZONTAL_SCROLL_PADDING, paddingHorizontal: '2%', paddingBottom: 20 },
-  navigationContainer: { marginTop: 20 },
+  container: {
+    flex: 1,
+    paddingVertical: 10,
+    justifyContent: 'space-between',
+    backgroundColor: KUTRI_COLORS.background,
+  },
+  headerMargin: {
+    paddingTop: '1%',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    backgroundColor: KUTRI_COLORS.foreground,
+    marginHorizontal: TOTAL_MARGIN,
+  },
+  headerExtra: {
+    marginLeft: '7%',
+    marginRight: '1%',
+  },
+  scrollMargin: {
+    marginTop: -1,
+    marginHorizontal: SCROLLVIEW_HORIZONTAL_MARGIN,
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'space-between',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    backgroundColor: KUTRI_COLORS.foreground,
+    marginHorizontal: SCROLL_CONTENT_HORIZONTAL_MARGIN,
+    paddingHorizontal: '2%',
+    paddingBottom: 20,
+  },
+  navigationContainer: {
+    marginTop: 20,
+  },
 });
+

@@ -4,6 +4,7 @@ import { KUTRI_COLORS } from '@/lib/brand-colors';
 import Spacer from '@/components/ui/Spacer';
 import IconButton from '@/components/custom/navigation/icon-button';
 import Button from '@/components/custom/navigation/button';
+import { BORDER_COLOR } from '@/lib/layout';
 
 interface NavigationButtonsProps {
   onNext: () => void;               // On next functionality
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     borderRadius: 10,
-    borderColor: KUTRI_COLORS.cardForeground,
+    borderColor: BORDER_COLOR,
     borderWidth: 1
   },
   navigationBtnTxt: {

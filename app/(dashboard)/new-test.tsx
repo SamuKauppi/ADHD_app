@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from 'react-native'
-import { APP_HORIZONTAL_TOTAL_MARGIN } from '@/lib/layout'
+import { TOTAL_MARGIN, BORDER_COLOR } from '@/lib/layout'
 import { router } from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -47,12 +47,12 @@ const TestAgain = () => {
           />
         </View>
         <View style={styles.content}>
-          <Text style={[styles.description, {fontWeight: 'bold'}]}>
+          <Text style={styles.title}>
             Haluatko testata uudelleen?
           </Text>
 
           <Text style={styles.description}>
-            Aiemmat testitulokset säilyy vaikka et tekisi testiä loppuun.
+            Keskeneräisen testin tuloksia ei tallenneta
           </Text>
           <Spacer height={30} />
           <View style={styles.btnContainer}>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: KUTRI_COLORS.background,
   },
   imageWrapper: {
-    marginHorizontal: APP_HORIZONTAL_TOTAL_MARGIN, // add horizontal margin
+    marginHorizontal: TOTAL_MARGIN, // add horizontal margin
   },
   image: {
     width: '100%',
@@ -91,15 +91,19 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   content: {
-    marginHorizontal: APP_HORIZONTAL_TOTAL_MARGIN,
+    marginHorizontal: TOTAL_MARGIN,
     backgroundColor: KUTRI_COLORS.foreground,
     padding: 20,
     borderRadius: 10,
-    borderWidth: 1
+    borderWidth: 1,
+    borderColor: BORDER_COLOR,
+  },
+  title: { 
+    fontSize: 25,
+    fontWeight: 'bold',
   },
   description: {
     fontSize: 18,
-    color: KUTRI_COLORS.text,
     textAlign: 'left',
   },
   btnContainer: {
@@ -109,6 +113,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 60,
     borderWidth: 1,
+    borderColor: BORDER_COLOR,
   },
   btnText: {
     color: 'black',

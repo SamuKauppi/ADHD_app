@@ -1,125 +1,160 @@
 import { Stack, useRouter, useFocusEffect } from 'expo-router';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
 import { useCallback } from 'react';
-import { KUTRI_COLORS } from '@/lib/brand-colors';
-import { APP_HORIZONTAL_TOTAL_MARGIN } from '@/lib/layout';
 
+import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
+import { useSwipe } from '@/components/custom/hooks/swipe';
+import NavbarStyle from '@/components/custom/hooks/navbar-style';
 import HeaderTitle from '@/components/custom/navigation/header-title';
 import Button from '@/components/custom/navigation/button';
-import NavbarStyle from '@/components/custom/hooks/navbar-style';
 import IconButton from '@/components/custom/navigation/icon-button';
 import Spacer from '@/components/ui/Spacer';
-import { useSwipe } from '@/components/custom/hooks/swipe';
+import { KUTRI_COLORS } from '@/lib/brand-colors';
+import { BORDER_COLOR, SCROLLVIEW_HORIZONTAL_MARGIN, SCROLL_CONTENT_HORIZONTAL_MARGIN } from '@/lib/layout';
 
-// Index page. Redirects to home if test has been completed
 export default function Screen() {
-
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const testCompleted = useTestCompleted();
+
   const panHandlers = useSwipe({
     onSwipeRight: () => router.push('/about'),
-    onSwipeLeft: () => router.push('/test')
-  })
+    onSwipeLeft: () => router.push('/content'),
+  });
 
   useFocusEffect(
     useCallback(() => {
       if (testCompleted === null) return;
-
-      if (testCompleted === true) {
-        // Test already completed → go to home
-        while (router.canGoBack()) {
-          router.back();
-        }
+      if (testCompleted) {
+        while (router.canGoBack()) router.back();
         router.replace('/home');
       }
     }, [testCompleted])
   );
 
-  // While loading or redirecting, show nothing
-  if (testCompleted === null || testCompleted === true) return null;
+  if (testCompleted === null || testCompleted) return null;
 
-  // Test has not been completed, show page
   return (
     <>
       <Stack.Screen />
       <HeaderTitle />
-      <NavbarStyle buttonStyle='dark' />
-      <View
-        style={[
-          styles.container,
-        ]}
-        {...panHandlers}
-      >
-        <View style={[styles.content, {
-          paddingBottom: insets.bottom,
-        },]}>
-          <IconButton
-            iconName="cover"
-            imgStyle={styles.image}
-          />
-
-          <ScrollView style={styles.scollView}>
-            <Text style={styles.title}>Selvitä oma ADHD-tyyppisi</Text>
-
-            <Text style={styles.paragraph}>
-              ADHD:n eli tarkkaavuushäiriön takana on joukko erilaisia aivotoiminnan poikkeamia.
-            </Text>
-
-            <Text style={styles.paragraph}>
-              Viisi ADHD-tyyppiä teksti auttaa sinua selvittämään, millä kaikilla tavoilla oma tarkkaavuushäiriösi ehkä ilmenee ja mistä se johtuu.
-            </Text>
-
-            <Text style={styles.paragraph}>
-              Valitse vastausvaihtoehdoista kaikki ne, jotka tunnistat itsessäsi. Useimmat ADHD-ihmiset tunnistavat itsessään 2–5 eri tyyppiä.
-            </Text>
-            <View style={styles.buttonContainer}>
-              <Button
-                text="ALOITA TESTI"
-                onPress={() => router.push('/test')}
-                color={KUTRI_COLORS.button}
-                pressedColor={KUTRI_COLORS.buttonHighlight}
-                style={styles.button}
-                textStyle={styles.buttonText}
-              />
-              <Spacer height={30} />
-              <Text
-                style={[styles.paragraph, { textDecorationLine: 'underline', color: 'blue' }]}
-                onPress={() => router.push('/about')}
-              >
-                Tietoa sovelluksesta
-              </Text>
-
-            </View>
-          </ScrollView>
+      <NavbarStyle buttonStyle="dark" />
+      <View style={styles.container} {...panHandlers}>
+        <View style={[styles.outerContent, { paddingBottom: insets.bottom }]}>
+          <Spacer height={20} />
+          <Cover />
+          <ScrollableContent router={router} />
         </View>
       </View>
     </>
   );
 }
 
+function Cover() {
+  return (
+    <View style={styles.coverContainer}>
+      <IconButton iconName="cover" imgStyle={styles.image} />
+    </View>
+  );
+}
+
+interface ScrollableContentProps {
+  router: ReturnType<typeof useRouter>;
+}
+
+function ScrollableContent({ router }: ScrollableContentProps) {
+  return (
+    <View style={styles.scrollViewContainer}>
+      <View style={styles.innerContent}>
+        <Text style={styles.title}>Selvitä oma ADHD-tyyppisi</Text>
+        <View style={styles.buttonContainer}>
+          <TestButton router={router} />
+          <Spacer height={25} />
+          <OravaButton router={router} />
+          <Spacer height={25} />
+          <InfoLink router={router} />
+        </View>
+      </View>
+    </View>
+  );
+}
+
+interface ButtonProps {
+  router: ReturnType<typeof useRouter>;
+}
+
+function TestButton({ router }: ButtonProps) {
+  return (
+    <Button
+      text="ALOITA TESTI"
+      onPress={() => router.push('/content')}
+      color={KUTRI_COLORS.button}
+      pressedColor={KUTRI_COLORS.buttonHighlight}
+      style={styles.mainButton}
+      contentStyle={styles.mainButtonContent}
+      textStyle={styles.buttonText}
+      rightIcon={
+        <IconButton iconName='chevron' style={styles.btnChevron}/>
+      }
+    />
+  );
+}
+
+function OravaButton({ router }: ButtonProps) {
+  return (
+    <Button
+      onPress={() => router.push('http://kutri.net/ADHD/')}
+      color={KUTRI_COLORS.cardBackground}
+      pressedColor={KUTRI_COLORS.card}
+      style={styles.mainButton}
+      textStyle={styles.btnTxt}
+      contentStyle={styles.btnContent}
+      leftIcon={<IconButton iconName="orava" style={styles.btnLogo} />}
+      rightIcon={<IconButton iconName="forward" style={styles.btnArrow} mirror mirrorDirection="vertical" />}
+    />
+  );
+}
+
+function InfoLink({ router }: ButtonProps) {
+  return (
+    <Text
+      style={[styles.paragraph, { textDecorationLine: 'underline', color: 'blue' }]}
+      onPress={() => router.push('/about')}
+    >
+      Tietoa sovelluksesta
+    </Text>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: KUTRI_COLORS.background,
   },
-  content: {
-    marginHorizontal: APP_HORIZONTAL_TOTAL_MARGIN
+  outerContent: {
+    marginHorizontal: SCROLLVIEW_HORIZONTAL_MARGIN,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  scollView: {
+  coverContainer: {
+    marginHorizontal: SCROLL_CONTENT_HORIZONTAL_MARGIN,
+  },
+  scrollViewContainer: {
+    marginHorizontal: SCROLL_CONTENT_HORIZONTAL_MARGIN,
     backgroundColor: KUTRI_COLORS.foreground,
     borderRadius: 10,
     borderWidth: 1,
+    borderColor: BORDER_COLOR,
+  },
+  innerContent: {
     padding: 20,
   },
   image: {
     width: '100%',
     height: undefined,
-    aspectRatio: 512 / 392,   // ≈1.306
+    aspectRatio: 512 / 392,
     resizeMode: 'contain',
   },
   title: {
@@ -137,14 +172,41 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
   },
-  button: {
-    borderWidth: 1,
-    width: '60%',
-    borderColor: KUTRI_COLORS.cardForeground
-  },
   buttonText: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 18,
+  },
+  mainButton: {
+    borderWidth: 1,
+    borderColor: BORDER_COLOR,
+    width: '85%',
+    height: 65,
+  },
+  mainButtonContent: {
+    justifyContent: 'space-around',
+    width: '100%'
+  },
+  btnTxt: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 18,
+  },
+  btnContent: {
+    justifyContent: 'center',
+    width: '100%',
+  },
+  btnLogo: {
+    height: 60,
+    width: 100,
+  },
+  btnArrow: {
+    height: 40,
+    width: 40,
+  },
+  btnChevron: {
+    height: 20,
+    width: 20
   }
 });

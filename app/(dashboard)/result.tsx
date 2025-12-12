@@ -1,7 +1,7 @@
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import { KUTRI_COLORS } from '@/lib/brand-colors';
 import { useTestCompleted } from '@/components/custom/hooks/use-test-completed';
-import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout';
+import { BORDER_COLOR, SCROLLVIEW_HORIZONTAL_MARGIN , SCROLL_CONTENT_HORIZONTAL_MARGIN  } from '@/lib/layout';
 import { Linking } from 'react-native';
 
 import ResultGroup from '@/components/custom/result/result-group';
@@ -9,7 +9,6 @@ import Spacer from '@/components/ui/Spacer';
 import ShareResultButton from '@/components/custom/share-button/share-button';
 import HeaderTitle from '@/components/custom/navigation/header-title';
 import NavbarStyle from '@/components/custom/hooks/navbar-style';
-import { router } from 'expo-router';
 
 // Loads and displays results from AsyncStorage
 const ResultPage = () => {
@@ -58,7 +57,7 @@ const ResultPage = () => {
                     Haluatko oppia hallitsemaan omaa ADHD:ta?
                   </Text>
                   <Text style={styles.subtitle}>
-                    On kiva tietää oma ADHD-tyyppi – mutta se ei vielä siivoa kaaosta kalenterista tai keittiöstä.
+                    On kiva tietää oma ADHD-tyyppi - mutta se ei vielä siivoa kaaosta kalenterista tai keittiöstä.
                   </Text>
                   <Text style={styles.subtitle}>
                     Kutri.net:in ilmainen ADHD-jäsenyys tarjoaa vertaistukea ja webinaareja.
@@ -99,10 +98,10 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    marginHorizontal: APP_HORIZONTAL_MARGIN,
+    marginHorizontal: SCROLLVIEW_HORIZONTAL_MARGIN ,
   },
   scrollMargin: {
-    marginHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
+    marginHorizontal: SCROLL_CONTENT_HORIZONTAL_MARGIN ,
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
@@ -117,8 +116,8 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingHorizontal: 15,
     backgroundColor: KUTRI_COLORS.foreground,
-    borderColor: KUTRI_COLORS.cardForeground,
-    borderWidth: 2,
+    borderColor: BORDER_COLOR,
+    borderWidth: 1,
     borderRadius: 10
   },
   subtitle: {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity, Linking, Dimensions } from 'react-native'
-import RenderHTML from 'react-native-render-html'
+import { View, Text, StyleSheet, ActivityIndicator, FlatList, Linking } from 'react-native'
 import { fetchRss } from '@/components/custom/functions/rss-parser'
 import { KUTRI_COLORS } from '@/lib/brand-colors'
-import { APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout'
+import Button from '../navigation/button'
+import { BORDER_COLOR } from '@/lib/layout'
 
 type RssItem = {
   title?: string
@@ -63,27 +63,27 @@ export default function RssList({ url, limit = 10, scrollbarInset = 16 }: Props)
 
   return (
     <FlatList
+      scrollEnabled={false}
       style={styles.list}
       data={items}
       keyExtractor={(item, idx) => (item.link ?? item.title ?? String(idx))}
       renderItem={({ item, index }) => (
-        <TouchableOpacity
-          onPress={() => item.link && Linking.openURL(item.link)}
-          style={[styles.item, index === 0 && { marginTop: 10 }]}
-        >
-          <Text style={styles.title}>{item.title}</Text>
-          {item.pubDate ? <Text style={styles.date}>{item.pubDate}</Text> : null}
-          {item.contentSnippet ? (
-            // Render HTML content. Use RenderHTML for proper HTML rendering in RN.
-            <View style={styles.htmlWrapper}>
-              <RenderHTML
-                contentWidth={Dimensions.get('window').width - 32}
-                source={{ html: item.contentSnippet }}
-                baseStyle={styles.snippet}
-              />
-            </View>
-          ) : null}
-        </TouchableOpacity>
+        <Button
+          key={index}
+          style={styles.item}
+          contentStyle={styles.itemContent}
+          textStyle={styles.title}
+          color='white'
+          pressedColor={KUTRI_COLORS.background}
+          text={item.title}
+          onPress={() => {
+            if (item.link) {
+              Linking.openURL(item.link)
+            } else {
+              Linking.openURL('http://kutri.net/ADHD')
+            }
+          }}
+        />
       )}
       ItemSeparatorComponent={() => <View style={styles.sep} />}
     />
@@ -92,7 +92,6 @@ export default function RssList({ url, limit = 10, scrollbarInset = 16 }: Props)
 
 const styles = StyleSheet.create({
   list: {
-    paddingHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
   },
   loadingContainer: {
     flex: 1,
@@ -101,15 +100,23 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 12,
-    backgroundColor: KUTRI_COLORS.foreground,
-    borderRadius: 8,
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: KUTRI_COLORS.cardForeground,
+    borderColor: BORDER_COLOR,
+    width: '100%',
+    height: 'auto'
+  },
+  itemContent: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: '100%'
   },
   title: {
     fontWeight: 'bold',
     marginBottom: 4,
     fontSize: 18,
+    color: 'black',
+    textAlign: 'left',
   },
   date: {
     color: '#666',

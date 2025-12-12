@@ -1,4 +1,5 @@
 import { KUTRI_COLORS } from '@/lib/brand-colors';
+import { BORDER_COLOR } from '@/lib/layout';
 import { THEME } from '@/lib/theme';
 import React from 'react';
 import { StyleSheet, View, Pressable, useColorScheme } from 'react-native';
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
         height: 6,
         borderRadius: 6,
         borderWidth: 1,
+        borderColor: BORDER_COLOR,
         marginHorizontal: 3,
         minWidth: 0,
     }

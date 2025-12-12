@@ -1,3 +1,4 @@
+import { BUTTON_UNSTABLE_DELAY } from '@/lib/layout';
 import React, { useRef, useEffect } from 'react';
 import {
   Animated,
@@ -88,12 +89,13 @@ const Button = ({
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       style={[styles.container, style, disabled ? styles.disabledContainer : undefined]}
+      unstable_pressDelay={BUTTON_UNSTABLE_DELAY}
     >
       <Animated.View
         style={[
           StyleSheet.absoluteFill,
           { backgroundColor },
-          { borderRadius: 10 },
+          { borderRadius: 8 },
         ]}
       />
       <View style={[styles.contentDefault, contentStyle]}>

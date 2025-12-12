@@ -13,12 +13,11 @@ type QuestionItemProps = {
     questionData: Question;
     questionKey: string;
     onChange?: (checkedStates: boolean[]) => void;
-    loadOldAnswers?: boolean;
 };
 
 // Loads QuestionChekboxes and displays
 // Questions are loaded form question.ts in test.tsx
-export default function QuestionItem({ questionData, questionKey, onChange, loadOldAnswers }: QuestionItemProps) {
+export default function QuestionItem({ questionData, questionKey, onChange }: QuestionItemProps) {
     
     const [checkedStates, setCheckedStates] = useState<boolean[]>(
         Array(questionData.options.length).fill(false)

@@ -26,14 +26,10 @@ const HomeLayout = () => {
                 <Tabs
                     screenOptions={{
                         headerShown: false,
-                        tabBarStyle: {
-                            backgroundColor: backgroundColor
-                        },
+                        tabBarStyle: { backgroundColor },
                         tabBarActiveTintColor: activeText,
                         tabBarInactiveTintColor: inactiveText,
-                        tabBarLabelStyle: {
-                            fontSize: 10,
-                        }
+                        tabBarLabelStyle: { fontSize: 10 },
                     }}>
                     <Tabs.Screen name="home" options={{
                         title: 'Koti',

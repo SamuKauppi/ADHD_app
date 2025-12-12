@@ -18,7 +18,7 @@ import { useSwipe } from '@/components/custom/hooks/swipe'
 
 // Constants / helpers
 import { KUTRI_COLORS } from '@/lib/brand-colors'
-import { APP_HORIZONTAL_MARGIN, APP_HORIZONTAL_SCROLL_PADDING } from '@/lib/layout'
+import { SCROLLVIEW_HORIZONTAL_MARGIN , SCROLL_CONTENT_HORIZONTAL_MARGIN  } from '@/lib/layout'
 import { renderWithBold } from '@/components/custom/functions/render-with-bold'
 
 // Components
@@ -155,7 +155,7 @@ const InfoPage = () => {
         onPressLeft={() => router.back()} />
 
       <SafeAreaView style={styles.container} {...panHandlers}>
-        <View style={{ paddingHorizontal: APP_HORIZONTAL_MARGIN, flex: 1 }}>
+        <View style={{ paddingHorizontal: SCROLLVIEW_HORIZONTAL_MARGIN , flex: 1 }}>
           <View style={styles.headerMargin}>
             <HeaderWithProgress
               currentStep={partIndex}
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: KUTRI_COLORS.background
   },
   headerMargin: {
-    marginHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
+    marginHorizontal: SCROLL_CONTENT_HORIZONTAL_MARGIN ,
     paddingTop: '2%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     marginRight: '1%'
   },
   content: {
-    marginHorizontal: APP_HORIZONTAL_SCROLL_PADDING,
+    marginHorizontal: SCROLL_CONTENT_HORIZONTAL_MARGIN ,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     backgroundColor: KUTRI_COLORS.foreground,

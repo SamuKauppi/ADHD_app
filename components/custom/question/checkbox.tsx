@@ -1,6 +1,7 @@
 import { StyleSheet, View, ViewStyle } from 'react-native'
 import { KUTRI_COLORS } from '@/lib/brand-colors'
 import IconButton from '../navigation/icon-button'
+import { BORDER_COLOR } from '@/lib/layout';
 
 type CheckboxProps = {
     enabled: boolean;
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     container: {
         borderWidth: 1,
         borderRadius: 5,
-        borderColor: KUTRI_COLORS.cardForeground,
+        borderColor: BORDER_COLOR,
         backgroundColor: KUTRI_COLORS.foreground,
         width: 24,
         height: 24,

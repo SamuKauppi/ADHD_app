@@ -1,5 +1,5 @@
 import { KUTRI_COLORS } from '@/lib/brand-colors';
-import { APP_HORIZONTAL_TOTAL_MARGIN } from '@/lib/layout';
+import { TOTAL_MARGIN } from '@/lib/layout';
 import { StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import IconButton from './icon-button';
@@ -71,7 +71,7 @@ export default HeaderTitle;
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: APP_HORIZONTAL_TOTAL_MARGIN,
+        paddingHorizontal: TOTAL_MARGIN,
         flexDirection: 'row',
         alignItems: 'center', 
     },
